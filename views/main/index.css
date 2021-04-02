@@ -6,6 +6,29 @@ body{
     display: flex;
 }
 
+.card{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: white;
+    width: 300px;
+    height: 300px;
+    cursor: pointer;
+    padding: 25px;
+    text-decoration: none;
+    color: black;
+}
+
+    .card:hover{
+        border: 1px solid black;
+    }
+
+    .card img{
+        margin-top: 10px;
+        width: 90%;
+    }
+
 .sidebar{
     display: flex;
     flex-direction: column;
@@ -73,3 +96,12 @@ body{
     height: 100vh;
     width: 75vw;
 }
+
+    #writing{
+        display: flex;
+        flex-wrap: wrap;
+        height: 100%;
+        width: 100%;
+        box-sizing: border-box;
+        padding: 25px;
+    }

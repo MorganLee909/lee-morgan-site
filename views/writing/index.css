@@ -1,0 +1,30 @@
+*{margin:0;padding:0;}
+
+body{
+    font-family: monospace;
+    background: #152730;
+    box-sizing: border-box;
+    padding: 25px;
+}
+
+div{
+    background: #C4C6C0;
+    width: 75vw;
+    box-sizing: border-box;
+    padding: 50px;
+    margin: auto;
+}
+
+h1{
+    text-align: center;
+    margin-bottom: 50px;
+    font-size: 50px;
+}
+
+p{
+    text-indent: 50px;
+    margin-bottom: 22px;
+    text-align: justify;
+    font-size: 22px;
+    line-height: 1.8;
+}
