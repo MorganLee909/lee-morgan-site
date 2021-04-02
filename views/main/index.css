@@ -1,0 +1,75 @@
+*{margin:0;padding:0;}
+
+body{
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+}
+
+.sidebar{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    background: rgb(23, 171, 192);
+    height: 100vh;
+    width: 25vw;
+    color: white;
+}
+
+    .description{
+        background: #5FECE0;
+        color: black;
+        width: 100%;
+        padding: 25px;
+        box-sizing: border-box;
+        font-size: 20px;
+        text-align: justify;
+    }
+
+    .leeLinks a{
+        display: flex;
+        color: white;
+        margin: 10px;
+    }
+
+    .leeLinks svg{
+        margin-right: 5px;
+    }
+
+#menu{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #152730;
+    width: 100px;
+    height: 100vh;
+}
+
+    #menu > button{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100px;
+        width: 100px;
+        color: white;
+        cursor: pointer;
+        background: none;
+        border: none;
+    }
+
+    #menu .active{
+        background: rgb(196, 198, 192);
+        color: black;
+        cursor: default;
+    }
+
+#main{
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    background: rgb(196, 198, 192);
+    height: 100vh;
+    width: 75vw;
+}
