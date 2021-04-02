@@ -18,15 +18,30 @@ body{
     padding: 25px;
     text-decoration: none;
     color: black;
+    margin: 25px;
 }
 
     .card:hover{
-        border: 1px solid black;
+        box-shadow: 0 0 3px black;
+    }
+
+    .card h2{
+        margin-bottom: auto;
     }
 
     .card img{
         margin-top: 10px;
         width: 90%;
+        max-height: 150px;
+        max-width: 150px;
+    }
+
+    .card p{
+        text-align: justify;
+    }
+
+    .card > *{
+        margin: 10px 0;
     }
 
 .sidebar{
@@ -97,7 +112,7 @@ body{
     width: 75vw;
 }
 
-    #writing{
+    .cardContainer{
         display: flex;
         flex-wrap: wrap;
         height: 100%;
