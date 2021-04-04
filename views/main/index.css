@@ -6,58 +6,70 @@ body{
     display: flex;
 }
 
-.card{
+.cardContainer{
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background: white;
-    width: 300px;
-    height: 300px;
-    cursor: pointer;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
     padding: 25px;
-    text-decoration: none;
-    color: black;
-    margin: 25px;
+    overflow-y: auto;
 }
 
-    .card:hover{
-        box-shadow: 0 0 3px black;
+    .card{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: white;
+        width: 300px;
+        height: 300px;
+        cursor: pointer;
+        margin: 10px;
+        padding: 25px;
+        text-decoration: none;
+        color: black;
     }
 
-    .card h2{
-        margin-bottom: auto;
-    }
+        .card:hover{
+            box-shadow: 0 0 3px black;
+        }
 
-    .card img{
-        margin-top: 10px;
-        width: 90%;
-        max-height: 150px;
-        max-width: 150px;
-    }
+        .card h2{
+            text-align: justify;
+        }
 
-    .card p{
-        text-align: justify;
-    }
+        .card img{
+            margin-top: 10px;
+            width: 90%;
+            max-height: 150px;
+            max-width: 150px;
+        }
 
-    .card > *{
-        margin: 10px 0;
-    }
+        .card p{
+            text-align: justify;
+        }
+
+        .card > *{
+            margin: 10px 0;
+        }
 
 .sidebar{
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    background: rgb(23, 171, 192);
+    background: #152730;
     height: 100vh;
     width: 25vw;
-    color: white;
+    color: #5FECE0;
+    border-right: 1px solid white
 }
 
     .description{
-        background: #5FECE0;
-        color: black;
+        background: #152730;
+        color: #5FECE0;
         width: 100%;
         padding: 25px;
         box-sizing: border-box;
@@ -67,7 +79,7 @@ body{
 
     .leeLinks a{
         display: flex;
-        color: white;
+        color: #5FECE0;
         margin: 10px;
     }
 
@@ -91,7 +103,7 @@ body{
         align-items: center;
         height: 100px;
         width: 100px;
-        color: white;
+        color: #5FECE0;
         cursor: pointer;
         background: none;
         border: none;
@@ -99,8 +111,8 @@ body{
 
     #menu .active{
         background: rgb(196, 198, 192);
-        color: black;
         cursor: default;
+        color: #152730;
     }
 
 #main{
@@ -111,12 +123,3 @@ body{
     height: 100vh;
     width: 75vw;
 }
-
-    .cardContainer{
-        display: flex;
-        flex-wrap: wrap;
-        height: 100%;
-        width: 100%;
-        box-sizing: border-box;
-        padding: 25px;
-    }
