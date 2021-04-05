@@ -14,6 +14,7 @@ module.exports = function(app){
     app.get("/images/budgeteer", (req, res)=>{res.sendFile(`${views}/images/budgeteer.jpeg`)});
     app.get("/images/sudoku", (req, res)=>{res.sendFile(`${views}/images/sudoku.png`)});
     app.get("/images/birthday", (req, res)=>{res.sendFile(`${views}/images/birthday.jpg`)});
+    app.get("/images/market", (req, res)=>{res.sendFile(`${views}/images/market.jpeg`)});
 
     //SUDOKU
     app.get("/sudoku", (req, res)=>{res.sendFile(`${views}/sudoku/index.html`)});
