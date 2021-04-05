@@ -7,7 +7,14 @@ module.exports = {
     response = [Comment]
     */
     getComments: function(req, res){
-        Comment.find({article: req.params.article})
+        Comment.aggregate([
+            {$match: {
+                article: req.params.article
+            }},
+            {$sort: {
+                date: -1
+            }}
+        ])
             .then((comments)=>{
                 return res.json(comments);
             })
