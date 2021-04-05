@@ -13,9 +13,15 @@ module.exports = function(app){
     app.get("/images/subline", (req, res)=>{res.sendFile(`${views}/images/subline.png`)});
     app.get("/images/budgeteer", (req, res)=>{res.sendFile(`${views}/images/budgeteer.jpeg`)});
     app.get("/images/sudoku", (req, res)=>{res.sendFile(`${views}/images/sudoku.png`)});
+    app.get("/images/birthday", (req, res)=>{res.sendFile(`${views}/images/birthday.jpg`)});
 
-    //Sudoku
+    //SUDOKU
     app.get("/sudoku", (req, res)=>{res.sendFile(`${views}/sudoku/index.html`)});
     app.get("/sudoku/style", (req, res)=>{res.sendFile(`${views}/sudoku/index.css`)});
     app.get("/sudoku/code", (req, res)=>{res.sendFile(`${views}/sudoku/index.js`)});
+
+    //BIRTHDAY PARADOX
+    app.get("/birthdayparadox", (req, res)=>{res.sendFile(`${views}/birthdayParadox/index.html`)});
+    app.get("/birthdayparadox/style", (req, res)=>{res.sendFile(`${views}/birthdayParadox/index.css`)});
+    app.get("/birthdayparadox/code", (req, res)=>{res.sendFile(`${views}/birthdayParadox/index.js`)});
 }
