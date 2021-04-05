@@ -7,24 +7,93 @@ body{
     padding: 25px;
 }
 
-div{
-    background: #C4C6C0;
-    width: 75vw;
-    box-sizing: border-box;
-    padding: 50px;
-    margin: auto;
-}
-
 h1{
     text-align: center;
     margin-bottom: 50px;
     font-size: 50px;
 }
 
-p{
+.article{
+    background: #C4C6C0;
+    width: 75vw;
+    box-sizing: border-box;
+    padding: 50px;
+    margin: auto;
+    margin-bottom: 50px;
+}
+
+.paragraph{
     text-indent: 50px;
     margin-bottom: 22px;
     text-align: justify;
     font-size: 22px;
     line-height: 1.8;
 }
+
+#createComment{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 75vw;
+    background: #C4C6C0;
+    box-sizing: border-box;
+    margin: auto;
+    padding: 25px;
+    margin-bottom: 50px;
+}
+
+    #createComment > *{
+        margin: 10px;
+    }
+
+    #createComment label{
+        display: flex;
+        flex-direction: column;
+        width: 60%;
+    }
+
+    #nameInput{
+        font-size: 16px;
+    }
+
+    #commentInput{
+        font-size: 16px;
+    }
+
+#comments{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 75vw;
+    background: #C4C6C0;
+    box-sizing: border-box;
+    margin: auto;
+    padding-bottom: 25px;
+}
+
+    #comments > *{
+        margin: 10px;
+    }
+
+    .comment{
+        display: flex;
+        flex-direction: column;
+        width: 75%;
+        background: white;
+        padding: 25px;
+    }
+
+        .comment h3{
+            font-size: 16px;
+        }
+
+        .comment > div{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .comment > p{
+            font-size: 16px;
+        }

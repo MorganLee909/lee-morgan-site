@@ -1,7 +1,17 @@
-const app = require("express")();
+const express = require("express");
 const compression = require("compression");
+const mongoose = require("mongoose");
 const https = require("https");
 const fs = require("fs");
+
+const app = express();
+
+mongoose.connect(`mongodb://127.0.0.1:27017/leemorgan`, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false,
+    useCreateIndex: true
+});
 
 let httpsServer = {};
 if(process.env.NODE_ENV === "production"){
@@ -20,6 +30,7 @@ if(process.env.NODE_ENV === "production"){
 }
 
 app.use(compression());
+app.use(express.json());
 require("./routes.js")(app);
 
 if(process.env.NODE_ENV === "production") httpsServer.listen(process.env.HTTPS_PORT);
