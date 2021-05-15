@@ -24,9 +24,7 @@ fetch("/writing/comments/touchscreens")
             }
         }
     })
-    .catch((err)=>{
-        console.log(err);
-    });
+    .catch((err)=>{});
 
     createComment = ()=>{
         event.preventDefault();

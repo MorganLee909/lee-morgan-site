@@ -5,6 +5,27 @@
         <title>Lee Morgan</title>
     </head>
     <body>
-        <h1>Well Done</h1>
+        <div id="images"></div>
+
+        <script>
+            let path = window.location.pathname
+                .split("/")
+                .slice(2)
+                .join("/");
+
+            fetch(`/travel/images/${path}`)
+                .then(response => response.json())
+                .then((response)=>{
+                    let container = document.getElementById("images");
+
+                    for(let i = 0; i < response.length; i++){
+                        let img = document.createElement("img");
+                        img.src = response[i];
+                        img.alt = "A picture";
+                        container.appendChild(img);
+                    }
+                })
+                .catch(err => {});
+        </script>
     </body>
 </html>

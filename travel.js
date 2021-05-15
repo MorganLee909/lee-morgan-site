@@ -36,6 +36,13 @@ module.exports = {
             .join("/");
 
         let pictures = fs.readdirSync(`${__dirname}/content/${path}`);
-        console.log(pictures);
+
+        let response = [];
+        
+        for(let i = 0; i < pictures.length; i++){
+            response.push(`/${path}/${pictures[i]}`);
+        }
+
+        return res.json(response);
     }
 }
