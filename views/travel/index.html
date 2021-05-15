@@ -3,8 +3,11 @@
     <head>
         <meta charset="utf-8">
         <title>Lee Morgan</title>
+        <link rel="stylesheet" href="/travel/style">
     </head>
     <body>
+        <h1 id="title"></h1>
+
         <div id="images"></div>
 
         <script>
@@ -26,6 +29,16 @@
                     }
                 })
                 .catch(err => {});
+
+            let newPath = path.split("/");
+            console.log(newPath);
+            let title = "";
+
+            for(let i = newPath.length - 1; i >= 0; i--){
+                title += `${newPath[i].replaceAll("-", " ")}, `;
+            }
+
+            document.getElementById("title").innerText = title.substring(0, title.length-2);
         </script>
     </body>
 </html>

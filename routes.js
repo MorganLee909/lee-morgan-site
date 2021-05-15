@@ -34,6 +34,7 @@ module.exports = function(app){
     app.get("/birthdayparadox/code", (req, res)=>{res.sendFile(`${views}/birthdayParadox/index.js`)});
 
     //TRAVEL
+    app.get("/travel/style", (req, res)=>{res.sendFile(`${views}/travel/index.css`)});
     app.get("/travel/directories", travel.listDirectories);
     app.get("/travel/images/*", travel.getImages);
     app.get("/travel/*", (req, res)=>res.sendFile(`${views}/travel/index.html`));
