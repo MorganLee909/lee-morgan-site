@@ -6,12 +6,12 @@ const fs = require("fs");
 
 const app = express();
 
-mongoose.connect(`mongodb://127.0.0.1:27017/leemorgan`, {
+let mongooseOptions = {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false,
     useCreateIndex: true
-});
+};
 
 let httpsServer = {};
 if(process.env.NODE_ENV === "production"){
@@ -27,8 +27,15 @@ if(process.env.NODE_ENV === "production"){
             res.redirect(`https://${req.headers.host}${req.url}`);
         }
     });
+
+    mongooseOptions.auth = {authSource: "admin"};
+    mongooseOptions.user = "website";
+    mongooseOptions.pass = process.env.MONGODB_PASS;
 }
 
+mongoose.connect("mongodb://127.0.0.1/leemorgan", mongooseOptions);
+
+app.use(express.static(__dirname + "/content"));
 app.use(compression());
 app.use(express.json());
 require("./routes.js")(app);

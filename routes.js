@@ -23,6 +23,8 @@ module.exports = function(app){
     app.get("/images/birthday", (req, res)=>{res.sendFile(`${views}/images/birthday.jpg`)});
     app.get("/images/market", (req, res)=>{res.sendFile(`${views}/images/market.jpeg`)});
 
+    app.get("/video/plane", (req, res)=>{res.sendFile(`${views}/videos/planeEdit.mp4`)});
+
     //SUDOKU
     app.get("/sudoku", (req, res)=>{res.sendFile(`${views}/sudoku/index.html`)});
     app.get("/sudoku/style", (req, res)=>{res.sendFile(`${views}/sudoku/index.css`)});
