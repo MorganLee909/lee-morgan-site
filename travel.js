@@ -29,7 +29,13 @@ module.exports = {
         return res.json(result.contents[0].contents);
     },
 
-    imagesHtml: function(){
-        
+    getImages: function(req, res){
+        let path = req.originalUrl
+            .split("/")
+            .slice(2)
+            .join("/");
+
+        let pictures = fs.readdirSync(`${__dirname}/content/${path}`);
+        console.log(pictures);
     }
 }

@@ -170,7 +170,7 @@
                 };
             }
 
-            fetch("/getimages")
+            fetch("/travel/directories")
                 .then(response => response.json())
                 .then((response)=>{
                     let travel = document.getElementById("travel");
@@ -180,7 +180,7 @@
                             let card = {};
                             if(currentArray[i].contents.length === 0) {
                                 card = document.createElement("a");
-                                card.href = currentArray[i].path;
+                                card.href = `/travel${currentArray[i].path}`;
                             }else{
                                 card = document.createElement("div");
                                 card.onclick = ()=>{
