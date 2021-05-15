@@ -7,7 +7,7 @@ module.exports = function(app){
     //MAIN
     app.get("/", (req, res)=>{res.sendFile(`${views}/main/index.html`)});
     app.get("/style", (req, res)=>{res.sendFile(`${views}/main/index.css`)});
-    app.get("/getimages", images.list);
+    app.get("/getimages", images.listDirectories);
 
     //WRITING
     app.get("/writing/style", (req, res)=>{res.sendFile(`${views}/writing/index.css`)});

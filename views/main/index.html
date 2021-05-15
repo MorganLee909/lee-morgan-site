@@ -6,38 +6,6 @@
         <link rel="stylesheet" href="/style">
     </head>
     <body>
-        <div class="sidebar">
-            <h1>Hi, I'm Lee Morgan</h1>
-
-            <p class="description">I'm a human being from planet Earth. I am also a developer. I often spend my time doing human things, and sometimes developer things. I sometimes write articles about relatable human/developer things. Sometimes I don't. I like to learn new human things such as human languages and computer languages.</p>
-
-            <div class="leeLinks">
-                <a href="https://github.com/MorganLee909">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
-                    </svg>
-                    <p>MorganLee909</p>
-                </a>
-
-                <a href="https://www.linkedin.com/in/lee-morgan-79575b1b/">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-                        <rect x="2" y="9" width="4" height="12"></rect>
-                        <circle cx="4" cy="4" r="2"></circle>
-                    </svg>
-                    <p>Lee Morgan</p>
-                </a>
-
-                <a href="mailto:me@leemorgan.io">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                        <polyline points="22,6 12,13 2,6"></polyline>
-                    </svg>
-                    <p>me@leemorgan.io</p>
-                </a>
-            </div>
-        </div>
-
         <div id="menu">
             <button id="projectsButton" class="active">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -77,6 +45,15 @@
 
                 <p>Fun Links</p>
             </button>
+
+            <button id="travelButton">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon>
+                </svg>
+                
+                <p>Travel</p>
+            </button>
         </div>
 
         <div id="main">
@@ -93,12 +70,11 @@
                     <p>A simple web application to help people to budget their money in a simple and approachable manner.</p>
                 </a>
 
-                <div class="card">
+                <a class="card" href="markket.xyz">
                     <h2>Local Markets</h2>
                     <img src="/images/market" alt="Market">
                     <p>A website for people to find farmers markets and vendors of local products in their area.</p>
-                    <div class="soon">COMING SOON</div>
-                </div>
+                </a>
 
                 <a class="card" href="/sudoku">
                     <h2>Sudoku Solver</h2>
@@ -170,6 +146,8 @@
                     <p>Let an AI criticize your taste in music</p>
                 </a>
             </div>
+
+            <div id="travel"></div>
         </div>
 
         <script>
@@ -191,6 +169,68 @@
                     document.getElementById(string).style.display = "flex";
                 };
             }
+
+            fetch("/getimages")
+                .then(response => response.json())
+                .then((response)=>{
+                    let travel = document.getElementById("travel");
+
+                    let recurse = (currentArray, currentContainer)=>{
+                        for(let i = 0; i < currentArray.length; i++){
+                            let card = {};
+                            if(currentArray[i].contents.length === 0) {
+                                card = document.createElement("a");
+                                card.href = currentArray[i].path;
+                            }else{
+                                card = document.createElement("div");
+                                card.onclick = ()=>{
+                                    currentContainer.style.display = "none";
+                                    newContainer.style.display = "flex";
+                                }
+                            }
+                            card.classList.add("card");
+                            currentContainer.appendChild(card);
+
+                            let cardText = document.createElement("h2");
+                            cardText.innerText = currentArray[i].name;
+                            card.appendChild(cardText);
+
+                            let cardImage = document.createElement("img");
+                            cardImage.src = "/images/Russia/Nizhny-Novgorod/Alexander-Nevskiy-Cathedral/011.jpg";
+                            cardImage.alt = currentArray[i].name;
+                            card.appendChild(cardImage);
+
+                            if(currentArray[i].contents.length === 0) continue;
+
+                            let newContainer = document.createElement("div");
+                            newContainer.classList.add("cardContainer");
+                            newContainer.style.display = "none";
+                            travel.appendChild(newContainer);
+
+                            let backCard = document.createElement("div");
+                            backCard.classList.add("card");
+                            backCard.onclick = ()=>{
+                                newContainer.style.display = "none";
+                                currentContainer.style.display = "flex";
+                            }
+                            newContainer.appendChild(backCard);
+
+                            let backText = document.createElement("h1");
+                            backCard.innerText = "BACK";
+                            backCard.appendChild(backText);
+
+                            recurse(currentArray[i].contents, newContainer);
+                        }
+                    }
+
+                    let headContainer = document.createElement("div");
+                    headContainer.classList.add("cardContainer");
+                    headContainer.style.display = "flex";
+                    travel.appendChild(headContainer);
+
+                    recurse(response, headContainer);
+                })
+                .catch((err)=>{});
         </script>
     </body>
 </html>

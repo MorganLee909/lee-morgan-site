@@ -33,14 +33,6 @@ body{
         color: black;
     }
 
-    div.card{
-        cursor: default;
-    }
-
-        div.card:hover{
-            box-shadow: none;
-        }
-
         .card:hover{
             box-shadow: 0 0 3px black;
         }
@@ -63,51 +55,6 @@ body{
         .card > *{
             margin: 10px 0;
         }
-
-        .soon{
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 40px;
-            position: absolute;
-            z-index: 1;
-            height: 100%;
-            width: 100%;
-            background: rgba(0, 0, 0, 0.4);
-            color: white;
-        }
-
-.sidebar{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    background: #152730;
-    height: 100vh;
-    width: 25vw;
-    color: #5FECE0;
-    border-right: 1px solid white
-}
-
-    .description{
-        background: #152730;
-        color: #5FECE0;
-        width: 100%;
-        padding: 25px;
-        box-sizing: border-box;
-        font-size: 20px;
-        text-align: justify;
-    }
-
-    .leeLinks a{
-        display: flex;
-        color: #5FECE0;
-        margin: 10px;
-    }
-
-    .leeLinks svg{
-        margin-right: 5px;
-    }
 
 #menu{
     display: flex;
@@ -143,5 +90,5 @@ body{
     justify-content: space-around;
     background: rgb(196, 198, 192);
     height: 100vh;
-    width: 75vw;
+    width: 100%;
 }
