@@ -1,4 +1,5 @@
 const controller = require("./controller.js");
+const images = require("./images.js");
 
 module.exports = function(app){
     let views = `${__dirname}/views`;
@@ -6,6 +7,7 @@ module.exports = function(app){
     //MAIN
     app.get("/", (req, res)=>{res.sendFile(`${views}/main/index.html`)});
     app.get("/style", (req, res)=>{res.sendFile(`${views}/main/index.css`)});
+    app.get("/getimages", images.list);
 
     //WRITING
     app.get("/writing/style", (req, res)=>{res.sendFile(`${views}/writing/index.css`)});
