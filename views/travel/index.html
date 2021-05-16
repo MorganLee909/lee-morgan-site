@@ -10,25 +10,42 @@
 
         <div id="images"></div>
 
-        <div id="fullPage" style="display:none"></div>
+        <div id="fullPage" style="display:none">
+            <svg id="closeImg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+
+            <svg id="nextImg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+
+            <svg id="previousImg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+        </div>
 
         <script>
             let fullPage = document.getElementById("fullPage");
+            let container = document.getElementById("images");
             let path = window.location.pathname
                 .split("/")
                 .slice(2)
                 .join("/");
+            window.imageIndex = 0;
 
             fetch(`/travel/images/${path}`)
                 .then(response => response.json())
                 .then((response)=>{
-                    let container = document.getElementById("images");
-
                     for(let i = 0; i < response.length; i++){
                         let img = document.createElement("img");
                         img.src = response[i];
                         img.alt = "A picture";
                         img.onclick = ()=>{
+                            imageIndex = i;
+
                             let newImg = img.cloneNode(true);
                             fullPage.appendChild(newImg);
                             fullPage.style.display = "flex";
@@ -47,10 +64,32 @@
             }
 
             document.getElementById("title").innerText = title.substring(0, title.length-2);
-            
+
             document.getElementById("fullPage").onclick = ()=>{
                 fullPage.removeChild(document.querySelector("#fullPage img"));
                 fullPage.style.display = "none";
+            };
+
+            document.getElementById("nextImg").onclick = ()=>{
+                event.stopPropagation();
+                if(imageIndex >= container.children.length - 1) return;
+                imageIndex++;
+                let newImg = container.children[imageIndex].cloneNode(true);
+                newImg.onclick = ()=>{event.stopPropagation()};
+
+                fullPage.removeChild(document.querySelector("#fullPage img"));
+                fullPage.appendChild(newImg);
+            }
+
+            document.getElementById("previousImg").onclick = ()=>{
+                event.stopPropagation();
+                if(imageIndex <= 0) return;
+                imageIndex--;
+                let newImg = container.children[imageIndex].cloneNode(true);
+                newImg.onclick = ()=>{event.stopPropagation()};
+
+                fullPage.removeChild(document.querySelector("#fullPage img"));
+                fullPage.appendChild(newImg);
             }
         </script>
     </body>

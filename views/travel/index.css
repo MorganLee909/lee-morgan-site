@@ -45,3 +45,30 @@ h1{
         cursor: default;
         box-shadow: none;
     }
+
+    #fullPage svg{
+        position: absolute;
+        color: white;
+        cursor: pointer;
+        border-radius: 50%;
+        padding: 5px;
+        z-index: 2;
+    }
+
+        #fullPage svg:hover{
+            background: white;
+            color: black;
+        }
+
+    #closeImg{
+        top: 25px;
+        right: 25px;
+    }
+
+    #nextImg{
+        right: 50px;
+    }
+
+    #previousImg{
+        left: 50px;
+    }
