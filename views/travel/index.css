@@ -17,14 +17,15 @@ h1{
     width: 100%;
 }
 
-    img{
+    #images img{
         max-height: 250px;
         margin: 25px;
         cursor: pointer;
+        box-shadow: 0 0 5px black;
     }
 
-        img:hover{
-            box-shadow: 0 0 5px black;
+        #images img:hover{
+            box-shadow: 0 0 10px black;
         }
 
 #fullPage{
