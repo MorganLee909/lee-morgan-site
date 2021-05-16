@@ -10,7 +10,10 @@
 
         <div id="images"></div>
 
+        <div id="fullPage" style="display:none"></div>
+
         <script>
+            let fullPage = document.getElementById("fullPage");
             let path = window.location.pathname
                 .split("/")
                 .slice(2)
@@ -25,13 +28,18 @@
                         let img = document.createElement("img");
                         img.src = response[i];
                         img.alt = "A picture";
+                        img.onclick = ()=>{
+                            let newImg = img.cloneNode(true);
+                            fullPage.appendChild(newImg);
+                            fullPage.style.display = "flex";
+                            newImg.onclick = ()=>{event.stopPropagation()}
+                        };
                         container.appendChild(img);
                     }
                 })
                 .catch(err => {});
 
             let newPath = path.split("/");
-            console.log(newPath);
             let title = "";
 
             for(let i = newPath.length - 1; i >= 0; i--){
@@ -39,6 +47,11 @@
             }
 
             document.getElementById("title").innerText = title.substring(0, title.length-2);
+            
+            document.getElementById("fullPage").onclick = ()=>{
+                fullPage.removeChild(document.querySelector("#fullPage img"));
+                fullPage.style.display = "none";
+            }
         </script>
     </body>
 </html>

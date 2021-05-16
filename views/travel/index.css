@@ -1,5 +1,9 @@
 *{margin:0;padding:0;}
 
+body{
+    background: rgb(196, 198, 192);
+}
+
 h1{
     margin: 25px 0;
     text-align: center;
@@ -10,10 +14,34 @@ h1{
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-    width: 100vw;
+    width: 100%;
 }
 
-    #images > *{
+    img{
         max-height: 250px;
-        padding: 25px;
+        margin: 25px;
+        cursor: pointer;
+    }
+
+        img:hover{
+            box-shadow: 0 0 5px black;
+        }
+
+#fullPage{
+    position: fixed;
+    top: 0;
+    left: 0;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 1;
+}
+
+    #fullPage img{
+        max-height: 90%;
+        max-width: 90%;
+        cursor: default;
+        box-shadow: none;
     }
