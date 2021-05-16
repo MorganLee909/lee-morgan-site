@@ -147,7 +147,18 @@
                 </a>
             </div>
 
-            <div id="travel"></div>
+            <div id="travel">
+                <template id="backCard">
+                    <div class="card backCard">
+                        <h1>BACK</h1>
+
+                        <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="9 14 4 9 9 4"></polyline>
+                            <path d="M20 20v-7a4 4 0 0 0-4-4H4"></path>
+                        </svg>
+                    </div>
+                </template>
+            </div>
         </div>
 
         <script>
@@ -174,6 +185,7 @@
                 .then(response => response.json())
                 .then((response)=>{
                     let travel = document.getElementById("travel");
+                    let template = document.getElementById("backCard").content.children[0];
 
                     let recurse = (currentArray, currentContainer)=>{
                         for(let i = 0; i < currentArray.length; i++){
@@ -207,17 +219,12 @@
                             newContainer.style.display = "none";
                             travel.appendChild(newContainer);
 
-                            let backCard = document.createElement("div");
-                            backCard.classList.add("card");
+                            let backCard = template.cloneNode(true);
                             backCard.onclick = ()=>{
                                 newContainer.style.display = "none";
                                 currentContainer.style.display = "flex";
                             }
                             newContainer.appendChild(backCard);
-
-                            let backText = document.createElement("h1");
-                            backCard.innerText = "BACK";
-                            backCard.appendChild(backText);
 
                             recurse(currentArray[i].contents, newContainer);
                         }

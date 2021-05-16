@@ -21,7 +21,7 @@ body{
         position: relative;
         display: flex;
         flex-direction: column;
-        justify-content: center;
+        justify-content: space-between;
         align-items: center;
         background: white;
         width: 300px;
@@ -38,7 +38,7 @@ body{
         }
 
         .card h2{
-            text-align: justify;
+            text-align: center;
         }
 
         .card img{
@@ -55,6 +55,10 @@ body{
         .card > *{
             margin: 10px 0;
         }
+
+    .card.backCard{
+        justify-content: center;
+    }
 
 #menu{
     display: flex;
