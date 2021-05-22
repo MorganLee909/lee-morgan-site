@@ -93,17 +93,7 @@
                 <h1>Ya, Ya, I'm working on it...</h1>
             </div>
 
-            <div id="writing" class="cardContainer" style="display:none;">
-                <a class="card" href="/writing/touchscreens">
-                    <h2>Touchscreens, An Essay</h2>
-                    <img src="/images/touchscreen" alt="touchscreen">
-                </a>
-
-                <a class="card" href="/writing/tablets">
-                    <h2>Tablets Are a Stupid Idea</h2>
-                    <img src="/images/tablet" alt="tablet">
-                </a>
-            </div>
+            <div id="writing" class="cardContainer" style="display:none;"></div>
 
             <div id="links" class="cardContainer" style="display:none;">
                 <a class="card" href="https://cs-online.club/en/servers">
@@ -189,7 +179,7 @@
             fetch("/writing/directories")
                 .then(response => response.json())
                 .then((response)=>{
-                    //do things
+                    console.log(response);
                 })
                 .catch((err)=>{});
 

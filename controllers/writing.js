@@ -4,31 +4,33 @@ const fs = require("fs");
 
 module.exports = {
     listDirectories: function(req, res){
-        const searchDir = function(path, currentObject){
-            let response = fs.readdirSync(path);
+        const searchDir = (dir, array)=>{
+            let contents = fs.readdirSync(dir);
 
-            for(let i = 0; i < response.length; i++){
-                if(response[i].includes(".") === false){
-                    let newPath = `${path}/${response[i]}`;
-                    let newObject = ({
-                        name: response[i].replace(/-/g, " "),
-                        path: newPath.substring(newPath.indexOf("/writing") + 7, newPath.length),
+            for(let i = 0; i < contents.length; i++){
+                if(contents[i].includes(".") === false){
+                    let obj = {
+                        name: contents[i],
                         contents: []
-                    });
-
-                    currentObject.contents.push(newObject);
-                    searchDir(newPath, newObject);
+                    };
+                    array.push(obj);
+                    return searchDir(`${dir}/${contents[i]}`, obj.contents);
                 }
             }
 
-            return currentObject;
+            let meta = fs.readFileSync(`${dir}/meta.txt`).toString().split("\n");
+            array.push({
+                title: meta[0],
+                route: dir.substring(dir.indexOf("/content/writing/") + 8),
+                img: `${dir}/mainImage.jpg`
+            });
+            return array;
         }
 
-        let result = searchDir(`${__dirname}/content`, {
-            contents: []
-        });
+        let directoryDescription = [];
+        searchDir(`${__dirname}/../content/writing`, directoryDescription);
 
-        return res.json(result.contents[0].contents);
+        return res.json(directoryDescription);
     },
 
     /*

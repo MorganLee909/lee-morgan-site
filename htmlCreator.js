@@ -65,7 +65,7 @@ module.exports = (app)=>{
                     <script src="/writing/code"></script>
                 </body>
             </html>
-        `
+        `;
 
         fs.writeFileSync(`${dir}/article.html`, html);
     }

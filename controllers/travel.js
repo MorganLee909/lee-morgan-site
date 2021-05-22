@@ -22,11 +22,18 @@ module.exports = {
             return currentObject;
         }
 
-        let result = searchDir(`${__dirname}/content`, {
+        let result = searchDir(`${__dirname}/../content`, {
             contents: []
         });
 
-        return res.json(result.contents[0].contents);
+        let array = [];
+        for(let i = 0; i < result.contents.length; i++){
+            if(result.contents[i].name === "travel"){
+                array = result.contents[i].contents;
+                break;
+            }
+        }
+        return res.json(array);
     },
 
     getImages: function(req, res){
