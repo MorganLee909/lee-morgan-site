@@ -1,3 +1,5 @@
+const htmlCreator = require("./htmlCreator.js");
+
 const express = require("express");
 const compression = require("compression");
 const mongoose = require("mongoose");
@@ -5,6 +7,7 @@ const https = require("https");
 const fs = require("fs");
 
 const app = express();
+htmlCreator(app);
 
 let mongooseOptions = {
     useNewUrlParser: true,

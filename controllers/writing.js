@@ -1,4 +1,4 @@
-const Comment = require("./models/comment.js");
+const Comment = require("../models/comment.js");
 
 const fs = require("fs");
 
