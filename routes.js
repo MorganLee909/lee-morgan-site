@@ -14,6 +14,7 @@ module.exports = function(app){
     app.get("/writing/comments/:article", controller.getComments);
     app.post("/writing/comments", controller.createComment);
     app.get("/writing/touchscreens", (req, res)=>{res.sendFile(`${views}/writing/touchscreens.html`)});
+    app.get("/writing/tablets", (req, res)=>{res.sendFile(`${views}/writing/tablets.html`)});
 
     //IMAGES
     app.get("/images/touchscreen", (req, res)=>{res.sendFile(`${views}/images/touchscreen.jpeg`)});
