@@ -179,7 +179,63 @@
             fetch("/writing/directories")
                 .then(response => response.json())
                 .then((response)=>{
-                    console.log(response);
+                    let writing = document.getElementById("writing");
+                    let template = document.getElementById("backCard").content.children[0];
+
+                    let recurse = (currentArray, currentContainer)=>{
+                        for(let i = 0; i < currentArray.length; i++){
+                            let card = {};
+                            if(currentArray[i].contents[0].title === undefined){
+                                card = document.createElement("div");
+                                card.onclick = ()=>{
+                                    currentContainer.style.display = "none";
+                                    newContainer.style.display = "flex";
+                                }
+
+                                let name = document.createElement("h1");
+                                name.innerText = currentArray[i].name.toUpperCase();
+                                card.appendChild(name);
+                            }else{
+                                card = document.createElement("a");
+                                card.href = currentArray[i].contents[0].route;
+
+                                let title = document.createElement("h2");
+                                title.innerText = currentArray[i].contents[0].title;
+                                card.appendChild(title);
+
+                                let img = document.createElement("img");
+                                img.src = currentArray[i].contents[0].img;
+                                img.alt = `${currentArray[i].contents[0].title} image`;
+                                card.appendChild(img);
+                            }
+
+                            card.classList.add("card");
+                            currentContainer.appendChild(card);
+
+                            let newContainer = document.createElement("div");
+                            newContainer.classList.add("cardContainer");
+                            newContainer.style.display = "none";
+                            writing.appendChild(newContainer);
+
+                            let backCard = template.cloneNode(true);
+                            backCard.onclick = ()=>{
+                                newContainer.style.display = "none";
+                                currentContainer.style.display = "flex";
+                            }
+                            newContainer.appendChild(backCard);
+
+                            if(currentArray[i].contents[0].contents === undefined) continue;
+    
+                            recurse(currentArray[i].contents, newContainer);
+                        }
+                    }
+
+                    let headContainer = document.createElement("div");
+                    headContainer.classList.add("cardContainer");
+                    headContainer.style.display = "flex";
+                    writing.appendChild(headContainer);
+
+                    recurse(response, headContainer);
                 })
                 .catch((err)=>{});
 

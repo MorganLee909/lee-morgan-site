@@ -73,6 +73,13 @@ module.exports = (app)=>{
     let createRoute = (dir)=>{
         let route = dir.substring(dir.indexOf("/content/writing/") + 8);
 
+        let contents = fs.readdirSync(dir);
+        for(let i = 0; i < contents.length; i++){
+            if(contents[i].includes(".jpg") === true){
+                app.get(`${route}/${contents[i]}`, (req, res)=>{res.sendFile(`${__dirname}/content/route/${contents[i]}`)});
+            }
+        }
+
         app.get(route, (req, res)=>{res.sendFile(`${__dirname}/content/${route}/article.html`)});
     }
 
