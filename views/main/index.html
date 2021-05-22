@@ -186,6 +186,13 @@
                 };
             }
 
+            fetch("/writing/directories")
+                .then(response => response.json())
+                .then((response)=>{
+                    //do things
+                })
+                .catch((err)=>{});
+
             fetch("/travel/directories")
                 .then(response => response.json())
                 .then((response)=>{

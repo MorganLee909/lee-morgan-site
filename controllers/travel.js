@@ -10,7 +10,7 @@ module.exports = {
                     let newPath = `${path}/${response[i]}`;
                     let newObject = ({
                         name: response[i].replace(/-/g, " "),
-                        path: newPath.substring(newPath.indexOf("/images") + 7, newPath.length),
+                        path: newPath.substring(newPath.indexOf("/travel") + 7, newPath.length),
                         contents: []
                     });
 
