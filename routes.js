@@ -18,6 +18,7 @@ module.exports = function(app){
 
     //IMAGES
     app.get("/images/touchscreen", (req, res)=>{res.sendFile(`${views}/images/touchscreen.jpeg`)});
+    app.get("/images/tablet", (req, res)=>{res.sendFile(`${views}/images/tablet.jpeg`)});
     app.get("/images/subline", (req, res)=>{res.sendFile(`${views}/images/subline.png`)});
     app.get("/images/budgeteer", (req, res)=>{res.sendFile(`${views}/images/budgeteer.jpeg`)});
     app.get("/images/sudoku", (req, res)=>{res.sendFile(`${views}/images/sudoku.png`)});
