@@ -23,7 +23,7 @@ module.exports = {
                 array.push({
                     title: meta[0],
                     route: dir.substring(dir.indexOf("/content/writing/") + 8),
-                    img: `${dir}/mainImage.jpg`
+                    img: `${dir.substring(dir.indexOf("/content/writing/") + 8)}/mainImage.jpg`
                 });
             }
             return array;

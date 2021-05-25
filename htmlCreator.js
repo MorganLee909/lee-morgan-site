@@ -76,7 +76,7 @@ module.exports = (app)=>{
         let contents = fs.readdirSync(dir);
         for(let i = 0; i < contents.length; i++){
             if(contents[i].includes(".jpg") === true){
-                app.get(`${route}/${contents[i]}`, (req, res)=>{res.sendFile(`${__dirname}/content/route/${contents[i]}`)});
+                app.get(`${route}/${contents[i]}`, (req, res)=>{res.sendFile(`${__dirname}/content/${route}/${contents[i]}`)});
             }
         }
 
