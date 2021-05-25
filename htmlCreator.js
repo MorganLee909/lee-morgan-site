@@ -88,12 +88,14 @@ module.exports = (app)=>{
 
         let hasHtml = false;
         for(let i = 0; i < contents.length; i++){
-            if(contents[i].includes(".") === false) return traverseDirectory(`${dir}/${contents[i]}`);
+            if(contents[i].includes(".") === false) traverseDirectory(`${dir}/${contents[i]}`);
             if(contents[i].includes(".html") === true) hasHtml = true;
         }
 
-        if(hasHtml === false) createHTML(dir);
-        createRoute(dir);
+        if(contents.includes("article.txt") === true){
+            if(hasHtml === false) createHTML(dir);
+            createRoute(dir);
+        }
     }
 
     traverseDirectory(`${__dirname}/content/writing`);

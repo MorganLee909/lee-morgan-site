@@ -14,16 +14,18 @@ module.exports = {
                         contents: []
                     };
                     array.push(obj);
-                    return searchDir(`${dir}/${contents[i]}`, obj.contents);
+                    searchDir(`${dir}/${contents[i]}`, obj.contents);
                 }
             }
 
-            let meta = fs.readFileSync(`${dir}/meta.txt`).toString().split("\n");
-            array.push({
-                title: meta[0],
-                route: dir.substring(dir.indexOf("/content/writing/") + 8),
-                img: `${dir}/mainImage.jpg`
-            });
+            if(contents.includes("article.txt")){
+                let meta = fs.readFileSync(`${dir}/meta.txt`).toString().split("\n");
+                array.push({
+                    title: meta[0],
+                    route: dir.substring(dir.indexOf("/content/writing/") + 8),
+                    img: `${dir}/mainImage.jpg`
+                });
+            }
             return array;
         }
 
