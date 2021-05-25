@@ -242,6 +242,7 @@
             fetch("/travel/directories")
                 .then(response => response.json())
                 .then((response)=>{
+                    console.log(response);
                     let travel = document.getElementById("travel");
                     let template = document.getElementById("backCard").content.children[0];
 
