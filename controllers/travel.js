@@ -7,14 +7,16 @@ module.exports = {
 
             let array = [];
             for(let i = 0; i < contents.length; i++){
+                let route = `${dir.substring(dir.indexOf("/content") + 8)}/${contents[i]}`;
                 if(contents[i].includes(".") === false){
                     array.push({
                         name: contents[i],
+                        route: route,
                         contents: traverse(`${dir}/${contents[i]}`)
                     });
                 }else{
                     array.push({
-                        src: `${dir.substring(dir.indexOf("/travel") + 7)}/${contents[i]}`
+                        src: route
                     });
                 }
             }
@@ -28,15 +30,15 @@ module.exports = {
     getImages: function(req, res){
         let path = req.originalUrl
             .split("/")
-            .slice(2)
+            .slice(3)
             .join("/");
 
-        let pictures = fs.readdirSync(`${__dirname}/content/${path}`);
+        let pictures = fs.readdirSync(`${__dirname}/../content/travel/${path}`);
 
         let response = [];
         
         for(let i = 0; i < pictures.length; i++){
-            response.push(`/${path}/${pictures[i]}`);
+            response.push(`/travel/${path}/${pictures[i]}`);
         }
 
         return res.json(response);

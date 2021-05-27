@@ -142,7 +142,14 @@
                 </a>
             </div>
 
-            <div id="travel">
+            <div id="travel" style="display:none">
+                <template id="travelCard">
+                    <div class="card">
+                        <h1></h1>
+                        <img>
+                    </div>
+                </template>
+
                 <template id="backCard">
                     <div class="card backCard">
                         <h1>BACK</h1>
@@ -239,62 +246,63 @@
                 })
                 .catch((err)=>{});
 
-            console.log("someting else");
             fetch("/travel/directories")
                 .then(response => response.json())
                 .then((response)=>{
-                    console.log("someting");
-                    console.log(response);
-                    let travel = document.getElementById("travel");
-                    let template = document.getElementById("backCard").content.children[0];
+                    let mainContainer = document.getElementById("travel");
+                    let template = document.getElementById("travelCard").content.children[0];
 
-                    let recurse = (currentArray, currentContainer)=>{
-                        for(let i = 0; i < currentArray.length; i++){
-                            let card = {};
-                            if(currentArray[i].contents.length === 0) {
-                                card = document.createElement("a");
-                                card.href = `/travel${currentArray[i].path}`;
+                    let recurse = (contents, container, prevCard)=>{
+                        for(let i = 0; i < contents.length; i++){
+                            if(contents[i].name !== undefined){
+                                let finalFolder = true;
+                                for(let j = 0; j < contents[i].contents.length; j++){
+                                    if(contents[i].contents[j].name !== undefined) finalFolder = false;
+                                }
+
+                                if(finalFolder === true){
+                                    let card = document.createElement("a");
+                                    card.classList.add("card");
+                                    card.href = contents[i].route;
+                                    container.appendChild(card);
+
+                                    let h1 = document.createElement("h1");
+                                    h1.innerText = contents[i].name.replaceAll("-", " ");
+                                    card.appendChild(h1);
+
+                                    let img = document.createElement("img");
+                                    img.src = contents[i].contents[0].src;
+                                    img.alt = contents[i].name;
+                                    card.appendChild(img);
+                                }else{
+                                    let newContainer = document.createElement("div");
+                                    newContainer.classList.add("cardContainer");
+                                    newContainer.style.display = "none";
+                                    mainContainer.appendChild(newContainer);
+
+                                    let card = template.cloneNode(true);
+                                    card.children[0].innerText = contents[i].name.replaceAll("-", " ");
+                                    card.children[1].alt = contents[i].name.replaceAll("-", " ");
+                                    card.onclick = ()=>{
+                                        container.style.display = "none";
+                                        newContainer.style.display = "flex";
+                                    }
+                                    container.appendChild(card);
+
+                                    recurse(contents[i].contents, newContainer, card);
+                                }
                             }else{
-                                card = document.createElement("div");
-                                card.onclick = ()=>{
-                                    currentContainer.style.display = "none";
-                                    newContainer.style.display = "flex";
+                                if(prevCard.children[1].src === ""){
+                                    prevCard.children[1].src = contents[i].src;
                                 }
                             }
-                            card.classList.add("card");
-                            currentContainer.appendChild(card);
-
-                            let cardText = document.createElement("h2");
-                            cardText.innerText = currentArray[i].name;
-                            card.appendChild(cardText);
-
-                            let cardImage = document.createElement("img");
-                            cardImage.src = "/images/Russia/Nizhny-Novgorod/Alexander-Nevskiy-Cathedral/011.jpg";
-                            cardImage.alt = currentArray[i].name;
-                            card.appendChild(cardImage);
-
-                            if(currentArray[i].contents.length === 0) continue;
-
-                            let newContainer = document.createElement("div");
-                            newContainer.classList.add("cardContainer");
-                            newContainer.style.display = "none";
-                            travel.appendChild(newContainer);
-
-                            let backCard = template.cloneNode(true);
-                            backCard.onclick = ()=>{
-                                newContainer.style.display = "none";
-                                currentContainer.style.display = "flex";
-                            }
-                            newContainer.appendChild(backCard);
-
-                            recurse(currentArray[i].contents, newContainer);
                         }
                     }
 
                     let headContainer = document.createElement("div");
                     headContainer.classList.add("cardContainer");
                     headContainer.style.display = "flex";
-                    travel.appendChild(headContainer);
+                    mainContainer.appendChild(headContainer);
 
                     recurse(response, headContainer);
                 })
