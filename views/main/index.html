@@ -190,7 +190,7 @@
                                 card.onclick = ()=>{
                                     currentContainer.style.display = "none";
                                     newContainer.style.display = "flex";
-                                }
+                                };
 
                                 let name = document.createElement("h1");
                                 name.innerText = currentArray[i].name.toUpperCase();
@@ -239,9 +239,11 @@
                 })
                 .catch((err)=>{});
 
+            console.log("someting else");
             fetch("/travel/directories")
                 .then(response => response.json())
                 .then((response)=>{
+                    console.log("someting");
                     console.log(response);
                     let travel = document.getElementById("travel");
                     let template = document.getElementById("backCard").content.children[0];
