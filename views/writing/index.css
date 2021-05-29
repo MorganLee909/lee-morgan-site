@@ -9,8 +9,13 @@ body{
 
 h1{
     text-align: center;
-    margin-bottom: 50px;
+    margin-bottom: 15px;
     font-size: 50px;
+}
+
+.metaData{
+    text-align: center;
+    margin-bottom: 15px;
 }
 
 .article{

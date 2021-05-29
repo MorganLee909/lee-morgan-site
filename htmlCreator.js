@@ -18,7 +18,9 @@ module.exports = (app)=>{
                 <div class="article">
                     <h1>${meta[0]}</h1>
 
-                    <h3>${meta[1]}</h3>
+                    <h3 class="metaData">By ${meta[1]}</h3>
+
+		    <h3 class="metaData">On ${meta[2]}</h3>
         `;
 
         for(let i = 0; i < article.length; i++){
