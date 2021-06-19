@@ -251,6 +251,7 @@
                 .then((response)=>{
                     let mainContainer = document.getElementById("travel");
                     let template = document.getElementById("travelCard").content.children[0];
+                    let backTemplate = document.getElementById("backCard").content.children[0];
 
                     let recurse = (contents, container, prevCard)=>{
                         for(let i = 0; i < contents.length; i++){
@@ -279,6 +280,13 @@
                                     newContainer.classList.add("cardContainer");
                                     newContainer.style.display = "none";
                                     mainContainer.appendChild(newContainer);
+
+                                    let backCard = backTemplate.cloneNode(true);
+                                    backCard.onclick = ()=>{
+                                        newContainer.style.display = "none";
+                                        container.style.display = "flex";
+                                    }
+                                    newContainer.appendChild(backCard);
 
                                     let card = template.cloneNode(true);
                                     card.children[0].innerText = contents[i].name.replaceAll("-", " ");
