@@ -21,6 +21,8 @@ module.exports = function(app){
     app.get("/images/sudoku", (req, res)=>{res.sendFile(`${views}/images/sudoku.png`)});
     app.get("/images/birthday", (req, res)=>{res.sendFile(`${views}/images/birthday.jpg`)});
     app.get("/images/market", (req, res)=>{res.sendFile(`${views}/images/market.jpeg`)});
+    app.get("/images/netscape", (req, res)=>{res.sendFile(`${views}/images/netscapeNavigator.png`)});
+    app.get("/images/html5", (req, res)=>{res.sendFile(`${views}/images/html5.png`)});
 
     //SUDOKU
     app.get("/sudoku", (req, res)=>{res.sendFile(`${views}/sudoku/index.html`)});

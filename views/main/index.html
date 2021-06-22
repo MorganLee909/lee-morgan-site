@@ -33,7 +33,7 @@
                     <circle cx="11" cy="11" r="2"></circle>
                 </svg>
 
-                <p>My Writing</p>
+                <p>Blog</p>
             </button>
 
             <button id="linksButton">
@@ -53,6 +53,15 @@
                 </svg>
                 
                 <p>Travel</p>
+            </button>
+
+            <button id="learnButton">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                </svg>
+
+                <p>Learn</p>
             </button>
         </div>
 
@@ -161,6 +170,18 @@
                     </div>
                 </template>
             </div>
+
+            <div id="learn" class="cardContainer" style="display:none">
+                <a class="card" href="/learn/web">
+                    <h2>Intro to Web Programming</h2>
+                    <img src="/images/netscape" alt="Netscape logo">
+                </a>
+
+                <a class="card" href="/learn/html">
+                    <h2>HTML</h2>
+                    <img src="/images/html5" alt="HTML 5">
+                </a>
+            </div>
         </div>
 
         <script>
@@ -259,6 +280,8 @@
                                 for(let j = 0; j < contents[i].contents.length; j++){
                                     if(contents[i].contents[j].name !== undefined) finalFolder = false;
                                 }
+
+				if(back !== undefined) container.appendChild(back);
 
                                 if(finalFolder === true){
                                     let card = document.createElement("a");
