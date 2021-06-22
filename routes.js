@@ -21,7 +21,7 @@ module.exports = function(app){
     app.get("/images/sudoku", (req, res)=>{res.sendFile(`${views}/images/sudoku.png`)});
     app.get("/images/birthday", (req, res)=>{res.sendFile(`${views}/images/birthday.jpg`)});
     app.get("/images/market", (req, res)=>{res.sendFile(`${views}/images/market.jpeg`)});
-    app.get("/images/netscape", (req, res)=>{res.sendFile(`${views}/images/netscapeNavigator.png`)});
+    app.get("/images/web", (req, res)=>{res.sendFile(`${views}/images/webIcon.jpg`)});
     app.get("/images/html5", (req, res)=>{res.sendFile(`${views}/images/html5.png`)});
 
     //SUDOKU
@@ -39,4 +39,8 @@ module.exports = function(app){
     app.get("/travel/directories", travel.listDirectories);
     app.get("/travel/images/*", travel.getImages);
     app.get("/travel/*", (req, res)=>res.sendFile(`${views}/travel/index.html`));
+
+    //LEARN
+    app.get("/learn/style", (req, res)=>res.sendFile(`${views}/learn/index.css`));
+    app.get("/learn/web", (req, res)=>{res.sendFile(`${views}/learn/web.html`)});
 }

@@ -1,0 +1,44 @@
+*{margin:0;padding:0;}
+
+body{
+    background: rgb(196, 198, 192);
+}
+
+h1{
+    text-align: center;
+}
+
+.cardContainer{
+    width: 90%;
+    padding: 25px;
+}
+
+.card{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 15px auto;
+    width: 90%;
+    height: 150px;
+    background: white;
+    padding-right:15px;
+    text-decoration: none;
+}
+
+    .card:hover{
+        box-shadow: 0 0 3px black;
+    }
+
+    .card div{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        color: black;
+        height: 100%;
+        flex-grow: 2;
+    }
+
+    .card img{
+        height: 100%;
+    }
