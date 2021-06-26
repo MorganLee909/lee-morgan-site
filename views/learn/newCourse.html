@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Create Course</title>
+        <style>
+            form{
+                display: flex;
+                flex-direction: column;
+            }
+
+            form > *{
+                margin: 10px 0;
+            }
+
+            input[type=submit]{
+                max-width: 250px;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Enter course details</h1>
+
+        <form action="/learn/course/new" method="post" encType="multipart/form-data">
+            <label>Uploader ID
+                <input name="uploaderId" type="text" required>
+            </label>
+
+            <label>Password
+                <input name="password" type="password" required>
+            </label>
+
+            <label>Course Title
+                <input name="title" type="text" required>
+            </label>
+
+            <label>Course URL string(i.e. "design", "js", "html")
+                <input name="courseId" type="text" required>
+            </label>
+
+            <label>ThumbNail
+                <input name="thumbNail" type="file" required>
+            </label>
+            
+            <label>Description
+                <textarea name="description" minlength="25" required></textarea>
+            </label>
+
+            <input type="submit" value="Submit">
+        </form>
+    </body>
+</html>

@@ -1,54 +1,45 @@
+const Uploader = require("../models/uploader.js");
 const Course = require("../models/course.js");
+const Lecture = require("../models/lecture.js");
 
 module.exports = {
     /*
-    POST: creates a new course
+    POST: create a new course
     req.body = {
-        groupTitle: String,
-        title: String,
-        video: String,
-        description: String,
-        documents: [{
-            title: String,
-            link: String
-        }],
-        exercises: [String]
+        uploaderId: String,
+        password: String,
+        courseId:  String,
+        title: String
+        thumbNail: String,
+        description: String
     }
+    redirect to home
     */
-    createLecture: function(req, res){
-        Course.find({groupTitle: req.body.groupTitle})
-            .then((courses)=>{
-                let max = 0;
-                for(let i = 0; i < courses.length; i++){
-                    let num = parseInt(courses[i].courseId.split("-")[1]);
+    createCourse: function(req, res){
+        Uploader.findOne({_id: req.body.uploaderId})
+            .then((uploader)=>{
+                if(uploader === null) throw "uploader";
+                if(req.body.password !== uploader.password) throw "pass";
+                let imgString = `./thumbNails/${req.files.thumbNail.name}`;
+                req.files.thumbNail.mv(imgString);
 
-                    if(num > max) max = num;
-                }
-
-                //from StackOverflow user "RobG"
-                function pad(n, length) {
-                    var len = length - (''+n).length;
-                    return (len > 0 ? new Array(++len).join('0') : '') + n;
-                }
-
-                let newCourse = new Course({
-                    courseId: `${courses[0].courseId.split("-")[0]}-${pad(max++)}`,
-                    groupTitle: courses[0].groupTitle,
+                let course = new Course({
+                    owner: uploader._id,
+                    courseId: req.body.courseId,
                     title: req.body.title,
-                    video: req.body.video,
-                    thumbNail: courses[0].thumbNail,
-                    description: req.body.description,
-                    documents: req.body.documents,
-                    exercises: req.body.exercises
+                    thumbNail: imgString,
+                    description: req.body.description
                 });
 
-                return newCourse.save();
+                return course.save();
             })
             .then((course)=>{
                 return res.redirect("/");
             })
             .catch((err)=>{
-                return res.json("Something went wrong");
+                if(err === "uploader") return res.json("Uploader doesn't exist");
+                if(err === "pass") return res.json("Incorrect password");
+                return res.json("Something went wrong on the backend");
             });
     },
 
