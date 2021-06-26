@@ -1,5 +1,6 @@
 const writing = require("./controllers/writing.js");
 const travel = require("./controllers/travel.js");
+const learn = require("./controllers/learn.js");
 
 module.exports = function(app){
     let views = `${__dirname}/views`;
@@ -41,6 +42,8 @@ module.exports = function(app){
     app.get("/travel/*", (req, res)=>res.sendFile(`${views}/travel/index.html`));
 
     //LEARN
+    app.get("/learn/new", (req, res)=>{res.sendFile(`${views}/learn/new.html`)});
     app.get("/learn/style", (req, res)=>res.sendFile(`${views}/learn/index.css`));
     app.get("/learn/web", (req, res)=>{res.sendFile(`${views}/learn/web.html`)});
+    app.get("/learn/courses", learn.getCourseGroups);
 }
