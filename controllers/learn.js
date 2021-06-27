@@ -19,7 +19,7 @@ module.exports = {
             .then((uploader)=>{
                 if(uploader === null) throw "uploader";
                 if(req.body.password !== uploader.password) throw "pass";
-                let imgString = `thumbNails/${req.files.thumbNail.name}`;
+                let imgString = `/thumbNails/${req.files.thumbNail.name}`;
                 req.files.thumbNail.mv(imgString);
 
                 let course = new Course({
@@ -79,10 +79,16 @@ module.exports = {
                 });
 
                 let files = req.files.documents;
-                for(let i = 0; i < files.length; i++){
-                    let fileString = `./documents/${files[i].name}`;
-                    files[i].mv(fileString);
+                if(files.length === undefined){
+                    let fileString = `/documents/${files.name}`;
+                    files.mv(fileString)
                     lecture.documents.push(fileString);
+                }else{
+                    for(let i = 0; i < files.length; i++){
+                        let fileString = `/documents/${files[i].name}`;
+                        files[i].mv(fileString);
+                        lecture.documents.push(fileString);
+                    }
                 }
 
                 return lecture.save();
@@ -111,7 +117,10 @@ module.exports = {
     /*
     GET: get a list of lectures from a course
     req.params.id = String (course id)
-    response = [Lecture]
+    response = {
+        course: Course,
+        lectures: [Lecture]
+    }
     */
     getLectures: function(req, res){
         let course = Course.findOne({_id: req.params.id});
@@ -123,6 +132,22 @@ module.exports = {
             })
             .catch((err)=>{
                 return res.json("Could not retrieve lectures");
+            });
+    },
+
+    /*
+    GET: get data for a single lecture
+    req.params.id = String (lecture id)
+    response = Lecture
+    */
+    getLecture: function(req, res){
+        Lecture.findOne({_id: req.params.id})
+            .populate("course")
+            .then((lecture)=>{
+                return res.json(lecture);
+            })
+            .catch((err)=>{
+                return res.json("Could not retrieve lecture");
             });
     }
 }

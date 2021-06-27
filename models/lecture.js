@@ -20,7 +20,11 @@ const LectureSchema = new mongoose.Schema({
     },
     documents: [String],
     exercises: [String],
-    url: String
+    url: String,
+    date: {
+        type: Date,
+        default: new Date()
+    }
 });
 
-module.exports = mongoose.model("lecture", LectureSchema);
+module.exports = mongoose.model("Lecture", LectureSchema);

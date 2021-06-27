@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Lee Morgan -lecture-</title>
+        <link rel="stylesheet" href="/learn/style">
+    </head>
+    <body>
+        <h1 id="title"></h1>
+
+        <h3 id="course"></h3>
+
+        <h6 id="date"></h6>
+
+        <iframe id="video"></iframe>
+
+        <p id="description"></p>
+
+        <div id="documents">
+            <h2>Resources</h2>
+        </div>
+
+        <ol id="exercises">
+            <h2>Exercises</h2>
+        </ol>
+
+        <script>
+            let id = window.location.href.split("/");
+            id = id[id.length-1];
+
+            fetch(`/learn/lectures/json/one/${id}`)
+                .then(response => response.json())
+                .then((response)=>{
+                    document.getElementById("title").innerText = response.title;
+                    document.getElementById("course").innerText = response.course.title;
+                    document.getElementById("date").innerText = response.date;
+                    document.getElementById("video").src = response.video;
+                    document.getElementById("description").innerText = response.description;
+                    
+                    let documents = document.getElementById("documents");
+                    for(let i = 0; i < response.documents.length; i++){
+                        let a = document.createElement("a");
+                        a.href = response.documents[i];
+                        a.innerText = response.documents[i];
+                        documents.appendChild(a);
+                    }
+
+                    let exercises = document.getElementById("exercises");
+                    for(let i = 0; i < response.exercises.length; i++){
+                        let li = document.createElement("li");
+                        li.innerText = response.exercises[i];
+                        exercises.appendChild(li);
+                    }
+                })
+                .catch((err)=>{});
+        </script>
+    </body>
+</html>
