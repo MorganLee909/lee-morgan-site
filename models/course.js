@@ -6,10 +6,6 @@ const CourseSchema = new mongoose.Schema({
         ref: "Uploader",
         required: true
     },
-    courseId: {
-        type: String,
-        required: true
-    },
     title: {
         type: String,
         required: true

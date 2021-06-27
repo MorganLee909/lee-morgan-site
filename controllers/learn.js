@@ -8,7 +8,6 @@ module.exports = {
     req.body = {
         uploaderId: String,
         password: String,
-        courseId:  String,
         title: String
         thumbNail: String,
         description: String
@@ -25,7 +24,6 @@ module.exports = {
 
                 let course = new Course({
                     owner: uploader._id,
-                    courseId: req.body.courseId,
                     title: req.body.title,
                     thumbNail: imgString,
                     description: req.body.description
