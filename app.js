@@ -44,7 +44,7 @@ app.use(express.static(__dirname + "/content"));
 app.use(compression());
 app.use(express.json());
 app.use(bodyParser.urlencoded({extended: false}))
-app.use(fileUpload({limits: { fileSize: 5 * 1024 * 1024 }}));
+app.use(fileUpload({limits: { fileSize: 1024 * 1024}}));
 require("./routes.js")(app);
 
 if(process.env.NODE_ENV === "production") httpsServer.listen(process.env.HTTPS_PORT);

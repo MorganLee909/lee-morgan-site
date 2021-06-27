@@ -6,23 +6,19 @@ const LectureSchema = new mongoose.Schema({
         ref: "Course",
         required: true
     },
-    groupTitle: {
-        type: String,
-        required: true,
-    },
     title: {
         type: String,
         required: true
     },
-    video: String,
+    video: {
+        type: String,
+        required: true
+    },
     description: {
         type: String,
         required: true,
     },
-    documents: [{
-        title: String,
-        link: String
-    }],
+    documents: [String],
     exercises: [String]
 });
 

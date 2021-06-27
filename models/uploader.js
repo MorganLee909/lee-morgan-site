@@ -5,4 +5,4 @@ const UploaderSchema = new mongoose.Schema({
     password: String
 });
 
-module.exports = mongoose.model("uploader", UploaderSchema);
+module.exports = mongoose.model("Uploader", UploaderSchema);

@@ -44,8 +44,7 @@ module.exports = function(app){
     //LEARN
     app.get("/learn/course/new", (req, res)=>{res.sendFile(`${views}/learn/newCourse.html`)});
     app.post("/learn/course/new", learn.createCourse);
-    // app.get("/learn/lecture", (req, res)=>{res.sendFile(`${views}/learn/newLecture.html`)});
-    // app.post("/learn/lecture", (learn.createLecture));
-    app.get("/learn/style", (req, res)=>res.sendFile(`${views}/learn/index.css`));
-    app.get("/learn/web", (req, res)=>{res.sendFile(`${views}/learn/web.html`)});
+    app.get("/learn/lecture/new", (req, res)=>{res.sendFile(`${views}/learn/newLecture.html`)});
+    app.post("/learn/lecture/new", (learn.createLecture));
+    app.get("/learn/courses", learn.getCourses);
 }
