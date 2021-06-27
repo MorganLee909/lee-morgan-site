@@ -171,17 +171,7 @@
                 </template>
             </div>
 
-            <div id="learn" class="cardContainer" style="display:none">
-                <a class="card" href="/learn/web">
-                    <h2>Intro to Web Programming</h2>
-                    <img src="/images/web" alt="World Wide Web">
-                </a>
-
-                <a class="card" href="/learn/html">
-                    <h2>HTML</h2>
-                    <img src="/images/html5" alt="HTML 5">
-                </a>
-            </div>
+            <div id="learn" class="cardContainer" style="display:none"></div>
         </div>
 
         <script>
@@ -332,7 +322,28 @@
                 .catch((err)=>{});
 
                 //Get "learn" content
-                
+                fetch("/learn/courses")
+                    .then(response => response.json())
+                    .then((response)=>{
+                        let container = document.getElementById("learn");
+
+                        for(let i = 0; i < response.length; i++){
+                            let card = document.createElement("a");
+                            card.classList.add("card");
+                            card.href = "#";
+                            container.appendChild(card);
+
+                            let h2 = document.createElement("h2");
+                            h2.innerText = response[i].title;
+                            card.appendChild(h2);
+
+                            let img = document.createElement("img");
+                            img.src = response[i].thumbNail;
+                            img.alt = `${response[i].title} thumbnail`;
+                            card.appendChild(img);
+                        }
+                    })
+                    .catch((err)=>{});
         </script>
     </body>
 </html>

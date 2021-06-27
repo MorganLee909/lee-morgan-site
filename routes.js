@@ -47,4 +47,8 @@ module.exports = function(app){
     app.get("/learn/lecture/new", (req, res)=>{res.sendFile(`${views}/learn/newLecture.html`)});
     app.post("/learn/lecture/new", (learn.createLecture));
     app.get("/learn/courses", learn.getCourses);
+
+    //CONTENT
+    app.get("/thumbNails/*", (req, res)=>{res.sendFile(`${__dirname}${req.url}`)});
+    app.get("/documents/*", (req, res)=>{res.sendFile(`${__dirname}${req.url}`)});
 }
