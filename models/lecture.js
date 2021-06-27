@@ -19,7 +19,8 @@ const LectureSchema = new mongoose.Schema({
         required: true,
     },
     documents: [String],
-    exercises: [String]
+    exercises: [String],
+    url: String
 });
 
 module.exports = mongoose.model("lecture", LectureSchema);

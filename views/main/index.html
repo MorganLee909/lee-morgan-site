@@ -330,7 +330,7 @@
                         for(let i = 0; i < response.length; i++){
                             let card = document.createElement("a");
                             card.classList.add("card");
-                            card.href = "#";
+                            card.href = `/learn/course/${response[i]._id}`;
                             container.appendChild(card);
 
                             let h2 = document.createElement("h2");

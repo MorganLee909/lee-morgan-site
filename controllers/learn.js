@@ -63,16 +63,16 @@ module.exports = {
     createLecture: function(req, res){
         Course.findOne({_id: req.body.course})
             .populate("owner")
-            .then((course)=>{
-                if(course === null) throw "noCourse";
-                if(req.body.uploader !== course.owner?._id.toString()) throw "badOwner";
-                if(req.body.password !== course.owner.password) throw "badPass";
+            .then((response)=>{
+                if(response[0] === null) throw "noCourse";
+                if(req.body.uploader !== response[0].owner?._id.toString()) throw "badOwner";
+                if(req.body.password !== response[0].owner.password) throw "badPass";
 
                 let exercises = req.body.exercises.split("~");
                 exercises.splice(exercises.length - 1, 1);
 
                 let lecture = new Lecture({
-                    course: course._id,
+                    course: response[0]._id,
                     title: req.body.title,
                     video: req.body.video,
                     description: req.body.description,

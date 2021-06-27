@@ -18,7 +18,6 @@ h1{
     justify-content: space-between;
     align-items: center;
     margin: 15px auto;
-    width: 90%;
     height: 150px;
     background: white;
     padding-right:15px;
@@ -30,9 +29,6 @@ h1{
     }
 
     .card div{
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
         align-items: center;
         color: black;
         height: 100%;
@@ -41,4 +37,15 @@ h1{
 
     .card img{
         height: 100%;
+    }
+
+    .card h2{
+        text-align: center;
+        margin: 10px 0;
+    }
+
+    .card p{
+        text-align:center;
+        width: 75%;
+        margin: auto;
     }
