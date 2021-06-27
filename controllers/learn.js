@@ -19,7 +19,7 @@ module.exports = {
             .then((uploader)=>{
                 if(uploader === null) throw "uploader";
                 if(req.body.password !== uploader.password) throw "pass";
-                let imgString = `./thumbNails/${req.files.thumbNail.name}`;
+                let imgString = `thumbNails/${req.files.thumbNail.name}`;
                 req.files.thumbNail.mv(imgString);
 
                 let course = new Course({
@@ -61,16 +61,16 @@ module.exports = {
     createLecture: function(req, res){
         Course.findOne({_id: req.body.course})
             .populate("owner")
-            .then((response)=>{
-                if(response[0] === null) throw "noCourse";
-                if(req.body.uploader !== response[0].owner?._id.toString()) throw "badOwner";
-                if(req.body.password !== response[0].owner.password) throw "badPass";
+            .then((course)=>{
+                if(course === null) throw "noCourse";
+                if(req.body.uploader !== course.owner?._id.toString()) throw "badOwner";
+                if(req.body.password !== course.owner.password) throw "badPass";
 
                 let exercises = req.body.exercises.split("~");
                 exercises.splice(exercises.length - 1, 1);
 
                 let lecture = new Lecture({
-                    course: response[0]._id,
+                    course: course._id,
                     title: req.body.title,
                     video: req.body.video,
                     description: req.body.description,
@@ -105,6 +105,24 @@ module.exports = {
             })
             .catch((err)=>{
                 return res.json("Could not retrieve courses");
+            });
+    },
+
+    /*
+    GET: get a list of lectures from a course
+    req.params.id = String (course id)
+    response = [Lecture]
+    */
+    getLectures: function(req, res){
+        let course = Course.findOne({_id: req.params.id});
+        let lectures = Lecture.find({course: req.params.id});
+
+        Promise.all([course, lectures])
+            .then((response)=>{
+                return res.json({course: response[0], lectures: response[1]});
+            })
+            .catch((err)=>{
+                return res.json("Could not retrieve lectures");
             });
     }
 }

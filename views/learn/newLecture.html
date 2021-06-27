@@ -40,7 +40,7 @@
 
         <form
             id="form"
-            action="/learn/lecture/new"
+            action="/learn/lectures/new"
             method="post"
             encType="multipart/form-data"
         >
@@ -86,7 +86,7 @@
 
         <script>
             //Get Available Courses
-            fetch("/learn/courses")
+            fetch("/learn/courses/json")
                 .then(response => response.json())
                 .then((response)=>{
                     let select = document.getElementById("course");

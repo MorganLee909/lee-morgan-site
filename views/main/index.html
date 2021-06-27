@@ -322,7 +322,7 @@
                 .catch((err)=>{});
 
                 //Get "learn" content
-                fetch("/learn/courses")
+                fetch("/learn/courses/json")
                     .then(response => response.json())
                     .then((response)=>{
                         let container = document.getElementById("learn");
@@ -330,7 +330,7 @@
                         for(let i = 0; i < response.length; i++){
                             let card = document.createElement("a");
                             card.classList.add("card");
-                            card.href = `/learn/course/${response[i]._id}`;
+                            card.href = `/learn/courses/${response[i]._id}`;
                             container.appendChild(card);
 
                             let h2 = document.createElement("h2");

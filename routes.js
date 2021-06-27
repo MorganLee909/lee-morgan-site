@@ -43,12 +43,16 @@ module.exports = function(app){
 
     //LEARN
     app.get("/learn/style", (req, res)=>{res.sendFile(`${views}/learn/index.css`)});
-    app.get("/learn/course/new", (req, res)=>{res.sendFile(`${views}/learn/newCourse.html`)});
-    app.post("/learn/course/new", learn.createCourse);
-    app.get("/learn/lecture/new", (req, res)=>{res.sendFile(`${views}/learn/newLecture.html`)});
-    app.post("/learn/lecture/new", (learn.createLecture));
-    app.get("/learn/courses", learn.getCourses);
+    
+    app.get("/learn/courses/new", (req, res)=>{res.sendFile(`${views}/learn/newCourse.html`)});
+    app.post("/learn/courses/new", learn.createCourse);
+    app.get("/learn/courses/json", learn.getCourses);
+    app.get("/learn/courses/:id", (req, res)=>{res.sendFile(`${views}/learn/course.html`)});
     app.get("/learn", (req, res)=>{res.sendFile(`${views}/learn/courses.html`)});
+
+    app.get("/learn/lectures/new", (req, res)=>{res.sendFile(`${views}/learn/newLecture.html`)});
+    app.post("/learn/lectures/new", learn.createLecture);
+    app.get("/learn/lectures/json/:id", learn.getLectures)
 
     //CONTENT
     app.get("/thumbNails/*", (req, res)=>{res.sendFile(`${__dirname}${req.url}`)});

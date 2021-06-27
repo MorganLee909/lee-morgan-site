@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Lee Morgan -course-</title>
+        <link rel="stylesheet" href="/learn/style">
+    </head>
+    <body>
+        <h1 id="title"></h1>
+
+        <div id="lectures" class="cardContainer"></div>
+
+        <template id="template">
+            <a class="card">
+                <img>
+
+                <div>
+                    <h2></h2>
+
+                    <p></p>
+                </div>
+            </a>
+        </template>
+
+        <script>
+            let id = window.location.href.split("/");
+            id = id[id.length-1];
+
+            fetch(`/learn/lectures/json/${id}`)
+                .then(response => response.json())
+                .then((response)=>{
+                    document.getElementById("title").innerText = response.course.title;
+                    let container = document.getElementById("lectures");
+                    let template = document.getElementById("template").content.children[0];
+
+                    for(let i = 0; i < response.lectures.length; i++){
+                        let card = template.cloneNode(true);
+                        card.href = "/learn/lectures/:id";
+                        card.children[0].src = response.course.thumbNail;
+                        card.children[0].alt = `${response.course.thumbNail} thumbnail`;
+                        card.children[1].children[0].innerText = response.lectures[i].title;
+                        card.children[1].children[1].innerText = response.lectures[i].description;
+                        container.appendChild(card)
+                    }
+                })
+                .catch((err)=>{});
+        </script>
+    </body>
+</html>
