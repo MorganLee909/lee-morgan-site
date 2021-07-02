@@ -57,6 +57,37 @@ h1{
     align-items: center;
 }
 
-    iframe{
+    #video{
         margin: 50px;
     }
+
+    #lectureData{
+        margin-right: auto;
+        padding-left: 100px;
+        width: 100%;
+    }
+
+        #lectureData > *{
+            margin: 15px 0;
+        }
+
+        #lectureData h2{
+            margin: 0;
+        }
+
+        #description{
+            background: white;
+            padding: 25px;
+            width: 50%;
+        }
+
+        #documents{
+            display: flex;
+            flex-direction: column;
+        }
+
+        #exercises, #documents{
+            padding-left: 15px;
+            margin-top: 0;
+        }
+

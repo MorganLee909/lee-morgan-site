@@ -14,16 +14,17 @@
 
         <iframe id="video"></iframe>
 
-        <p id="description"></p>
-
-        <div id="documents">
+        <div id="lectureData">
+            <h2>Details</h2>
+            <p id="description"></p>
+            
             <h2>Resources</h2>
-        </div>
-
-        <ol id="exercises">
+            <div id="documents"></div>
+            
             <h2>Exercises</h2>
-        </ol>
-        
+            <ol id="exercises"></ol>
+        </div>
+            
         <script>
             let video = document.getElementById("video");
 
@@ -41,24 +42,34 @@
             fetch(`/learn/lectures/json/one/${id}`)
                 .then(response => response.json())
                 .then((response)=>{
+                    let date = new Date(response.date);
+                    let dateOptions = {
+                        day: "numeric",
+                        month: "long",
+                        year: "numeric"
+                    }
+
                     document.getElementById("title").innerText = response.title;
                     document.getElementById("course").innerText = response.course.title;
-                    document.getElementById("date").innerText = response.date;
+                    document.getElementById("date").innerText = date.toLocaleDateString("en-us", dateOptions);
                     video.src = response.video;
-                    // video.src = "https://rumble.com/embed/vg8er5/?pub=n4vcr";
                     document.getElementById("description").innerText = response.description;
                     
                     let documents = document.getElementById("documents");
                     for(let i = 0; i < response.documents.length; i++){
+                        let name = response.documents[i].split("/");
+                        name = name[name.length-1];
+
                         let a = document.createElement("a");
                         a.href = response.documents[i];
-                        a.innerText = response.documents[i];
+                        a.innerText = name;
                         documents.appendChild(a);
                     }
 
                     let exercises = document.getElementById("exercises");
                     for(let i = 0; i < response.exercises.length; i++){
                         let li = document.createElement("li");
+                        li.classList.add("liPad");
                         li.innerText = response.exercises[i];
                         exercises.appendChild(li);
                     }
