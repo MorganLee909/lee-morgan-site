@@ -5,6 +5,8 @@ const compression = require("compression");
 const mongoose = require("mongoose");
 const https = require("https");
 const fs = require("fs");
+const bodyParser = require("body-parser");
+const fileUpload = require("express-fileupload");
 
 const app = express();
 htmlCreator(app);
@@ -41,6 +43,8 @@ mongoose.connect("mongodb://127.0.0.1/leemorgan", mongooseOptions);
 app.use(express.static(__dirname + "/content"));
 app.use(compression());
 app.use(express.json());
+app.use(bodyParser.urlencoded({extended: false}))
+app.use(fileUpload({limits: { fileSize: 1024 * 1024}}));
 require("./routes.js")(app);
 
 if(process.env.NODE_ENV === "production") httpsServer.listen(process.env.HTTPS_PORT);

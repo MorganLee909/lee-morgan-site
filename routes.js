@@ -1,5 +1,6 @@
 const writing = require("./controllers/writing.js");
 const travel = require("./controllers/travel.js");
+const learn = require("./controllers/learn.js");
 
 module.exports = function(app){
     let views = `${__dirname}/views`;
@@ -21,6 +22,8 @@ module.exports = function(app){
     app.get("/images/sudoku", (req, res)=>{res.sendFile(`${views}/images/sudoku.png`)});
     app.get("/images/birthday", (req, res)=>{res.sendFile(`${views}/images/birthday.jpg`)});
     app.get("/images/market", (req, res)=>{res.sendFile(`${views}/images/market.jpeg`)});
+    app.get("/images/web", (req, res)=>{res.sendFile(`${views}/images/webIcon.jpg`)});
+    app.get("/images/html5", (req, res)=>{res.sendFile(`${views}/images/html5.png`)});
 
     //SUDOKU
     app.get("/sudoku", (req, res)=>{res.sendFile(`${views}/sudoku/index.html`)});
@@ -37,4 +40,23 @@ module.exports = function(app){
     app.get("/travel/directories", travel.listDirectories);
     app.get("/travel/images/*", travel.getImages);
     app.get("/travel/*", (req, res)=>res.sendFile(`${views}/travel/index.html`));
+
+    //LEARN
+    app.get("/learn/style", (req, res)=>{res.sendFile(`${views}/learn/index.css`)});
+    
+    app.get("/learn/courses/new", (req, res)=>{res.sendFile(`${views}/learn/newCourse.html`)});
+    app.post("/learn/courses/new", learn.createCourse);
+    app.get("/learn/courses/json", learn.getCourses);
+    app.get("/learn/courses/:id", (req, res)=>{res.sendFile(`${views}/learn/course.html`)});
+    app.get("/learn", (req, res)=>{res.sendFile(`${views}/learn/courses.html`)});
+
+    app.get("/learn/lectures/new", (req, res)=>{res.sendFile(`${views}/learn/newLecture.html`)});
+    app.post("/learn/lectures/new", learn.createLecture);
+    app.get("/learn/lectures/json/:id", learn.getLectures);
+    app.get("/learn/lectures/:id", (req, res)=>(res.sendFile(`${views}/learn/lecture.html`)));
+    app.get("/learn/lectures/json/one/:id", learn.getLecture);
+
+    //CONTENT
+    app.get("/thumbNails/*", (req, res)=>{res.sendFile(`${__dirname}${req.url}`)});
+    app.get("/documents/*", (req, res)=>{res.sendFile(`${__dirname}${req.url}`)});
 }

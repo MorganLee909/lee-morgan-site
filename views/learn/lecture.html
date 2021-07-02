@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Lee Morgan -lecture-</title>
+        <link rel="stylesheet" href="/learn/style">
+    </head>
+    <body id="lectureBody">
+        <h1 id="title"></h1>
+
+        <h3 id="course"></h3>
+
+        <h6 id="date"></h6>
+
+        <iframe id="video"></iframe>
+
+        <div id="lectureData">
+            <h2>Details</h2>
+            <p id="description"></p>
+            
+            <h2>Resources</h2>
+            <div id="documents"></div>
+            
+            <h2>Exercises</h2>
+            <ol id="exercises"></ol>
+        </div>
+            
+        <script>
+            let video = document.getElementById("video");
+
+            let sizeIframe = ()=>{
+                let width = document.getElementById("lectureBody").clientWidth;
+                let multiplier = (width * 0.9) / video.contentWindow.document.body.scrollWidth;
+                video.width = video.contentWindow.document.body.scrollWidth * multiplier;
+                video.height = video.contentWindow.document.body.scrollHeight * multiplier;
+            }
+
+            video.onload = sizeIframe();
+            let id = window.location.href.split("/");
+            id = id[id.length-1];
+
+            fetch(`/learn/lectures/json/one/${id}`)
+                .then(response => response.json())
+                .then((response)=>{
+                    let date = new Date(response.date);
+                    let dateOptions = {
+                        day: "numeric",
+                        month: "long",
+                        year: "numeric"
+                    }
+
+                    document.getElementById("title").innerText = response.title;
+                    document.getElementById("course").innerText = response.course.title;
+                    document.getElementById("date").innerText = date.toLocaleDateString("en-us", dateOptions);
+                    video.src = response.video;
+                    document.getElementById("description").innerText = response.description;
+                    
+                    let documents = document.getElementById("documents");
+                    for(let i = 0; i < response.documents.length; i++){
+                        let name = response.documents[i].split("/");
+                        name = name[name.length-1];
+
+                        let a = document.createElement("a");
+                        a.href = response.documents[i];
+                        a.innerText = name;
+                        documents.appendChild(a);
+                    }
+
+                    let exercises = document.getElementById("exercises");
+                    for(let i = 0; i < response.exercises.length; i++){
+                        let li = document.createElement("li");
+                        li.classList.add("liPad");
+                        li.innerText = response.exercises[i];
+                        exercises.appendChild(li);
+                    }
+                })
+                .catch((err)=>{});
+        </script>
+    </body>
+</html>

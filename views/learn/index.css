@@ -1,0 +1,93 @@
+*{margin:0;padding:0;}
+
+body{
+    background: rgb(196, 198, 192);
+    padding: 25px;
+}
+
+h1{
+    text-align: center;
+}
+
+.cardContainer{
+    width: 90%;
+    padding: 25px;
+}
+
+.card{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 15px auto;
+    height: 150px;
+    background: white;
+    padding-right:15px;
+    text-decoration: none;
+}
+
+    .card:hover{
+        box-shadow: 0 0 3px black;
+    }
+
+    .card div{
+        align-items: center;
+        color: black;
+        height: 100%;
+        flex-grow: 2;
+    }
+
+    .card img{
+        height: 100%;
+    }
+
+    .card h2{
+        text-align: center;
+        margin: 10px 0;
+    }
+
+    .card p{
+        text-align:center;
+        width: 75%;
+        margin: auto;
+    }
+
+#lectureBody{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+    #video{
+        margin: 50px;
+    }
+
+    #lectureData{
+        margin-right: auto;
+        padding-left: 100px;
+        width: 100%;
+    }
+
+        #lectureData > *{
+            margin: 15px 0;
+        }
+
+        #lectureData h2{
+            margin: 0;
+        }
+
+        #description{
+            background: white;
+            padding: 25px;
+            width: 50%;
+        }
+
+        #documents{
+            display: flex;
+            flex-direction: column;
+        }
+
+        #exercises, #documents{
+            padding-left: 15px;
+            margin-top: 0;
+        }
+
