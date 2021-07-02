@@ -159,6 +159,8 @@
             </div>
 
             <div id="gallery" style="display:none">
+                <h2>Tags</h2>
+
                 <div id="galleryTags"></div>
 
                 <div id="galleryContainer"></div>
@@ -299,6 +301,12 @@
 
                         populateGallery(response);
 
+                        let tag = document.createElement("button");
+                        tag.innerText = "All";
+                        tag.classList.add("tag");
+                        tag.onclick = ()=>{populateGallery(response)};
+                        tagContainer.appendChild(tag);
+
                         for(let i = 0; i < response.length; i++){
                             for(let j = 0; j < response[i].tags.length; j++){
                                 if(tags.includes(response[i].tags[j].toLowerCase()) === true) continue;
@@ -313,9 +321,7 @@
                             }
                         }
                     })
-                    .catch((err)=>{
-                        console.log(err);
-                    });
+                    .catch((err)=>{});
 
                 //Get "learn" content
                 fetch("/learn/courses/json")
