@@ -43,9 +43,12 @@ module.exports = function(app){
     app.get("/travel/*", (req, res)=>res.sendFile(`${views}/travel/index.html`));
 
     //GALLERY
+    app.get("/gallery/style", (req, res)=>{res.sendFile(`${views}/gallery/index.css`)});
     app.get("/gallery/new", (req, res)=>{res.sendFile(`${views}/gallery/new.html`)});
     app.post("/gallery/new", gallery.create);
     app.get("/gallery/retrieve", gallery.getGalleries);
+    app.get("/gallery/json/:id", gallery.getGallery);
+    app.get("/gallery/:id", (req, res)=>{res.sendFile(`${views}/gallery/index.html`)});
 
     //LEARN
     app.get("/learn/style", (req, res)=>{res.sendFile(`${views}/learn/index.css`)});

@@ -53,5 +53,20 @@ module.exports = {
             .catch((err)=>{
                 return res.json("ERROR: could not fetch galleries");
             });
+    },
+
+    /*
+    GET: fetch the data for a single gallery
+    req.params.id = String (gallery id)
+    response = Gallery
+    */
+    getGallery: function(req, res){
+        Gallery.findOne({_id: req.params.id})
+            .then((gallery)=>{
+                return res.json(gallery);
+            })
+            .catch((err)=>{
+                return res.json("ERROR: could not fetch gallery");
+            });
     }
 }

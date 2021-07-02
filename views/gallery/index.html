@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Lee Morgan -gallery-</title>
+        <link rel="stylesheet" href="/gallery/style">
+    </head>
+    <body>
+        <h1 id="title"></h1>
+
+        <div id="tags"></div>
+
+        <div id="images"></div>
+
+        <div id="fullPage" style="display:none">
+            <svg id="closeImg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+
+            <svg id="nextImg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+
+            <svg id="previousImg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+        </div>
+
+        <script>
+            let id = window.location.pathname.split("/");
+            id = id[id.length-1];
+            window.imageIndex = 0;
+            let fullPage = document.getElementById("fullPage");
+            let container = document.getElementById("images");
+
+            fetch(`/gallery/json/${id}`)
+                .then(response => response.json())
+                .then((response)=>{
+                    document.getElementById("title").innerText = response.title;
+                    let tags = document.getElementById("tags");
+
+                    for(let i = 0; i < response.tags.length; i++){
+                        let tag = document.createElement("p");
+                        tag.innerText = response.tags[i];
+                        tag.classList.add("tag");
+                        tags.appendChild(tag);
+                    }
+
+                    for(let i = 0; i < response.images.length; i++){
+                        let img = document.createElement("img");
+                        img.src = response.images[i];
+                        img.alt = "Missing image";
+                        img.onclick = ()=>{
+                            imageIndex = i;
+
+                            let newImg = img.cloneNode(true);
+                            fullPage.appendChild(newImg);
+                            fullPage.style.display = "flex";
+                            newImg.onclick = ()=>{event.stopPropagation()};
+                        }
+                        container.appendChild(img);
+                    }
+                })
+                .catch((err)=>{});
+
+            document.getElementById("fullPage").onclick = ()=>{
+                fullPage.removeChild(document.querySelector("#fullPage img"));
+                fullPage.style.display = "none";
+            };
+
+            document.getElementById("nextImg").onclick = ()=>{
+                event.stopPropagation();
+                if(imageIndex >= container.children.length - 1) return;
+                imageIndex++;
+                let newImg = container.children[imageIndex].cloneNode(true);
+                newImg.onclick = ()=>{event.stopPropagation()};
+
+                fullPage.removeChild(document.querySelector("#fullPage img"));
+                fullPage.appendChild(newImg);
+            }
+
+            document.getElementById("previousImg").onclick = ()=>{
+                event.stopPropagation();
+                if(imageIndex <= 0) return;
+                imageIndex--;
+                let newImg = container.children[imageIndex].cloneNode(true);
+                newImg.onclick = ()=>{event.stopPropagation()};
+
+                fullPage.removeChild(document.querySelector("#fullPage img"));
+                fullPage.appendChild(newImg);
+            }
+        </script>
+    </body>
+</html>
