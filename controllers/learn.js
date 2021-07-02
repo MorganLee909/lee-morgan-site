@@ -20,7 +20,7 @@ module.exports = {
                 if(uploader === null) throw "uploader";
                 if(req.body.password !== uploader.password) throw "pass";
                 let imgString = `/thumbNails/${req.files.thumbNail.name}`;
-                req.files.thumbNail.mv(imgString);
+                req.files.thumbNail.mv(`${__dirname}/..${imgString}`);
 
                 let course = new Course({
                     owner: uploader._id,
@@ -81,12 +81,12 @@ module.exports = {
                 let files = req.files.documents;
                 if(files.length === undefined){
                     let fileString = `/documents/${files.name}`;
-                    files.mv(fileString)
+                    files.mv(`${__dirname}/..${fileString}`);
                     lecture.documents.push(fileString);
                 }else{
                     for(let i = 0; i < files.length; i++){
                         let fileString = `/documents/${files[i].name}`;
-                        files[i].mv(fileString);
+                        files[i].mv(`${__dirname}/..${fileString}`);
                         lecture.documents.push(fileString);
                     }
                 }
