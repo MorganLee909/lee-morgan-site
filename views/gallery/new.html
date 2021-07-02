@@ -3,7 +3,47 @@
     <head>
         <meta charset="utf-8">
         <title>Lee Morgan</title>
+        <style>
+            form{
+                display: flex;
+                flex-direction: column
+            }
+
+            form > *{
+                margin: 15px;
+            }
+
+            input[type=submit]{
+                max-width: 250px;
+            }
+        </style>
     </head>
     <body>
+        <h1>New Gallery</h1>
+
+        <form
+            id="form"
+            action="/gallery/new"
+            method="post"
+            enctype="multipart/form-data"
+        >
+            <label>Uploader
+                <input name="uploader" type="text" required>
+            </label>
+
+            <label>Password
+                <input name="password" type="password" required>
+            </label>
+
+            <label>Tags (comma delineated)
+                <input name="tags" type="text" required>
+            </label>
+
+            <label>Images
+                <input name="images" type="file" required multiple>
+            </label>
+
+            <input type="submit" value="Submit">
+        </form>
     </body>
 </html>

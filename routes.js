@@ -43,7 +43,7 @@ module.exports = function(app){
     app.get("/travel/*", (req, res)=>res.sendFile(`${views}/travel/index.html`));
 
     //GALLERY
-    app.get("/gallery/new", (req, res)=>{res.sendFile(`${views}/travel/new.html`)});
+    app.get("/gallery/new", (req, res)=>{res.sendFile(`${views}/gallery/new.html`)});
     app.post("/gallery/new", gallery.create);
 
     //LEARN
