@@ -98,7 +98,39 @@ body{
     width: 100%;
 }
 
-#travel{
-    height: 100%;
-    overflow-y: auto;
+#gallery{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
+
+    #galleryTags{
+        margin: 50px 0 25px 0;
+        display: flex;
+        justify-content: center;
+        width: 90%;
+        overflow-x: auto;
+    }
+
+        #galleryTags button{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #152730;
+            color: #5FECE0;
+            font-size: 20px;
+            min-width: 75px;
+            border-radius: 20px;
+            height: 30px;
+            border: 1px solid black;
+            padding: 0 25px;
+            margin: 10px;
+            cursor: pointer;
+        }
+
+            #galleryTags button:hover{
+                box-shadow: 0 0 5px black;
+            }
+
+
+

@@ -159,13 +159,15 @@
             </div>
 
             <div id="gallery" style="display:none">
+                <div id="galleryTags"></div>
+
                 <div id="galleryContainer"></div>
 
                 <template id="galleryCard">
-                    <div class="card">
+                    <a class="card">
                         <h1></h1>
                         <img>
-                    </div>
+                    </a>
                 </template>
             </div>
 
@@ -256,23 +258,64 @@
                 .catch((err)=>{});
 
                 //Get gallery content
+                let populateGallery = (items)=>{
+                    let container = document.getElementById("galleryContainer");
+                    let template = document.getElementById("galleryCard").content.children[0];
+
+                    while(container.children.length > 0){
+                        container.removeChild(container.firstChild);
+                    }
+
+                    for(let i = 0; i < items.length; i++){
+                        let card = template.cloneNode(true);
+                        card.href = `/gallery/${items[i]._id}`;
+                        card.children[0].innerText = items[i].title;
+                        card.children[1].src = items[i].images[0];
+                        card.children[1].alt = `${items[i].title} thumbnail`;
+                        container.appendChild(card);   
+                    }
+                }
+
+                let searchTags = (galleries, tag)=>{
+                    let galleryList = [];
+
+                    for(let i = 0; i < galleries.length; i++){
+                        for(let j = 0; j < galleries[i].tags.length; j++){
+                            if(galleries[i].tags[j].toLowerCase() === tag){
+                                galleryList.push(galleries[i]);
+                                break;
+                            }
+                        }
+                    }
+
+                    return galleryList;
+                }
+
                 fetch("/gallery/retrieve")
                     .then(response => response.json())
                     .then((response)=>{
-                        let container = document.getElementById("galleryContainer");
-                        let template = document.getElementById("galleryCard").content.children[0];
+                        let tagContainer = document.getElementById("galleryTags");
+                        let tags = [];
+
+                        populateGallery(response);
 
                         for(let i = 0; i < response.length; i++){
-                            let card = template.cloneNode(true);
-                            card.children[0].innerText = response[i].title;
-                            card.children[1].src = response[i].images[0];
-                            card.children[1].alt = `${response[i].title} thumbnail`;
-                            container.appendChild(card);
+                            for(let j = 0; j < response[i].tags.length; j++){
+                                if(tags.includes(response[i].tags[j].toLowerCase()) === true) continue;
+
+                                tags.push(response[i].tags[j].toLowerCase());
+
+                                let tag = document.createElement("button");
+                                tag.innerText = response[i].tags[j];
+                                tag.classList.add("tag");
+                                tag.onclick = ()=>{populateGallery(searchTags(response, response[i].tags[j].toLowerCase()))};
+                                tagContainer.appendChild(tag);
+                            }
                         }
                     })
                     .catch((err)=>{
                         console.log(err);
-                    })
+                    });
 
                 //Get "learn" content
                 fetch("/learn/courses/json")
