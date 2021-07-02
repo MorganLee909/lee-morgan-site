@@ -6,8 +6,9 @@ module.exports = {
     /*
     POST: create a new gallery
     req.body = {
-        uploader: String (id of owner),
-        password: String,
+        uploader: String (id of owner)
+        password: String
+        title: String
         tags: [String]
     }
     req.files = [images]
@@ -20,6 +21,7 @@ module.exports = {
 
                 let gallery = new Gallery({
                     owner: uploader._id,
+                    title: req.body.title,
                     tags: req.body.tags.split(","),
                     images: []
                 });
@@ -40,6 +42,16 @@ module.exports = {
                 if(err === "uploader") return res.json("You do not have permission to upload");
                 if(err === "pass") return res.json("Incorrect password");
                 return res.json("ERROR: something went wrong");
+            });
+    },
+
+    getGalleries: function(req, res){
+        Gallery.find()
+            .then((galleries)=>{
+                return res.json(galleries);
             })
+            .catch((err)=>{
+                return res.json("ERROR: could not fetch galleries");
+            });
     }
 }

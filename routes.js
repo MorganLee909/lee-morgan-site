@@ -45,6 +45,7 @@ module.exports = function(app){
     //GALLERY
     app.get("/gallery/new", (req, res)=>{res.sendFile(`${views}/gallery/new.html`)});
     app.post("/gallery/new", gallery.create);
+    app.get("/gallery/retrieve", gallery.getGalleries);
 
     //LEARN
     app.get("/learn/style", (req, res)=>{res.sendFile(`${views}/learn/index.css`)});

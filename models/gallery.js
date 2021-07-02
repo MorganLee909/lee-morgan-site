@@ -6,6 +6,10 @@ const GallerySchema = new mongoose.Schema({
         ref: "Uploader",
         required: true
     },
+    title: {
+        type: String,
+        required: true
+    },
     tags: [String],
     images: [String]
 });
