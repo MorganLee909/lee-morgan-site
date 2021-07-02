@@ -1,5 +1,6 @@
 const writing = require("./controllers/writing.js");
 const travel = require("./controllers/travel.js");
+const gallery = require("./controllers/gallery.js");
 const learn = require("./controllers/learn.js");
 
 module.exports = function(app){
@@ -40,6 +41,10 @@ module.exports = function(app){
     app.get("/travel/directories", travel.listDirectories);
     app.get("/travel/images/*", travel.getImages);
     app.get("/travel/*", (req, res)=>res.sendFile(`${views}/travel/index.html`));
+
+    //GALLERY
+    app.get("/gallery/new", (req, res)=>{res.sendFile(`${views}/travel/new.html`)});
+    app.post("/gallery/new", gallery.create);
 
     //LEARN
     app.get("/learn/style", (req, res)=>{res.sendFile(`${views}/learn/index.css`)});
