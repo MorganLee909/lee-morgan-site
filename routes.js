@@ -1,5 +1,4 @@
 const writing = require("./controllers/writing.js");
-const travel = require("./controllers/travel.js");
 const gallery = require("./controllers/gallery.js");
 const learn = require("./controllers/learn.js");
 
@@ -35,12 +34,6 @@ module.exports = function(app){
     app.get("/birthdayparadox", (req, res)=>{res.sendFile(`${views}/birthdayParadox/index.html`)});
     app.get("/birthdayparadox/style", (req, res)=>{res.sendFile(`${views}/birthdayParadox/index.css`)});
     app.get("/birthdayparadox/code", (req, res)=>{res.sendFile(`${views}/birthdayParadox/index.js`)});
-
-    //TRAVEL
-    app.get("/travel/style", (req, res)=>{res.sendFile(`${views}/travel/index.css`)});
-    app.get("/travel/directories", travel.listDirectories);
-    app.get("/travel/images/*", travel.getImages);
-    app.get("/travel/*", (req, res)=>res.sendFile(`${views}/travel/index.html`));
 
     //GALLERY
     app.get("/gallery/style", (req, res)=>{res.sendFile(`${views}/gallery/index.css`)});

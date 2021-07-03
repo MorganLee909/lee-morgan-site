@@ -19,6 +19,7 @@ h1{
     #tags *{
         display: flex;
         align-items: center;
+        justify-content: center;
         background: #152730;
         color: #5FECE0;
         border-radius: 20px;
