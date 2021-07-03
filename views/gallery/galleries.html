@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Lee Morgan -gallery-</title>
+        <link rel="stylesheet" href="/gallery/style">
+    </head>
+    <body id="galleryBody">
+        <h1>Gallery</h1>
+
+        <div id="tags"></div>
+
+        <div id="container"></div>
+
+        <template id="card">
+            <a class="card">
+                <h2></h2>
+
+                <img>
+            </a>
+        </template>
+        
+        <script>
+            let container = document.getElementById("container");
+            let template = document.getElementById("card").content.children[0];
+
+            let populateGalleries = (galleries)=>{
+                while(container.children.length > 0){
+                    container.removeChild(container.firstChild);
+                }
+
+                for(let i = 0; i < galleries.length; i++){
+                    let card = template.cloneNode(true);
+                    card.href = `/gallery/${galleries[i]._id}`;
+                    card.children[0].innerText = galleries[i].title;
+                    card.children[1].src = galleries[i].images[0];
+                    card.children[1].alt = `${galleries[i].title} thumbnail`;
+                    container.appendChild(card);
+                }
+            }
+            
+            let searchTags = (galleries, tag)=>{
+                let galleryList = [];
+
+                for(let i = 0; i < galleries.length; i++){
+                    for(let j = 0; j < galleries[i].tags.length; j++){
+                        if(galleries[i].tags[j].toLowerCase() === tag.toLowerCase()){
+                            galleryList.push(galleries[i]);
+                            break;
+                        }
+                    }
+                }
+
+                return galleryList;
+            }
+
+            fetch("/gallery/retrieve")
+                .then(response => response.json())
+                .then((response)=>{
+                    let tagsContainer = document.getElementById("tags");
+                    let tags = [];
+
+                    populateGalleries(response);
+
+                    let tag = document.createElement("button");
+                    tag.innerText = "All";
+                    tag.onclick = ()=>{populateGalleries(response)};
+                    tagsContainer.appendChild(tag);
+
+                    for(let i = 0; i < response.length; i++){
+                        for(let j = 0; j < response[i].tags.length; j++){
+                            if(tags.includes(response[i].tags[j].toLowerCase())) continue;
+
+                            tags.push(response[i].tags[j].toLowerCase());
+                            
+                            let tag = document.createElement("button");
+                            tag.innerText = response[i].tags[j];
+                            tag.onclick = ()=>{populateGalleries(searchTags(response, response[i].tags[j]))};
+                            tagsContainer.appendChild(tag);
+                        }
+                    }
+                })
+                .catch((err)=>{});
+        </script>
+    </body>
+</html>
