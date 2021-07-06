@@ -255,7 +255,7 @@
                         for(let j = 0; j < response[i].tags.length; j++){
                             if(tags.includes(response[i].tags[j]) === true) continue;
 
-                            tags.push(response[i].tags[j]);
+                            tags.push(response[i].tags[j].toLowerCase());
 
                             let tag = document.createElement("button");
                             tag.innerText = response[i].tags[j];
