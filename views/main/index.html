@@ -27,7 +27,7 @@
                 <p>Обо Мне</p>
             </button>
 
-            <button id="writingButton">
+            <button id="blogButton">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M12 19l7-7 3 3-7 7-3-3z"></path>
                     <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path>
@@ -109,7 +109,18 @@
                 <h1>Ya, Ya, I'm working on it...</h1>
             </div>
 
-            <div id="writing" class="cardContainer" style="display:none;"></div>
+            <div id="blog" style="display:none;">
+                <div id="blogTags" class="tagContainer"></div>
+
+                <div id="blogs" class="cardContainer"></div>
+
+                <template id="blogCard">
+                    <a class="card">
+                        <h1></h1>
+                        <img>
+                    </a>
+                </template>
+            </div>
 
             <div id="links" class="cardContainer" style="display:none;">
                 <a class="card" href="https://cs-online.club/en/servers">
@@ -159,7 +170,7 @@
             </div>
 
             <div id="gallery" style="display:none">
-                <div id="galleryTags"></div>
+                <div id="galleryTags" class="tagContainer"></div>
 
                 <div id="galleryContainer"></div>
 
@@ -194,156 +205,142 @@
                 };
             }
 
-            fetch("/writing/directories")
+            let searchTags = (content, tag)=>{
+                let galleryList = [];
+
+                for(let i = 0; i < content.length; i++){
+                    for(let j = 0; j < content[i].tags.length; j++){
+                        if(content[i].tags[j].toLowerCase() === tag){
+                            galleryList.push(content[i]);
+                            break;
+                        }
+                    }
+                }
+
+                return galleryList;
+            }
+
+            //Get blog content
+            let populateBlogs = (blogs)=>{
+                let container = document.getElementById("blogs");
+                let template = document.getElementById("blogCard").content.children[0];
+
+                while(container.children.length > 0){
+                    container.removeChild(container.firstChild);
+                }
+                
+                for(let i = 0; i < blogs.length; i++){
+                    let card = template.cloneNode(true);
+                    card.href = `/blog/${blogs[i]._id}`;
+                    card.children[0].innerText = blogs[i].title;
+                    container.appendChild(card);
+                }
+            }
+
+            fetch("/blog/retrieve")
                 .then(response => response.json())
                 .then((response)=>{
-                    let writing = document.getElementById("writing");
-                    let template = document.getElementById("backCard").content.children[0];
+                    let tagContainer = document.getElementById("blogTags");
+                    let tags = [];
 
-                    let recurse = (currentArray, currentContainer)=>{
-                        for(let i = 0; i < currentArray.length; i++){
-                            let card = {};
-                            if(currentArray[i].contents[0].title === undefined){
-                                card = document.createElement("div");
-                                card.onclick = ()=>{
-                                    currentContainer.style.display = "none";
-                                    newContainer.style.display = "flex";
-                                };
+                    let tag = document.createElement("button");
+                    tag.innerText = "All";
+                    tag.classList.add("tag");
+                    tag.onclick = ()=>{populateBlogs(response)};
+                    tagContainer.appendChild(tag);
 
-                                let name = document.createElement("h1");
-                                name.innerText = currentArray[i].name.toUpperCase();
-                                card.appendChild(name);
-                            }else{
-                                card = document.createElement("a");
-                                card.href = currentArray[i].contents[0].route;
+                    for(let i = 0; i < response.length; i++){
+                        for(let j = 0; j < response[i].tags.length; j++){
+                            if(tags.includes(response[i].tags[j]) === true) continue;
 
-                                let title = document.createElement("h2");
-                                title.innerText = currentArray[i].contents[0].title;
-                                card.appendChild(title);
+                            tags.push(response[i].tags[j]);
 
-                                let img = document.createElement("img");
-                                img.src = currentArray[i].contents[0].img;
-                                img.alt = `${currentArray[i].contents[0].title} image`;
-                                card.appendChild(img);
-                            }
-
-                            card.classList.add("card");
-                            currentContainer.appendChild(card);
-
-                            let newContainer = document.createElement("div");
-                            newContainer.classList.add("cardContainer");
-                            newContainer.style.display = "none";
-                            writing.appendChild(newContainer);
-
-                            let backCard = template.cloneNode(true);
-                            backCard.onclick = ()=>{
-                                newContainer.style.display = "none";
-                                currentContainer.style.display = "flex";
-                            }
-                            newContainer.appendChild(backCard);
-
-                            if(currentArray[i].contents[0].contents === undefined) continue;
-    
-                            recurse(currentArray[i].contents, newContainer);
+                            let tag = document.createElement("button");
+                            tag.innerText = response[i].tags[j];
+                            tag.classList.add("tag");
+                            tag.onclick = ()=>{populateBlogs(searchTags(response, response[i].tags[j]))};
+                            tagContainer.appendChild(tag);
                         }
                     }
 
-                    let headContainer = document.createElement("div");
-                    headContainer.classList.add("cardContainer");
-                    headContainer.style.display = "flex";
-                    writing.appendChild(headContainer);
+                    populateBlogs(response);
+                })
+                .catch((err)=>{
+                    console.log(err);
+                });
 
-                    recurse(response, headContainer);
+            //Get gallery content
+            let populateGallery = (items)=>{
+                let container = document.getElementById("galleryContainer");
+                let template = document.getElementById("galleryCard").content.children[0];
+
+                while(container.children.length > 0){
+                    container.removeChild(container.firstChild);
+                }
+
+                for(let i = 0; i < items.length; i++){
+                    let card = template.cloneNode(true);
+                    card.href = `/gallery/${items[i]._id}`;
+                    card.children[0].innerText = items[i].title;
+                    card.children[1].src = items[i].images[0];
+                    card.children[1].alt = `${items[i].title} thumbnail`;
+                    container.appendChild(card);   
+                }
+            }
+
+            fetch("/gallery/retrieve")
+                .then(response => response.json())
+                .then((response)=>{
+                    let tagContainer = document.getElementById("galleryTags");
+                    let tags = [];
+
+                    populateGallery(response);
+
+                    let tag = document.createElement("button");
+                    tag.innerText = "All";
+                    tag.classList.add("tag");
+                    tag.onclick = ()=>{populateGallery(response)};
+                    tagContainer.appendChild(tag);
+
+                    for(let i = 0; i < response.length; i++){
+                        for(let j = 0; j < response[i].tags.length; j++){
+                            if(tags.includes(response[i].tags[j].toLowerCase()) === true) continue;
+
+                            tags.push(response[i].tags[j].toLowerCase());
+
+                            let tag = document.createElement("button");
+                            tag.innerText = response[i].tags[j];
+                            tag.classList.add("tag");
+                            tag.onclick = ()=>{populateGallery(searchTags(response, response[i].tags[j].toLowerCase()))};
+                            tagContainer.appendChild(tag);
+                        }
+                    }
                 })
                 .catch((err)=>{});
 
-                //Get gallery content
-                let populateGallery = (items)=>{
-                    let container = document.getElementById("galleryContainer");
-                    let template = document.getElementById("galleryCard").content.children[0];
+            //Get "learn" content
+            fetch("/learn/courses/json")
+                .then(response => response.json())
+                .then((response)=>{
+                    let container = document.getElementById("learn");
 
-                    while(container.children.length > 0){
-                        container.removeChild(container.firstChild);
+                    for(let i = 0; i < response.length; i++){
+                        let card = document.createElement("a");
+                        card.classList.add("card");
+                        card.href = `/learn/courses/${response[i]._id}`;
+                        container.appendChild(card);
+
+                        let h2 = document.createElement("h2");
+                        h2.innerText = response[i].title;
+                        card.appendChild(h2);
+
+                        let img = document.createElement("img");
+                        img.src = response[i].thumbNail;
+                        img.alt = `${response[i].title} thumbnail`;
+                        card.appendChild(img);
                     }
-
-                    for(let i = 0; i < items.length; i++){
-                        let card = template.cloneNode(true);
-                        card.href = `/gallery/${items[i]._id}`;
-                        card.children[0].innerText = items[i].title;
-                        card.children[1].src = items[i].images[0];
-                        card.children[1].alt = `${items[i].title} thumbnail`;
-                        container.appendChild(card);   
-                    }
-                }
-
-                let searchTags = (galleries, tag)=>{
-                    let galleryList = [];
-
-                    for(let i = 0; i < galleries.length; i++){
-                        for(let j = 0; j < galleries[i].tags.length; j++){
-                            if(galleries[i].tags[j].toLowerCase() === tag){
-                                galleryList.push(galleries[i]);
-                                break;
-                            }
-                        }
-                    }
-
-                    return galleryList;
-                }
-
-                fetch("/gallery/retrieve")
-                    .then(response => response.json())
-                    .then((response)=>{
-                        let tagContainer = document.getElementById("galleryTags");
-                        let tags = [];
-
-                        populateGallery(response);
-
-                        let tag = document.createElement("button");
-                        tag.innerText = "All";
-                        tag.classList.add("tag");
-                        tag.onclick = ()=>{populateGallery(response)};
-                        tagContainer.appendChild(tag);
-
-                        for(let i = 0; i < response.length; i++){
-                            for(let j = 0; j < response[i].tags.length; j++){
-                                if(tags.includes(response[i].tags[j].toLowerCase()) === true) continue;
-
-                                tags.push(response[i].tags[j].toLowerCase());
-
-                                let tag = document.createElement("button");
-                                tag.innerText = response[i].tags[j];
-                                tag.classList.add("tag");
-                                tag.onclick = ()=>{populateGallery(searchTags(response, response[i].tags[j].toLowerCase()))};
-                                tagContainer.appendChild(tag);
-                            }
-                        }
-                    })
-                    .catch((err)=>{});
-
-                //Get "learn" content
-                fetch("/learn/courses/json")
-                    .then(response => response.json())
-                    .then((response)=>{
-                        let container = document.getElementById("learn");
-
-                        for(let i = 0; i < response.length; i++){
-                            let card = document.createElement("a");
-                            card.classList.add("card");
-                            card.href = `/learn/courses/${response[i]._id}`;
-                            container.appendChild(card);
-
-                            let h2 = document.createElement("h2");
-                            h2.innerText = response[i].title;
-                            card.appendChild(h2);
-
-                            let img = document.createElement("img");
-                            img.src = response[i].thumbNail;
-                            img.alt = `${response[i].title} thumbnail`;
-                            card.appendChild(img);
-                        }
-                    })
-                    .catch((err)=>{});
+                })
+                .catch((err)=>{});
         </script>
     </body>
 </html>

@@ -1,6 +1,7 @@
 const writing = require("./controllers/writing.js");
 const gallery = require("./controllers/gallery.js");
 const learn = require("./controllers/learn.js");
+const blog = require("./controllers/blog.js");
 
 module.exports = function(app){
     let views = `${__dirname}/views`;
@@ -15,6 +16,11 @@ module.exports = function(app){
     app.get("/writing/comments/:article", writing.getComments);
     app.post("/writing/comments", writing.createComment);
     app.get("/writing/directories", writing.listDirectories);
+
+    //BLOG
+    app.get("/blog/new", (req, res)=>{res.sendFile(`${views}/blog/new.html`)});
+    app.post("/blog/new", blog.create);
+    app.get("/blog/retrieve", blog.getBlogs);
 
     //IMAGES
     app.get("/images/subline", (req, res)=>{res.sendFile(`${views}/images/subline.png`)});

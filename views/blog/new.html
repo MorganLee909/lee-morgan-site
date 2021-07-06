@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Lee Morgan</title>
+        <style>
+            form{
+                display: flex;
+                flex-direction: column;
+            }
+
+            form > *{
+                margin: 10px;
+            }
+
+            input[type=submit]{
+                max-width: 250px;
+            }
+        </style>
+    </head>
+    <body>
+        <form action="/blog/new" method="post">
+            <label>Uploader
+                <input name="uploader" type="text" required>
+            </label>
+
+            <label>Password
+                <input name="password" type="password" required>
+            </label>
+
+            <label>Title
+                <input name="title" type="text" required>
+            </label>
+
+            <label>Tags (comma delineated)
+                <input name="tags" type="text">
+            </label>
+
+            <label>Blog
+                <textarea name="blog" required></textarea>
+            </label>
+
+            <input type="submit" value="Submit">
+        </form>
+    </body>
+</html>

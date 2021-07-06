@@ -6,6 +6,11 @@ const BlogSchema = new mongoose.Schema({
         ref: "Uploader",
         required: true
     },
+    title: {
+        type: String,
+        required: true
+    },
+    tags: [String],
     article: {
         type: String,
         required: true
