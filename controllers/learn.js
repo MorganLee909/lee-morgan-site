@@ -63,7 +63,7 @@ module.exports = {
             .populate("owner")
             .then((course)=>{
                 if(course === null) throw "noCourse";
-                if(req.body.uploader !== course.owner?._id.toString()) throw "badOwner";
+                if(req.body.uploader !== course.owner._id.toString()) throw "badOwner";
                 if(req.body.password !== course.owner.password) throw "badPass";
 
                 let exercises = req.body.exercises.split("~");
