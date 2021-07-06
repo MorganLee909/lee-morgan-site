@@ -260,7 +260,7 @@
                             let tag = document.createElement("button");
                             tag.innerText = response[i].tags[j];
                             tag.classList.add("tag");
-                            tag.onclick = ()=>{populateBlogs(searchTags(response, response[i].tags[j]))};
+                            tag.onclick = ()=>{populateBlogs(searchTags(response, response[i].tags[j].toLowerCase()))};
                             tagContainer.appendChild(tag);
                         }
                     }
