@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Lee Morgan -blog-</title>
+        <link rel="stylesheet" href="/blog/style">
+    </head>
+    <body>
+        <div id="contents">
+            <h1 id="title"></h1>
+            
+            <h3 id="author"></h3>
+            
+            <h4 id="date"></h4>
+            
+            <div id="article"></div>
+        </div>
+
+        <script>
+            let id = window.location.pathname.split("/");
+            id = id[id.length-1];
+
+            fetch(`/blog/json/${id}`)
+                .then(response => response.json())
+                .then((response)=>{
+                    let date = new Date(response.date);
+                    dateOptions = {
+                        year: "numeric",
+                        day: "numeric",
+                        month: "long"
+                    }
+
+                    console.log(response);
+                    document.getElementById("title").innerText = response.title;
+                    document.getElementById('author').innerText = response.writer.name;
+                    document.getElementById("date").innerText = date.toLocaleDateString("en-us", dateOptions);
+                    
+                    let container = document.getElementById("article");
+                    let paragraphs = response.article.split("\r\n");
+                    for(let i = 0; i < paragraphs.length; i++){
+                        let p = document.createElement("p");
+                        p.innerText = paragraphs[i];
+                        container.appendChild(p);
+                    }
+                })
+                .catch((err)=>{
+                    console.log(err);
+                });
+        </script>
+    </body>
+</html>

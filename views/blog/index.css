@@ -1,0 +1,26 @@
+*{margin:0;padding:0;}
+
+body{
+    background: rgb(196, 198, 192);
+    padding: 25px;
+    font-family: monospace;
+}
+
+#contents{
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    max-width: 1000px;
+    margin: auto;
+}
+
+    #article{
+        margin-top: 35px;
+    }
+
+        p{
+            margin: 20px 0;
+            font-size: 20px;
+            line-height: 1.5;
+            text-indent: 35px;
+        }

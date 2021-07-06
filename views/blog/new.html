@@ -19,7 +19,11 @@
         </style>
     </head>
     <body>
-        <form action="/blog/new" method="post">
+        <form
+            action="/blog/new"
+            method="post"
+            enctype="multipart/form-data"    
+        >
             <label>Uploader
                 <input name="uploader" type="text" required>
             </label>
@@ -38,6 +42,10 @@
 
             <label>Blog
                 <textarea name="blog" required></textarea>
+            </label>
+
+            <label>Thumbnail
+                <input name="thumbnail" type="file">
             </label>
 
             <input type="submit" value="Submit">

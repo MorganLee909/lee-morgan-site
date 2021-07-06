@@ -1,5 +1,6 @@
 const Blog = require("../models/blog.js");
 const Uploader = require("../models/uploader.js");
+const createId = require("./createId.js");
 
 module.exports = {
     /*
@@ -11,6 +12,9 @@ module.exports = {
         tags: String
         blog: String
     }
+    req.files = {
+        thumbnail: File
+    }
     redirect to home
     */
     create: function(req, res){
@@ -19,10 +23,14 @@ module.exports = {
                 if(uploader === "none") throw "uploader";
                 if(req.body.password !== uploader.password) throw "pass";
 
+                let fileString = `/thumbNails/${createId(25)}`;
+                req.files.thumbnail.mv(`${__dirname}/..${fileString}`);
+
                 let blog = new Blog({
                     writer: uploader._id,
                     title: req.body.title,
                     tags: req.body.tags.split(","),
+                    thumbnail: fileString,
                     article: req.body.blog
                 });
 
@@ -47,6 +55,22 @@ module.exports = {
             })
             .catch((err)=>{
                 return res.json("ERROR: could not retrieve blog data");
+            });
+    },
+
+    /*
+    GET: gets a single blog
+    req.params.id = String (blog id)
+    response = Blog
+    */
+    getBlog: function(req, res){
+        Blog.findOne({_id: req.params.id})
+            .populate("writer")
+            .then((blog)=>{
+                return res.json(blog);
+            })
+            .catch((err)=>{
+                return res.json("Error: unable to retrieve the blog");
             });
     }
 }

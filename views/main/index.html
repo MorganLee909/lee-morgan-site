@@ -233,6 +233,8 @@
                     let card = template.cloneNode(true);
                     card.href = `/blog/${blogs[i]._id}`;
                     card.children[0].innerText = blogs[i].title;
+                    card.children[1].src = blogs[i].thumbnail;
+                    card.children[1].alt = `${blogs[i].title} thumbnail`;
                     container.appendChild(card);
                 }
             }

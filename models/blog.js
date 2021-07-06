@@ -11,6 +11,7 @@ const BlogSchema = new mongoose.Schema({
         required: true
     },
     tags: [String],
+    thumbnail: String,
     article: {
         type: String,
         required: true

@@ -18,9 +18,12 @@ module.exports = function(app){
     app.get("/writing/directories", writing.listDirectories);
 
     //BLOG
+    app.get("/blog/style", (req, res)=>{res.sendFile(`${views}/blog/index.css`)});
     app.get("/blog/new", (req, res)=>{res.sendFile(`${views}/blog/new.html`)});
     app.post("/blog/new", blog.create);
     app.get("/blog/retrieve", blog.getBlogs);
+    app.get("/blog/json/:id", blog.getBlog);
+    app.get("/blog/:id", (req, res)=>{res.sendFile(`${views}/blog/index.html`)});
 
     //IMAGES
     app.get("/images/subline", (req, res)=>{res.sendFile(`${views}/images/subline.png`)});
