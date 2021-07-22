@@ -78,16 +78,18 @@ module.exports = {
                     documents: []
                 });
 
-                let files = req.files.documents;
-                if(files.length === undefined){
-                    let fileString = `/documents/${files.name}`;
-                    files.mv(`${__dirname}/..${fileString}`);
-                    lecture.documents.push(fileString);
-                }else{
-                    for(let i = 0; i < files.length; i++){
-                        let fileString = `/documents/${files[i].name}`;
-                        files[i].mv(`${__dirname}/..${fileString}`);
+                if(req.files !== null){
+                    let files = req.files.documents;
+                    if(files.length === undefined){
+                        let fileString = `/documents/${files.name}`;
+                        files.mv(`${__dirname}/..${fileString}`);
                         lecture.documents.push(fileString);
+                    }else{
+                        for(let i = 0; i < files.length; i++){
+                            let fileString = `/documents/${files[i].name}`;
+                            files[i].mv(`${__dirname}/..${fileString}`);
+                            lecture.documents.push(fileString);
+                        }
                     }
                 }
 
@@ -97,6 +99,7 @@ module.exports = {
                 return res.redirect("/");
             })
             .catch((err)=>{
+                console.log(err);
                 if(err === "noCourse") return res.json("Course does not exist");
                 if(err === "badOwner") return res.json("You do not own this course");
                 if(err === "badPass") return res.json("Incorrect password");
