@@ -1,6 +1,7 @@
 const Uploader = require("../models/uploader.js");
 const Course = require("../models/course.js");
 const Lecture = require("../models/lecture.js");
+const createId = require("./createId.js");
 
 module.exports = {
     /*
@@ -81,14 +82,24 @@ module.exports = {
                 if(req.files !== null){
                     let files = req.files.documents;
                     if(files.length === undefined){
-                        let fileString = `/documents/${files.name}`;
+                        let fileId = createId(25);
+                        let fileParts = files.name.split(".");
+                        let fileString = `/documents/${fileId}.${fileParts[1]}`;
                         files.mv(`${__dirname}/..${fileString}`);
-                        lecture.documents.push(fileString);
+                        lecture.documents.push({
+                            name: fileParts[0],
+                            link: fileString
+                        })
                     }else{
                         for(let i = 0; i < files.length; i++){
-                            let fileString = `/documents/${files[i].name}`;
+                            let fileId = createId(25);
+                            let fileParts = files[i].name.split(".");
+                            let fileString = `/documents/${fileId}.${fileParts[1]}`;
                             files[i].mv(`${__dirname}/..${fileString}`);
-                            lecture.documents.push(fileString);
+                            lecture.documents.push({
+                                name: fileParts[0],
+                                link: fileString
+                            });
                         }
                     }
                 }

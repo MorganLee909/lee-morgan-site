@@ -1,5 +1,3 @@
-const htmlCreator = require("./htmlCreator.js");
-
 const express = require("express");
 const compression = require("compression");
 const mongoose = require("mongoose");
@@ -9,7 +7,6 @@ const bodyParser = require("body-parser");
 const fileUpload = require("express-fileupload");
 
 const app = express();
-htmlCreator(app);
 
 let mongooseOptions = {
     useNewUrlParser: true,

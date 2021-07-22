@@ -18,7 +18,10 @@ const LectureSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    documents: [String],
+    documents: [{
+        name: String,
+        link: String
+    }],
     exercises: [String],
     url: String,
     date: {
