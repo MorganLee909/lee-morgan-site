@@ -57,12 +57,9 @@
                     
                     let documents = document.getElementById("documents");
                     for(let i = 0; i < response.documents.length; i++){
-                        let name = response.documents[i].split("/");
-                        name = name[name.length-1];
-
                         let a = document.createElement("a");
-                        a.href = response.documents[i];
-                        a.innerText = name;
+                        a.href = response.documents[i].link;
+                        a.innerText = response.documents[i].name;
                         documents.appendChild(a);
                     }
 

@@ -70,6 +70,6 @@ module.exports = function(app){
 
     //CONTENT
     app.get("/thumbNails/*", (req, res)=>{res.sendFile(`${__dirname}${req.url}`)});
-    app.get("/documents/*", (req, res)=>{res.sendFile(`${__dirname}${req.url}`)});
+    app.get("/documents/*", (req, res)=>{res.download(`${__dirname}${req.url}`)});
     app.get("/galleryImages/*", (req, res)=>{res.sendFile(`${__dirname}${req.url}`)});
 }
