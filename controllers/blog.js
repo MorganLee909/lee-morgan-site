@@ -39,9 +39,7 @@ module.exports = {
             .then((blog)=>{
                 return res.redirect("/");
             })
-            .catch((err)=>{
-                console.log(err);
-            });
+            .catch((err)=>{});
     },
 
     /*

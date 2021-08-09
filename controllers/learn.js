@@ -67,8 +67,11 @@ module.exports = {
                 if(req.body.uploader !== course.owner._id.toString()) throw "badOwner";
                 if(req.body.password !== course.owner.password) throw "badPass";
 
-                let exercises = req.body.exercises.split("~");
-                exercises.splice(exercises.length - 1, 1);
+                let exercises = [];
+                if(req.body.exercises !== "~"){
+                    exercises = req.body.exercises.split("~");
+                    exercises.splice(exercises.length - 1, 1);
+                }
 
                 let lecture = new Lecture({
                     course: course._id,
@@ -110,7 +113,6 @@ module.exports = {
                 return res.redirect("/");
             })
             .catch((err)=>{
-                console.log(err);
                 if(err === "noCourse") return res.json("Course does not exist");
                 if(err === "badOwner") return res.json("You do not own this course");
                 if(err === "badPass") return res.json("Incorrect password");

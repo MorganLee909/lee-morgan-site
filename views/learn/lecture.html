@@ -18,10 +18,10 @@
             <h2>Details</h2>
             <p id="description"></p>
             
-            <h2>Resources</h2>
+            <h2 id="resourceTitle">Resources</h2>
             <div id="documents"></div>
             
-            <h2>Exercises</h2>
+            <h2 id="exerciseTitle">Exercises</h2>
             <ol id="exercises"></ol>
         </div>
             
@@ -56,6 +56,7 @@
                     document.getElementById("description").innerText = response.description;
                     
                     let documents = document.getElementById("documents");
+                    if(response.documents.length === 0) document.getElementById("resourceTitle").style.display = "none";
                     for(let i = 0; i < response.documents.length; i++){
                         let a = document.createElement("a");
                         a.href = response.documents[i].link;
@@ -64,6 +65,7 @@
                     }
 
                     let exercises = document.getElementById("exercises");
+                    if(response.exercises.length === 0) document.getElementById("exerciseTitle").style.display = "none";
                     for(let i = 0; i < response.exercises.length; i++){
                         let li = document.createElement("li");
                         li.classList.add("liPad");

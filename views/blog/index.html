@@ -30,7 +30,6 @@
                         month: "long"
                     }
 
-                    console.log(response);
                     document.getElementById("title").innerText = response.title;
                     document.getElementById('author').innerText = response.writer.name;
                     document.getElementById("date").innerText = date.toLocaleDateString("en-us", dateOptions);
@@ -43,9 +42,7 @@
                         container.appendChild(p);
                     }
                 })
-                .catch((err)=>{
-                    console.log(err);
-                });
+                .catch((err)=>{});
         </script>
     </body>
 </html>
