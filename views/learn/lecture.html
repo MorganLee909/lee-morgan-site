@@ -59,7 +59,7 @@
                     for(let i = 0; i < response.documents.length; i++){
                         let a = document.createElement("a");
                         a.href = response.documents[i].link;
-                        a.innerText = response.documents[i].name;
+                        a.innerText = response.documents[i].name.replaceAll("_", " ");
                         documents.appendChild(a);
                     }
                     
