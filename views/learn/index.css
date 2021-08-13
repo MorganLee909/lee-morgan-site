@@ -55,6 +55,7 @@ h1{
     display: flex;
     flex-direction: column;
     align-items: center;
+    min-height: 100vh;
 }
 
     #video{
@@ -73,12 +74,6 @@ h1{
 
         #lectureData h2{
             margin: 0;
-        }
-
-        #description{
-            background: white;
-            padding: 25px;
-            width: 50%;
         }
 
         #documents{

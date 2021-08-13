@@ -15,8 +15,8 @@
         <iframe id="video"></iframe>
 
         <div id="lectureData">
-            <h2>Details</h2>
-            <p id="description"></p>
+            <h2 id="readingTitle">Further Reading</h2>
+            <ul id="readings"></ul>
             
             <h2 id="resourceTitle">Resources</h2>
             <div id="documents"></div>
@@ -29,10 +29,10 @@
             let video = document.getElementById("video");
 
             let sizeIframe = ()=>{
-                let width = document.getElementById("lectureBody").clientWidth;
-                let multiplier = (width * 0.9) / video.contentWindow.document.body.scrollWidth;
-                video.width = video.contentWindow.document.body.scrollWidth * multiplier;
-                video.height = video.contentWindow.document.body.scrollHeight * multiplier;
+                let width = window.innerWidth;
+                let height = window.innerHeight;
+                video.width = width * 0.75;
+                video.height = height * 0.75;
             }
 
             video.onload = sizeIframe();
@@ -53,8 +53,7 @@
                     document.getElementById("course").innerText = response.course.title;
                     document.getElementById("date").innerText = date.toLocaleDateString("en-us", dateOptions);
                     video.src = response.video;
-                    document.getElementById("description").innerText = response.description;
-                    
+
                     let documents = document.getElementById("documents");
                     if(response.documents.length === 0) document.getElementById("resourceTitle").style.display = "none";
                     for(let i = 0; i < response.documents.length; i++){
@@ -63,7 +62,7 @@
                         a.innerText = response.documents[i].name;
                         documents.appendChild(a);
                     }
-
+                    
                     let exercises = document.getElementById("exercises");
                     if(response.exercises.length === 0) document.getElementById("exerciseTitle").style.display = "none";
                     for(let i = 0; i < response.exercises.length; i++){
@@ -71,6 +70,19 @@
                         li.classList.add("liPad");
                         li.innerText = response.exercises[i];
                         exercises.appendChild(li);
+                    }
+
+                    let readings = document.getElementById("readings");
+                    if(response.furtherReading.length === 0) document.getElementById("readingtitle").style.display = "none";
+                    for(let i = 0; i < response.furtherReading.length; i++){
+                        let li = document.createElement("li");
+                        li.classList.add("liPad");
+                        readings.appendChild(li);
+
+                        let a = document.createElement("a");
+                        a.href = response.furtherReading[i].link;
+                        a.innerText = response.furtherReading[i].text;
+                        li.appendChild(a);
                     }
                 })
                 .catch((err)=>{});
