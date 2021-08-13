@@ -58,6 +58,7 @@
                     if(response.documents.length === 0) document.getElementById("resourceTitle").style.display = "none";
                     for(let i = 0; i < response.documents.length; i++){
                         let a = document.createElement("a");
+                        a.classList.add("liPad");
                         a.href = response.documents[i].link;
                         a.innerText = response.documents[i].name.replaceAll("_", " ");
                         documents.appendChild(a);

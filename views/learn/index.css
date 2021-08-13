@@ -51,11 +51,12 @@ h1{
         margin: auto;
     }
 
-#lectureBody{
+#lectureBody, html{
     display: flex;
     flex-direction: column;
     align-items: center;
     min-height: 100vh;
+    max-width: 100vw;
 }
 
     #video{
@@ -73,7 +74,7 @@ h1{
         }
 
         #lectureData h2{
-            margin: 0;
+            margin: 35px 0 0 0;
         }
 
         #documents{
@@ -81,8 +82,11 @@ h1{
             flex-direction: column;
         }
 
-        #exercises, #documents{
+        #exercises{
             padding-left: 15px;
             margin-top: 0;
         }
 
+    .liPad{
+        margin: 10px;
+    }
