@@ -21,7 +21,7 @@
                 max-width: 250px;
             }
 
-            #exercises{
+            #exercises, #furtherReading{
                 display: flex;
                 flex-direction: column;
             }
@@ -74,12 +74,16 @@
 
             <h2>Exercises</h2>
             <button id="exerciseButton" type="button">Add Exercise</button>
-            
             <div id="exercises">
                 <label>Exercise 1<input type="text"></label>
             </div>
 
+            <h2>Further Reading</h2>
+            <button id="furtherButton" type="button">Add Link</button>
+            <div id="furtherReading"></div>
+
             <input id="hidden" name="exercises" type="hidden">
+            <input id="readingsHidden" name="furtherReading" type="hidden">
 
             <input type="submit" value="Submit">
         </form>
@@ -115,6 +119,25 @@
                 label.appendChild(input);
             }
 
+            //Add further reading
+            let furtherCount = 0;
+            let furtherDiv = document.getElementById("furtherReading");
+
+            document.getElementById("furtherButton").onclick = ()=>{
+                furtherCount++;
+                let label = document.createElement("label");
+                label.innerText = `Link ${furtherCount}`;
+                furtherDiv.appendChild(label);
+
+                let inputText = document.createElement("input");
+                inputText.type = "text";
+                label.appendChild(inputText);
+
+                let inputLink = document.createElement("input");
+                inputLink.type = "text";
+                label.appendChild(inputLink);
+            }
+
             //Submit
             let form = document.getElementById("form");
             form.onsubmit = ()=>{
@@ -124,7 +147,13 @@
                     exercises += `${div.children[i].children[0].value}~`;
                 }
 
+                let readings = ""
+                for(let i = 0; i < furtherDiv.children.length; i++){
+                    readings += `${furtherDiv.children[i].children[0].value}\n${furtherDiv.children[i].children[1].value}\n`;
+                }
+
                 document.getElementById("hidden").value = exercises;
+                document.getElementById("readingsHidden").value = readings;
 
                 form.submit();
             }

@@ -18,6 +18,10 @@ const LectureSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    furtherReading: [{
+        text: String,
+        link: String
+    }],
     documents: [{
         name: String,
         link: String

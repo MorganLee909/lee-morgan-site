@@ -51,6 +51,10 @@ module.exports = {
         title: String
         video: String
         description: String
+        furtherReading: [{
+            text: String
+            link: String
+        }]
         exercises: [String]
         documents: [{
             title: String
@@ -67,10 +71,21 @@ module.exports = {
                 if(req.body.uploader !== course.owner._id.toString()) throw "badOwner";
                 if(req.body.password !== course.owner.password) throw "badPass";
 
+
                 let exercises = [];
                 if(req.body.exercises !== "~"){
                     exercises = req.body.exercises.split("~");
                     exercises.splice(exercises.length - 1, 1);
+                }
+
+                let furtherReading = req.body.furtherReading.split("\r\n");
+                furtherReading.splice(furtherReading.length-1, 1);
+                let readings = [];
+                for(let i = 0; i < furtherReading.length; i+=2){
+                    readings.push({
+                        text: furtherReading[i],
+                        link: furtherReading[i+1]
+                    });
                 }
 
                 let lecture = new Lecture({
@@ -78,10 +93,12 @@ module.exports = {
                     title: req.body.title,
                     video: req.body.video,
                     description: req.body.description,
+                    furtherReading: readings,
                     exercises: exercises,
                     documents: []
                 });
 
+                
                 if(req.files !== null){
                     let files = req.files.documents;
                     if(files.length === undefined){
@@ -106,7 +123,7 @@ module.exports = {
                         }
                     }
                 }
-
+                
                 return lecture.save();
             })
             .then((lecture)=>{
