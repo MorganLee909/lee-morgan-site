@@ -67,6 +67,7 @@ module.exports = function(app){
     app.post("/learn/lectures/new", learn.createLecture);
     app.get("/learn/lectures/edit/:id", (req, res)=>{res.sendFile(`${views}/learn/editLecture.html`)});
     app.post("/learn/lectures/edit/:id", learn.updateLecture);
+    app.delete("/learn/lectures/:id", learn.removeLecture);
     app.get("/learn/lectures/json/:id", learn.getLectures);
     app.get("/learn/lectures/:id", (req, res)=>{res.sendFile(`${views}/learn/lecture.html`)});
     app.get("/learn/lectures/json/one/:id", learn.getLecture);
