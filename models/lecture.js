@@ -27,7 +27,6 @@ const LectureSchema = new mongoose.Schema({
         link: String
     }],
     exercises: [String],
-    url: String,
     date: {
         type: Date,
         default: new Date()

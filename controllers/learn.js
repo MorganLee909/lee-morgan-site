@@ -124,13 +124,62 @@ module.exports = {
                 return lecture.save();
             })
             .then((lecture)=>{
-                return res.redirect("/");
+                return res.redirect(`/learn/lectures/${lecture._id}`);
             })
             .catch((err)=>{
                 if(err === "noCourse") return res.json("Course does not exist");
                 if(err === "badOwner") return res.json("You do not own this course");
                 if(err === "badPass") return res.json("Incorrect password");
                 return res.redirect("/");
+            });
+    },
+
+    /*
+    POST: updates a lecture
+    req.body = {
+        course: String (id)
+        title: String
+        video: String
+        description: String
+        furtherReading: String (\r\n delimited)
+        exercises; String (\r\n delimited)
+        date: Date
+    }
+    req.params.id = String (lecture id)
+    */
+    updateLecture: function(req, res){
+        Lecture.findOne({_id: req.params.id})
+            .then((lecture)=>{
+                if(lecture === null) throw "notFound";
+
+                let furtherReading = req.body.furtherReading.split("\r\n");
+                furtherReading.splice(furtherReading.length - 1, 1);
+                let readings = [];
+                for(let i = 0; i < furtherReading.length; i+=2){
+                    readings.push({
+                        text: furtherReading[i],
+                        link: furtherReading[i+1]
+                    });
+                }
+
+                let exercises = req.body.exercises.split("\r\n");
+                exercises.splice(exercises.length - 1, 1);
+
+                lecture.course = req.body.course;
+                lecture.title = req.body.title;
+                lecture.video = req.body.video;
+                lecture.description = req.body.description;
+                lecture.furtherReading = readings;
+                lecture.exercises = exercises;
+                lecture.date = new Date(req.body.date);
+
+                return lecture.save();
+            })
+            .then((lecture)=>{
+                return res.redirect(`/learn/lectures/${lecture._id}`);
+            })
+            .catch((err)=>{
+                return res.redirect(`/learn/lectures/edit/${lecture._id}`);
             });
     },
 
