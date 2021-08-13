@@ -72,11 +72,8 @@ module.exports = {
                 if(req.body.password !== course.owner.password) throw "badPass";
 
 
-                let exercises = [];
-                if(req.body.exercises !== "~"){
-                    exercises = req.body.exercises.split("~");
-                    exercises.splice(exercises.length - 1, 1);
-                }
+                let exercises = req.body.exercises.split("\r\n");
+                exercises.splice(exercises.length - 1, 1);
 
                 let furtherReading = req.body.furtherReading.split("\r\n");
                 furtherReading.splice(furtherReading.length-1, 1);
