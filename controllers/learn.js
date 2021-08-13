@@ -59,9 +59,10 @@ module.exports = {
         documents: [{
             title: String
             link: String
-        }]
+        }],
+        date: Date
     }
-    redirects to home
+    redirects to edited lecture
     */
     createLecture: function(req, res){
         Course.findOne({_id: req.body.course})
@@ -92,7 +93,8 @@ module.exports = {
                     description: req.body.description,
                     furtherReading: readings,
                     exercises: exercises,
-                    documents: []
+                    documents: [],
+                    createdDate: new Date(req.body.date)
                 });
 
                 
@@ -137,7 +139,8 @@ module.exports = {
     /*
     POST: updates a lecture
     req.body = {
-        course: String (id)
+        uploader: String,
+        password: String
         title: String
         video: String
         description: String
@@ -146,6 +149,7 @@ module.exports = {
         date: Date
     }
     req.params.id = String (lecture id)
+    redirects to updated lecture
     */
     updateLecture: function(req, res){
         Lecture.findOne({_id: req.params.id})
@@ -165,13 +169,12 @@ module.exports = {
                 let exercises = req.body.exercises.split("\r\n");
                 exercises.splice(exercises.length - 1, 1);
 
-                lecture.course = req.body.course;
                 lecture.title = req.body.title;
                 lecture.video = req.body.video;
                 lecture.description = req.body.description;
                 lecture.furtherReading = readings;
                 lecture.exercises = exercises;
-                lecture.date = new Date(req.body.date);
+                lecture.updatedDate = new Date(req.body.date);
 
                 return lecture.save();
             })

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Lee Morgan</title>
+        <style>
+            form{
+                display: flex;
+                flex-direction: column;
+            }
+        </style>
+    </head>
+    <body>
+        <form id="form" method="post" enctype="multipart/form-data">
+            <label>Uploader
+                <input name="uploader" type="text" required>
+            </label>
+
+            <label>Password
+                <input name="password" type="password" required>
+            </label>
+
+            <label>Title
+                <input id="titleInput" name="title" type="text" required>
+            </label>
+
+            <label>Video
+                <input id="videoInput" name="video" type="text" required>
+            </label>
+
+            <label>Description
+                <textarea id="descriptionInput" name="description"></textarea>
+            </label>
+
+            <h2>Further Reading</h2>
+            <button id="readingButton" type="button">Add Link</button>
+            <div id="reading">
+                <template id="readingItem">
+                    <div class="readingItem">
+                        <input type="text">
+                        <input type="text">
+                        <button type="button">remove</button>
+                    </div>
+                </template>
+            </div>
+
+            <h2>Exercises</h2>
+            <button id="exercisesButton" type="button">Add Exercise</button>
+            <div id="exercises">
+                <template id="exercisesItem">
+                    <div class="exercisesItem">
+                        <textarea></textarea>
+                        <button type="button">remove</button>
+                    </div>
+                </template>
+            </div>
+
+            <input id="readingHidden" name="furtherReading" type="hidden">
+            <input id="exerciseHidden" name="exercises" type="hidden">
+            <input id="dateInput" name="date" type="hidden">
+
+            <input type="submit" value="Submit">
+        </form>
+
+        <script>
+            let id = window.location.href.split("/");
+            id = id[id.length-1];
+
+            fetch(`/learn/lectures/json/one/${id}`)
+                .then(response => response.json())
+                .then((response)=>{
+                    document.getElementById("titleInput").value = response.title;
+                    document.getElementById("videoInput").value = response.video;
+                    document.getElementById("descriptionInput").innerText = response.description;
+
+                    let readingDiv = document.getElementById("reading");
+                    let readingTemplate = document.getElementById("readingItem").content.children[0];
+                    for(let i = 0; i < response.furtherReading.length; i++){
+                        let div = readingTemplate.cloneNode(true);
+                        div.children[0].value = response.furtherReading[i].text;
+                        div.children[1].value = response.furtherReading[i].link;
+                        div.children[2].onclick = ()=>{div.parentElement.removeChild(div)};
+                        readingDiv.appendChild(div);
+                    }
+
+                    let exerciseDiv = document.getElementById("exercises");
+                    let exerciseTemplate = document.getElementById("exercisesItem").content.children[0];
+                    for(let i = 0; i < response.exercises.length; i++){
+                        let div = exerciseTemplate.cloneNode(true);
+                        div.children[0].innerText = response.exercises[i];
+                        div.children[1].onclick = ()=>{div.parentElement.removeChild(div)};
+                        exerciseDiv.appendChild(div);
+                    }
+
+                    document.getElementById("readingButton").onclick = ()=>{
+                        let div = readingTemplate.cloneNode(true);
+                        div.children[2].onclick = ()=>{div.parentElement.removeChild(div)};
+                        readingDiv.appendChild(div);
+                    };
+
+                    document.getElementById("exercisesButton").onclick = ()=>{
+                        let div = exerciseTemplate.cloneNode(true);
+                        div.children[1].onclick = ()=>{div.parentElement.removeChild(div)};
+                        exerciseDiv.appendChild(div);
+                    };
+                })
+                .catch((err)=>{});
+
+                let form = document.getElementById("form");
+                form.onsubmit = ()=>{
+                    event.preventDefault();
+
+                    let readingDiv = document.getElementById("reading").children;
+                    let readingText = "";
+                    for(let i = 1; i < readingDiv.length; i++){
+                        readingText += `${readingDiv[i].children[0].value}\n${readingDiv[i].children[1].value}\n`;
+                    }
+                    document.getElementById("readingHidden").value = readingText;
+
+                    let exerciseDivs = document.getElementById("exercises").children;
+                    let exerciseText = "";
+                    for(let i = 1; i < exerciseDivs.length; i++){
+                        exerciseText += `${exerciseDivs[i].children[0].value}\n`;
+                    }
+                    document.getElementById("exerciseHidden").value = exerciseText;
+
+                    document.getElementById("dateInput").value = new Date();
+
+                    form.submit();
+                }
+        </script>
+    </body>
+</html>

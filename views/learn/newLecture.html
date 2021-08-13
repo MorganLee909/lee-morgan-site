@@ -82,6 +82,7 @@
 
             <input id="hidden" name="exercises" type="hidden">
             <input id="readingsHidden" name="furtherReading" type="hidden">
+            <input id="date" name="date" type="hidden">
 
             <input type="submit" value="Submit">
         </form>
@@ -151,7 +152,8 @@
 
                 document.getElementById("hidden").value = exercises;
                 document.getElementById("readingsHidden").value = readings;
-
+                document.getElementById("date").value = new Date();
+                
                 form.submit();
             }
         </script>
