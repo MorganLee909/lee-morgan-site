@@ -107,7 +107,10 @@ module.exports = {
 
                 response[1].title = req.body.title;
                 response[1].tags = req.body.tags.split(",");
-                response[1].location = req.body.location.split(", ");
+                response[1].location = {
+                    type: "Point",
+                    coordinates: req.body.location.split(", ")
+                };
 
                 let handleImage = (fileData)=>{
                     let fileString = `/galleryImages/${createId(25)}.jpg`;
