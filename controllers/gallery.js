@@ -10,6 +10,7 @@ module.exports = {
         password: String
         title: String
         tags: [String]
+        coordinates: String
     }
     req.files = [images]
     */
@@ -19,24 +20,34 @@ module.exports = {
                 if(uploader === null) throw "uploader";
                 if(req.body.password !== uploader.password) throw "pass";
 
+                let coords = req.body.coordinates.split(", ")
+
                 let gallery = new Gallery({
                     owner: uploader._id,
                     title: req.body.title,
                     tags: req.body.tags.split(","),
+                    location: {
+                        type: "Point",
+                        coordinates: [parseFloat(coords[0]), parseFloat(coords[1])]
+                    },
                     images: []
                 });
 
-                let files = req.files.images;
-                for(let i = 0; i < files.length; i++){
+                let handleImage = (fileData)=>{
                     let fileString = `/galleryImages/${createId(25)}.jpg`;
-                    files[i].mv(`${__dirname}/..${fileString}`);
-                    gallery.images.push(fileString);
+                    fileData.mv(`${__dirname}/..${fileString}`);
+                    gallery.images.push(fileString)
+                }
+
+                if(req.files.images.length === undefined) handleImage(req.files.images);
+                for(let i = 0; i < req.files.images.length; i++){
+                    handleImage(req.files.images[i]);
                 };
 
                 return gallery.save();
             })
             .then((gallery)=>{
-                return res.redirect("/");
+                return res.redirect(`/gallery/${gallery._id}`);
             })
             .catch((err)=>{
                 if(err === "uploader") return res.json("You do not have permission to upload");

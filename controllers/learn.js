@@ -192,7 +192,6 @@ module.exports = {
     redirects to home
     */
     removeLecture: function(req, res){
-        console.log("something");
         Lecture.deleteOne({_id: req.params.id})
             .then((lecture)=>{
                 return res.redirect("/");
