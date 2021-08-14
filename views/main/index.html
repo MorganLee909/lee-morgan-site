@@ -215,7 +215,7 @@
                             fetch("/gallery/retrieve").then(response => response.json())
                         ])
                             .then(loadGallery)
-                            .catch((err)=>{});
+                            .catch((err)=>{console.log(err)});
                         mapped = true;
                     }
 
@@ -319,11 +319,14 @@
                     tags = tags.replaceAll(",", ", ");
                     let popup = new mapboxgl.Popup()
                         .setHTML(`
-                            <h1>${galleries[i].title}</h1>
-                            <p>${tags}</p>
-                            <img class="popupImage" src="${galleries[i].images[0]}" alt="${galleries[i].title} image">
+                            <a class="galleryPopup" href="/gallery/${galleries[i]._id}">
+                                <h1>${galleries[i].title}</h1>
+                                <p>${tags}</p>
+                                <img class="popupImage" src="${galleries[i].images[0]}" alt="${galleries[i].title} image">
+                            </a>
                         `);
 
+                    console.log(galleries[i]);
                     let marker = new mapboxgl.Marker()
                         .setLngLat([galleries[i].location.coordinates[1], galleries[i].location.coordinates[0]])
                         .addTo(map)
