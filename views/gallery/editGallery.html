@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Lee Morgan</title>
+        <style>
+            form{
+                display: flex;
+                flex-direction: column;
+            }
+        </style>
+    </head>
+    <body>
+        <form
+            id="form"
+            method="post"
+            enctype="multipart/form-data"
+        >
+            <label>Title
+                <input id="titleInput" name="title" type="text" required>
+            </label>
+
+            <label>Tags
+                <input id="tagInput" name="tags" type="text" required>
+            </label>
+
+            <label>Location
+                <input id="locationInput" name="location" type="tags" required>
+            </label>
+            
+            <label>New Images
+                <input name="images" type="file" multiple>
+            </label>
+
+            <input type="submit" value="Submit">
+        </form>
+
+        <script>
+            let id = window.location.href.split("/");
+            id = id[id.length-1];
+
+            fetch(`/gallery/json/${id}`)
+                .then(response => response.json())
+                .then((gallery)=>{
+                    document.getElementById("titleInput").value = gallery.title;
+                    document.getElementById("tagInput").value = gallery.tags.toString();
+                    document.getElementById("locationInput").value = gallery.location.coordinates.toString().replaceAll(",", ", ");
+                })
+                .catch((err)=>{console.log(err)});
+
+            let form = document.getElementById("form");
+        </script>
+    </body>
+</html>

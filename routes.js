@@ -51,6 +51,8 @@ module.exports = function(app){
     app.get("/gallery/new", (req, res)=>{res.sendFile(`${views}/gallery/new.html`)});
     app.post("/gallery/new", gallery.create);
     app.get("/gallery/retrieve", gallery.getGalleries);
+    app.get("/gallery/edit/:id", (req, res)=>{res.sendFile(`${views}/gallery/editGallery.html`)});
+    app.post("/gallery/update/:id", gallery.updateGallery);
     app.get("/gallery/json/:id", gallery.getGallery);
     app.get("/gallery/:id", (req, res)=>{res.sendFile(`${views}/gallery/index.html`)});
 

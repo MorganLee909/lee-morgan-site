@@ -79,5 +79,22 @@ module.exports = {
             .catch((err)=>{
                 return res.json("ERROR: could not fetch gallery");
             });
+    },
+
+    /*
+    POST: updates a gallery
+    req.body = {
+        title: String
+        tags: String
+        location: String
+    }
+    req.files = {
+        images: [Image]
+    }
+    req.params.id = String (id of gallery)
+    */
+    updateGallery: function(req, res){
+        console.log(req.body);
+        console.log(req.files.images);
     }
 }
