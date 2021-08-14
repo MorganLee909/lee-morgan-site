@@ -16,6 +16,14 @@
             method="post"
             enctype="multipart/form-data"
         >
+            <label>Uploader
+                <input name="uploader" type="text" required>
+            </label>
+
+            <label>Password
+                <input name="password" type="password" required>
+            </label>
+
             <label>Title
                 <input id="titleInput" name="title" type="text" required>
             </label>
@@ -46,9 +54,10 @@
                     document.getElementById("tagInput").value = gallery.tags.toString();
                     document.getElementById("locationInput").value = gallery.location.coordinates.toString().replaceAll(",", ", ");
                 })
-                .catch((err)=>{console.log(err)});
+                .catch((err)=>{});
 
             let form = document.getElementById("form");
+            form.action = `/gallery/update/${id}`;
         </script>
     </body>
 </html>
