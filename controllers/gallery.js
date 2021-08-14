@@ -105,11 +105,13 @@ module.exports = {
                 if(response[0] === null || response[1].owner.toString() !== req.body.uploader) throw "uploader";
                 if(response[0].password !== req.body.password) throw "password";
 
+                let coords = req.body.location.split(", ");
+
                 response[1].title = req.body.title;
                 response[1].tags = req.body.tags.split(",");
                 response[1].location = {
                     type: "Point",
-                    coordinates: req.body.location.split(", ")
+                    coordinates: [parseFloat(coords[0]), parseFloat(coords[1])]
                 };
 
                 let handleImage = (fileData)=>{
