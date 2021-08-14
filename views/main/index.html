@@ -4,6 +4,7 @@
         <meta charset="utf-8">
         <title>Lee Morgan</title>
         <link rel="stylesheet" href="/style">
+        <link href='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.css' rel='stylesheet' />
     </head>
     <body>
         <div id="menu">
@@ -178,20 +179,22 @@
             <div id="gallery" style="display:none">
                 <div id="galleryTags" class="tagContainer"></div>
 
-                <div id="galleryContainer"></div>
-
-                <template id="galleryCard">
-                    <a class="card">
-                        <h1></h1>
-                        <img>
-                    </a>
-                </template>
+                <div id='map' style='width: 400px; height: 300px;'></div>
             </div>
 
             <div id="learn" class="cardContainer" style="display:none"></div>
         </div>
 
         <script>
+            //GALLERY MAP
+            let mapped = false;
+            let mapPromise = new Promise((resolve, reject)=>{
+                let script = document.createElement("script");
+                script.src = "https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.js";
+                script.onload = resolve;
+                document.getElementById("gallery").appendChild(script);
+            });
+            
             let buttons = document.getElementById("menu").children;
             let content = document.getElementById("main").children;
 
@@ -204,6 +207,16 @@
 
                     for(let j = 0; j < content.length; j++){
                         content[j].style.display = "none";
+                    }
+
+                    if(buttons[i].id === "galleryButton" && mapped === false){
+                        Promise.all([
+                            mapPromise,
+                            fetch("/gallery/retrieve").then(response => response.json())
+                        ])
+                            .then(loadGallery)
+                            .catch((err)=>{});
+                        mapped = true;
                     }
 
                     let string = buttons[i].id.replace("Button", "");
@@ -275,54 +288,59 @@
                 })
                 .catch((err)=>{});
 
-            //Get gallery content
-            let populateGallery = (items)=>{
-                let container = document.getElementById("galleryContainer");
-                let template = document.getElementById("galleryCard").content.children[0];
+            let loadGallery = (response)=>{
+                let galleries = response[1];
 
-                while(container.children.length > 0){
-                    container.removeChild(container.firstChild);
-                }
+                //MAP
+                mapboxgl.accessToken = 'pk.eyJ1IjoibGVlbW9yZ2FuaW8iLCJhIjoiY2tzYmtmcmxrMDdudjMxcXRrMnpxYXR4dCJ9.cyqsMBVBdoNVSQofam6djA';
+                let map = new mapboxgl.Map({
+                    container: 'map',
+                    style: 'mapbox://styles/mapbox/streets-v11',
+                    center: [46.313332, 56.183037],
+                    zoom: 7
+                });
 
-                for(let i = 0; i < items.length; i++){
-                    let card = template.cloneNode(true);
-                    card.href = `/gallery/${items[i]._id}`;
-                    card.children[0].innerText = items[i].title;
-                    card.children[1].src = items[i].images[0];
-                    card.children[1].alt = `${items[i].title} thumbnail`;
-                    container.appendChild(card);   
+                let mapDiv = document.getElementById("map");
+                mapDiv.style.height = "90%";
+                mapDiv.style.width = "90%";
+                map.resize();
+
+                //GALLERY DATA
+                let tagContainer = document.getElementById("galleryTags");
+                let tags = [];
+
+                let tag = document.createElement("button");
+                tag.innerText = "All";
+                tag.classList.add("tag");
+                tagContainer.appendChild(tag);
+
+                for(let i = 0; i < galleries.length; i++){
+                    let tags = galleries[i].tags.toString();
+                    tags = tags.replaceAll(",", ", ");
+                    let popup = new mapboxgl.Popup()
+                        .setHTML(`
+                            <h1>${galleries[i].title}</h1>
+                            <p>${tags}</p>
+                            <img class="popupImage" src="${galleries[i].images[0]}" alt="${galleries[i].title} image">
+                        `);
+
+                    let marker = new mapboxgl.Marker()
+                        .setLngLat([galleries[i].location.coordinates[1], galleries[i].location.coordinates[0]])
+                        .addTo(map)
+                        .setPopup(popup);
+
+                    for(let j = 0; j < galleries[i].tags.length; j++){
+                        if(tags.includes(galleries[i].tags[j]) === true) continue;
+
+                        tags.push(galleries[i].tags[j]);
+
+                        let tag = document.createElement("button");
+                        tag.innerText = galleries[i].tags[j];
+                        tag.classList.add("tag");
+                        tagContainer.appendChild(tag);
+                    }
                 }
             }
-
-            fetch("/gallery/retrieve")
-                .then(response => response.json())
-                .then((response)=>{
-                    let tagContainer = document.getElementById("galleryTags");
-                    let tags = [];
-
-                    populateGallery(response);
-
-                    let tag = document.createElement("button");
-                    tag.innerText = "All";
-                    tag.classList.add("tag");
-                    tag.onclick = ()=>{populateGallery(response)};
-                    tagContainer.appendChild(tag);
-
-                    for(let i = 0; i < response.length; i++){
-                        for(let j = 0; j < response[i].tags.length; j++){
-                            if(tags.includes(response[i].tags[j].toLowerCase()) === true) continue;
-
-                            tags.push(response[i].tags[j].toLowerCase());
-
-                            let tag = document.createElement("button");
-                            tag.innerText = response[i].tags[j];
-                            tag.classList.add("tag");
-                            tag.onclick = ()=>{populateGallery(searchTags(response, response[i].tags[j].toLowerCase()))};
-                            tagContainer.appendChild(tag);
-                        }
-                    }
-                })
-                .catch((err)=>{});
 
             //Get "learn" content
             fetch("/learn/courses/json")
