@@ -59,7 +59,7 @@ module.exports = {
     getGalleries: function(req, res){
         Gallery.find()
             .then((galleries)=>{
-                return res.json(galleries);
+                return res.json({galleries: galleries, mapboxKey: process.env.MAPBOX_KEY});
             })
             .catch((err)=>{
                 return res.json("ERROR: could not fetch galleries");

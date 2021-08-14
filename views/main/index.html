@@ -289,10 +289,10 @@
                 .catch((err)=>{});
 
             let loadGallery = (response)=>{
-                let galleries = response[1];
+                let galleries = response[1].galleries;
 
                 //MAP
-                mapboxgl.accessToken = 'pk.eyJ1IjoibGVlbW9yZ2FuaW8iLCJhIjoiY2tzYmtmcmxrMDdudjMxcXRrMnpxYXR4dCJ9.cyqsMBVBdoNVSQofam6djA';
+                mapboxgl.accessToken = response[1].mapboxKey;
                 let map = new mapboxgl.Map({
                     container: 'map',
                     style: 'mapbox://styles/mapbox/streets-v11',
