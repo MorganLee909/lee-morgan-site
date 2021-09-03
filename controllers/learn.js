@@ -259,12 +259,14 @@ module.exports = {
     req.body = {
         lecture: String (lecture id)
         asker: String,
+        title: String
         content: String
     }
     */
     createQuestion: function(req, res){
         let question = new Question({
             asker: req.body.asker,
+            title: req.body.title,
             content: req.body.content,
             answers: []
         });
@@ -307,17 +309,19 @@ module.exports = {
         lecture: String (lecture id)
         question: String (question id)
         answerer: String
+        title: String
         content: String
     }
     */
     createAnswer: function(req, res){
-        let answer = {
+        let answer = new Answer({
             answerer: req.body.answerer,
+            title: req.body.title,
             date: new Date(),
             content: req.body.content
-        }
+        });
 
-        Lecture.findOne({_id: lecture})
+        Lecture.findOne({_id: req.body.lecture})
             .then((lecture)=>{
                 let question = lecture.questions.id(req.body.question);
 
@@ -326,9 +330,28 @@ module.exports = {
                 return lecture.save()
             })
             .then((lecture)=>{
+                axios({
+                    method: "post",
+                    url: "https://api.mailgun.net/v3/mg.leemorgan.io/messages",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded"
+                    },
+                    auth: {
+                        username: "api",
+                        password: process.env.MG_LEEMORGAN_APIKEY
+                    },
+                    data: queryString.stringify({
+                        from: "Lee Morgan <website@leemorgan.io>",
+                        to: "me@leemorgan.io",
+                        subject: `New answer on lecture ${lecture._id}`,
+                        text: req.body.content
+                    })
+                }).catch((err)=>{});
 
-
-                return res.json()
+                return res.json(answer);
             })
+            .catch((err)=>{
+                return res.json("ERROR: unable to create answer");
+            });
     }
 }

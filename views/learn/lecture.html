@@ -24,6 +24,17 @@
             <h2 id="exerciseTitle">Exercises</h2>
             <ol id="exercises"></ol>
         </div>
+
+        <div id="questions">
+
+            <template id="question">
+                <div class="question">
+                    <div>
+                        <p></p>
+                    </div>
+                </div>
+            </template>
+        </div>
             
         <script>
             let video = document.getElementById("video");
@@ -42,12 +53,13 @@
             fetch(`/learn/lectures/json/one/${id}`)
                 .then(response => response.json())
                 .then((response)=>{
+                    console.log(response);
                     let date = new Date(response.date);
                     let dateOptions = {
                         day: "numeric",
                         month: "long",
                         year: "numeric"
-                    }
+                    };
 
                     document.getElementById("title").innerText = response.title;
                     document.getElementById("course").innerText = response.course.title;

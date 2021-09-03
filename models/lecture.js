@@ -5,6 +5,10 @@ const AnswerSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    title: {
+        type: String, 
+        required: true
+    },
     date: {
         type: Date,
         default: new Date()
@@ -17,6 +21,10 @@ const AnswerSchema = mongoose.Schema({
 
 const QuestionSchema = mongoose.Schema({
     asker: {
+        type: String,
+        required: true
+    },
+    title: {
         type: String,
         required: true
     },
