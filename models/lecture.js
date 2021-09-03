@@ -1,5 +1,36 @@
 const mongoose = require("mongoose");
 
+const AnswerSchema = mongoose.Schema({
+    answerer: {
+        type: String,
+        required: true
+    },
+    date: {
+        type: Date,
+        default: new Date()
+    },
+    content: {
+        type: String,
+        required: true
+    }
+});
+
+const QuestionSchema = mongoose.Schema({
+    asker: {
+        type: String,
+        required: true
+    },
+    date: {
+        type: Date,
+        default: new Date()
+    },
+    content: {
+        type: String,
+        required: true
+    },
+    answers: [AnswerSchema]
+});
+
 const LectureSchema = new mongoose.Schema({
     course: {
         type: mongoose.Schema.Types.ObjectId,
@@ -36,34 +67,11 @@ const LectureSchema = new mongoose.Schema({
         type: Date,
         required: false
     },
-    questions: [{
-        asker: {
-            type: String,
-            required: true
-        },
-        date: {
-            type: Date,
-            default: new Date()
-        },
-        content: {
-            type: String,
-            required: true
-        },
-        answers: [{
-            answerer: {
-                type: String,
-                required: true
-            },
-            date: {
-                type: Date,
-                default: new Date()
-            },
-            content: {
-                type: String,
-                required: true
-            }
-        }]
-    }]
+    questions: [QuestionSchema]
 });
 
-module.exports = mongoose.model("Lecture", LectureSchema);
+module.exports = {
+    Lecture: mongoose.model("Lecture", LectureSchema),
+    Question: mongoose.model("question", QuestionSchema),
+    Answer: mongoose.model("answer", AnswerSchema)
+};

@@ -1,6 +1,8 @@
 const Uploader = require("../models/uploader.js");
 const Course = require("../models/course.js");
-const Lecture = require("../models/lecture.js");
+const Lecture = require("../models/lecture.js").Lecture;
+const Question = require("../models/lecture.js").Question;
+const Answer = require("../models/lecture.js").Answer;
 const createId = require("./createId.js");
 
 const axios = require("axios");
@@ -261,13 +263,15 @@ module.exports = {
     }
     */
     createQuestion: function(req, res){
+        let question = new Question({
+            asker: req.body.asker,
+            content: req.body.content,
+            answers: []
+        });
+
         Lecture.findOne({_id: req.body.lecture})
             .then((lecture)=>{
-                lecture.questions.push({
-                    asker: req.body.asker,
-                    content: req.body.content,
-                    answers: []
-                });
+                lecture.questions.push(question);
 
                 return lecture.save()
             })
@@ -290,7 +294,7 @@ module.exports = {
                     }),
                 }).catch((err)=>{});
                 
-                return res.json(lecture);
+                return res.json(question);
             })
             .catch((err)=>{
                 return res.json("ERROR: unable to create question");
@@ -307,6 +311,24 @@ module.exports = {
     }
     */
     createAnswer: function(req, res){
+        let answer = {
+            answerer: req.body.answerer,
+            date: new Date(),
+            content: req.body.content
+        }
 
+        Lecture.findOne({_id: lecture})
+            .then((lecture)=>{
+                let question = lecture.questions.id(req.body.question);
+
+                question.answers.push(answer);
+
+                return lecture.save()
+            })
+            .then((lecture)=>{
+
+
+                return res.json()
+            })
     }
 }
