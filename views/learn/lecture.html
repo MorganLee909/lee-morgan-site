@@ -15,14 +15,14 @@
         <iframe id="video"></iframe>
 
         <div id="lectureData">
+            <h2 id="exerciseTitle">Exercises</h2>
+            <ol id="exercises"></ol>
+
             <h2 id="readingTitle">Further Reading</h2>
             <ul id="readings"></ul>
             
             <h2 id="resourceTitle">Resources</h2>
             <div id="documents"></div>
-            
-            <h2 id="exerciseTitle">Exercises</h2>
-            <ol id="exercises"></ol>
         </div>
             
         <script>
@@ -42,16 +42,11 @@
             fetch(`/learn/lectures/json/one/${id}`)
                 .then(response => response.json())
                 .then((response)=>{
-                    let date = new Date(response.date);
-                    let dateOptions = {
-                        day: "numeric",
-                        month: "long",
-                        year: "numeric"
-                    }
+                    let date = new Date(response.createdDate);
 
                     document.getElementById("title").innerText = response.title;
                     document.getElementById("course").innerText = response.course.title;
-                    document.getElementById("date").innerText = date.toLocaleDateString("en-us", dateOptions);
+                    document.getElementById("date").innerText = date.toDateString();
                     video.src = response.video;
 
                     let documents = document.getElementById("documents");
