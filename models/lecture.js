@@ -35,7 +35,35 @@ const LectureSchema = new mongoose.Schema({
     updatedDate: {
         type: Date,
         required: false
-    }
+    },
+    question: [{
+        asker: {
+            type: String,
+            required: true
+        },
+        date: {
+            type: Date,
+            default: new Date()
+        },
+        content: {
+            type: String,
+            required: true
+        },
+        answers: [{
+            answerer: {
+                type: String,
+                required: true
+            },
+            date: {
+                type: Date,
+                default: new Date()
+            },
+            content: {
+                type: String,
+                required: true
+            }
+        }]
+    }]
 });
 
 module.exports = mongoose.model("Lecture", LectureSchema);
