@@ -26,12 +26,20 @@
         </div>
 
         <div id="questions">
+            <h1>Q & A</h1>
+
+            <div id="questionContainer"></div>
 
             <template id="question">
                 <div class="question">
-                    <div>
-                        <p></p>
+                    <h2></h2>
+                    <div class="questionHeader">
+                        <p>asked by</p>
+                        <p class="bold"></p>
+                        <p>on</p>
+                        <p class="bold"></p>
                     </div>
+                    <p></p>
                 </div>
             </template>
         </div>
@@ -53,7 +61,6 @@
             fetch(`/learn/lectures/json/one/${id}`)
                 .then(response => response.json())
                 .then((response)=>{
-                    console.log(response);
                     let date = new Date(response.date);
                     let dateOptions = {
                         day: "numeric",
@@ -86,7 +93,7 @@
                     }
 
                     let readings = document.getElementById("readings");
-                    if(response.furtherReading.length === 0) document.getElementById("readingtitle").style.display = "none";
+                    if(response.furtherReading.length === 0) document.getElementById("readingTitle").style.display = "none";
                     for(let i = 0; i < response.furtherReading.length; i++){
                         let li = document.createElement("li");
                         li.classList.add("liPad");
@@ -97,8 +104,27 @@
                         a.innerText = response.furtherReading[i].text;
                         li.appendChild(a);
                     }
+
+                    //Questions
+                    let questionTemplate = document.getElementById("question").content.children[0];
+                    let questionContainer = document.getElementById("questionContainer");
+                    for(let i = 0; i < response.questions.length; i++){
+                        let question = response.questions[i];
+
+                        let date = new Date(question.date);
+                        let element = questionTemplate.cloneNode(true);
+                        let header = element.querySelector(".questionHeader");
+                        console.log(header.children[1]);
+                        element.children[0].innerText = question.title;
+                        header.children[1].innerText = question.asker;
+                        header.children[3].innerText = date.toDateString();
+                        element.children[2].innerText = question.content;
+                        questionContainer.appendChild(element);
+                    }
                 })
-                .catch((err)=>{});
+                .catch((err)=>{
+                    console.log(err);
+                });
         </script>
     </body>
 </html>

@@ -90,3 +90,31 @@ h1{
     .liPad{
         margin: 10px;
     }
+
+#questions{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 75%;
+}
+
+#questionContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.question{
+    width: 100%;
+    background: white;
+}
+
+    .questionHeader{
+        display: flex;
+    }
+
+    .bold{
+        font-weight: bold;
+        margin: 0 5px;
+    }
