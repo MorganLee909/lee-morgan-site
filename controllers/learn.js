@@ -280,7 +280,7 @@ module.exports = {
                     },
                     auth: {
                         username: "api",
-                        passoword: process.env.MG_LEEMORGAN_APIKEY
+                        password: process.env.MG_LEEMORGAN_APIKEY
                     },
                     data: queryString.stringify({
                         from: "Lee Morgan <website@leemorgan.io>",
@@ -288,12 +288,25 @@ module.exports = {
                         subject: `New Question on lecture ${lecture._id}`,
                         text: req.body.content
                     }),
-                });
+                }).catch((err)=>{});
                 
                 return res.json(lecture);
             })
             .catch((err)=>{
                 return res.json("ERROR: unable to create question");
             });
+    },
+
+    /*
+    POST: creates a new answer for a specific question
+    req.body = {
+        lecture: String (lecture id)
+        question: String (question id)
+        answerer: String
+        content: String
+    }
+    */
+    createAnswer: function(req, res){
+
     }
 }
