@@ -3,6 +3,9 @@ const Course = require("../models/course.js");
 const Lecture = require("../models/lecture.js");
 const createId = require("./createId.js");
 
+const axios = require("axios");
+const queryString = require("querystring");
+
 module.exports = {
     /*
     POST: create a new course
@@ -94,7 +97,7 @@ module.exports = {
                     furtherReading: readings,
                     exercises: exercises,
                     documents: [],
-                    createdDate: new Date(req.body.date)
+                    createdDate: new Date(req.body.date),
                 });
 
                 
@@ -245,6 +248,52 @@ module.exports = {
             })
             .catch((err)=>{
                 return res.json("Could not retrieve lecture");
+            });
+    },
+
+
+    /*
+    POST: creates a new question for a lecture
+    req.body = {
+        lecture: String (lecture id)
+        asker: String,
+        content: String
+    }
+    */
+    createQuestion: function(req, res){
+        Lecture.findOne({_id: req.body.lecture})
+            .then((lecture)=>{
+                lecture.questions.push({
+                    asker: req.body.asker,
+                    content: req.body.content,
+                    answers: []
+                });
+
+                return lecture.save()
+            })
+            .then((lecture)=>{
+                axios({
+                    method: "post",
+                    url: "https://api.mailgun.net/v3/mg.leemorgan.io/messages",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded"
+                    },
+                    auth: {
+                        username: "api",
+                        passoword: process.env.MG_LEEMORGAN_APIKEY
+                    },
+                    data: queryString.stringify({
+                        from: "Lee Morgan <website@leemorgan.io>",
+                        to: "me@leemorgan.io",
+                        subject: `New Question on lecture ${lecture._id}`,
+                        text: req.body.content
+                    }),
+                });
+                
+                return res.json(lecture);
+            })
+            .catch((err)=>{
+                return res.json("ERROR: unable to create question");
             });
     }
 }

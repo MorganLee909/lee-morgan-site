@@ -36,7 +36,7 @@ const LectureSchema = new mongoose.Schema({
         type: Date,
         required: false
     },
-    question: [{
+    questions: [{
         asker: {
             type: String,
             required: true
