@@ -3,19 +3,14 @@ const gallery = require("./controllers/gallery.js");
 const learn = require("./controllers/learn.js");
 const blog = require("./controllers/blog.js");
 
+const visit = require("./middleware.js").visit;
+
 module.exports = function(app){
     let views = `${__dirname}/views`;
 
     //MAIN
-    app.get("/", (req, res)=>{res.sendFile(`${views}/main/index.html`)});
+    app.get("/", visit, (req, res)=>{res.sendFile(`${views}/main/index.html`)});
     app.get("/style", (req, res)=>{res.sendFile(`${views}/main/index.css`)});
-
-    //WRITING
-    app.get("/writing/style", (req, res)=>{res.sendFile(`${views}/writing/index.css`)});
-    app.get("/writing/code", (req, res)=>{res.sendFile(`${views}/writing/index.js`)});
-    app.get("/writing/comments/:article", writing.getComments);
-    app.post("/writing/comments", writing.createComment);
-    app.get("/writing/directories", writing.listDirectories);
 
     //BLOG
     app.get("/blog/style", (req, res)=>{res.sendFile(`${views}/blog/index.css`)});

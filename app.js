@@ -6,6 +6,8 @@ const fs = require("fs");
 const bodyParser = require("body-parser");
 const fileUpload = require("express-fileupload");
 
+const Visitor = require("./models/visitor.js");
+
 const app = express();
 
 let mongooseOptions = {
