@@ -296,11 +296,9 @@ module.exports = {
                         text: req.body.content
                     }),
                 }).catch((err)=>{console.error(err)});
-                console.log(question);
                 return res.json(question);
             })
             .catch((err)=>{
-                console.log(err);
                 return res.json("ERROR: unable to create question");
             });
     },

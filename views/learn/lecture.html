@@ -28,6 +28,8 @@
         <div id="questions">
             <h1>Q & A</h1>
 
+            <button id="newQuestion">Ask new question</button>
+
             <div id="questionContainer"></div>
 
             <template id="question">
@@ -124,9 +126,16 @@
                         }
                     }
                 })
-                .catch((err)=>{
-                    console.log(err);
-                });
+                .catch((err)=>{});
+
+                document.getElementById("askQuestion").onclick = ()=>{
+                    fetch("/learn/question/create", {
+                        method: "post",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                    })
+                }
         </script>
     </body>
 </html>
