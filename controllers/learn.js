@@ -112,7 +112,7 @@ module.exports = {
                         let fileString = `/documents/${fileId}.${fileParts[1]}`;
                         files.mv(`${__dirname}/..${fileString}`);
                         lecture.documents.push({
-                            name: fileParts[0],
+                            name: files.name,
                             link: fileString
                         })
                     }else{
@@ -122,7 +122,7 @@ module.exports = {
                             let fileString = `/documents/${fileId}.${fileParts[1]}`;
                             files[i].mv(`${__dirname}/..${fileString}`);
                             lecture.documents.push({
-                                name: fileParts[0],
+                                name: files[i].name,
                                 link: fileString
                             });
                         }
