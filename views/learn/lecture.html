@@ -117,7 +117,7 @@
                         console.log(header.children[1]);
                         element.children[0].innerText = question.title;
                         header.children[1].innerText = question.asker;
-                        header.children[3].innerText = date.toDateString();
+                        header.children[3].innerText = `${date.toDateString()} ${date.toLocaleTimeString()}`;
                         element.children[2].innerText = question.content;
                         questionContainer.appendChild(element);
                     }

@@ -108,10 +108,13 @@ h1{
 .question{
     width: 100%;
     background: white;
+    padding: 15px;
 }
 
     .questionHeader{
         display: flex;
+        font-size: 10px;
+        margin-bottom: 10px;
     }
 
     .bold{
