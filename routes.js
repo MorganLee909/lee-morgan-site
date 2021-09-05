@@ -1,4 +1,3 @@
-const writing = require("./controllers/writing.js");
 const gallery = require("./controllers/gallery.js");
 const learn = require("./controllers/learn.js");
 const blog = require("./controllers/blog.js");

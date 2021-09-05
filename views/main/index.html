@@ -215,7 +215,7 @@
                             fetch("/gallery/retrieve").then(response => response.json())
                         ])
                             .then(loadGallery)
-                            .catch((err)=>{console.log(err)});
+                            .catch((err)=>{});
                         mapped = true;
                     }
 
@@ -326,7 +326,6 @@
                             </a>
                         `);
 
-                    console.log(galleries[i]);
                     let marker = new mapboxgl.Marker()
                         .setLngLat([galleries[i].location.coordinates[1], galleries[i].location.coordinates[0]])
                         .addTo(map)
