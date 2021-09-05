@@ -295,11 +295,12 @@ module.exports = {
                         subject: `New Question on lecture ${lecture._id}`,
                         text: req.body.content
                     }),
-                }).catch((err)=>{});
-                
+                }).catch((err)=>{console.error(err)});
+                console.log(question);
                 return res.json(question);
             })
             .catch((err)=>{
+                console.log(err);
                 return res.json("ERROR: unable to create question");
             });
     },
