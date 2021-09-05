@@ -121,3 +121,9 @@ h1{
         font-weight: bold;
         margin: 0 5px;
     }
+
+    .answer{
+        width: 75%;
+        margin: 10px auto;
+        background: rgb(196, 198, 192);
+    }

@@ -34,7 +34,6 @@
                 <div class="question">
                     <h2></h2>
                     <div class="questionHeader">
-                        <p>asked by</p>
                         <p class="bold"></p>
                         <p>on</p>
                         <p class="bold"></p>
@@ -105,21 +104,29 @@
                         li.appendChild(a);
                     }
 
-                    //Questions
+                    //Questions/Answers
                     let questionTemplate = document.getElementById("question").content.children[0];
                     let questionContainer = document.getElementById("questionContainer");
-                    for(let i = 0; i < response.questions.length; i++){
-                        let question = response.questions[i];
 
+                    let createQuestion = (question, container)=>{
                         let date = new Date(question.date);
                         let element = questionTemplate.cloneNode(true);
                         let header = element.querySelector(".questionHeader");
-                        console.log(header.children[1]);
                         element.children[0].innerText = question.title;
-                        header.children[1].innerText = question.asker;
-                        header.children[3].innerText = `${date.toDateString()} ${date.toLocaleTimeString()}`;
+                        header.children[0].innerText = question.name;
+                        header.children[2].innerText = `${date.toDateString()} ${date.toLocaleTimeString()}`;
                         element.children[2].innerText = question.content;
-                        questionContainer.appendChild(element);
+                        container.appendChild(element);
+                        return element;
+                    };
+
+                    for(let i = 0; i < response.questions.length; i++){
+                        let question = createQuestion(response.questions[i], questionContainer);
+
+                        for(let j = 0; j < response.questions[i].answers.length; j++){
+                            let element = createQuestion(response.questions[i].answers[j], question);
+                            element.classList.add("answer");
+                        }
                     }
                 })
                 .catch((err)=>{

@@ -3,6 +3,7 @@ const Course = require("../models/course.js");
 const Lecture = require("../models/lecture.js").Lecture;
 const Question = require("../models/lecture.js").Question;
 const Answer = require("../models/lecture.js").Answer;
+
 const createId = require("./createId.js");
 
 const axios = require("axios");
@@ -258,14 +259,14 @@ module.exports = {
     POST: creates a new question for a lecture
     req.body = {
         lecture: String (lecture id)
-        asker: String,
+        name: String,
         title: String
         content: String
     }
     */
     createQuestion: function(req, res){
         let question = new Question({
-            asker: req.body.asker,
+            name: req.body.asker,
             title: req.body.title,
             content: req.body.content,
             answers: []
@@ -308,14 +309,14 @@ module.exports = {
     req.body = {
         lecture: String (lecture id)
         question: String (question id)
-        answerer: String
+        name: String
         title: String
         content: String
     }
     */
     createAnswer: function(req, res){
         let answer = new Answer({
-            answerer: req.body.answerer,
+            name: req.body.answerer,
             title: req.body.title,
             date: new Date(),
             content: req.body.content

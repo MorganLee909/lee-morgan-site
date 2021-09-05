@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const AnswerSchema = mongoose.Schema({
-    answerer: {
+    name: {
         type: String,
         required: true
     },
@@ -20,7 +20,7 @@ const AnswerSchema = mongoose.Schema({
 });
 
 const QuestionSchema = mongoose.Schema({
-    asker: {
+    name: {
         type: String,
         required: true
     },
