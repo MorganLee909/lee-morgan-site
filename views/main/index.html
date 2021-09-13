@@ -318,13 +318,15 @@
                     let tags = galleries[i].tags.toString();
                     tags = tags.replaceAll(",", ", ");
                     let popup = new mapboxgl.Popup()
-                        .setHTML(`
-                            <a class="galleryPopup" href="/gallery/${galleries[i]._id}">
-                                <h1>${galleries[i].title}</h1>
-                                <p>${tags}</p>
-                                <img class="popupImage" src="${galleries[i].images[0]}" alt="${galleries[i].title} image">
-                            </a>
-                        `);
+                        .on("open", ()=>{
+                            popup.setHTML(`
+                                <a class="galleryPopup" href="/gallery/${galleries[i]._id}">
+                                    <h1>${galleries[i].title}</h1>
+                                    <p>${tags}</p>
+                                    <img class="popupImage" src="${galleries[i].images[0]}" alt="${galleries[i].title} image">
+                                </a>
+                            `)
+                        });
 
                     let marker = new mapboxgl.Marker()
                         .setLngLat([galleries[i].location.coordinates[1], galleries[i].location.coordinates[0]])
