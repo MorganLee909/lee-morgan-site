@@ -1,0 +1,142 @@
+*{margin:0;padding:0;}
+
+body{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin: 35px 0;
+}
+
+.everything{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 1000px;
+}
+
+header{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 200px;
+    background: #152730;
+    color: #5FECE0;
+}
+
+.content{
+    display: flex;
+    width: 100%;
+    background: rgb(196, 198, 192);
+}
+
+.leftContent{
+    height: 100%;
+    width: 70%;
+}
+
+.leftItem{
+    padding: 35px;
+    padding-left: 50px;
+}
+
+.leftItem > h2{
+    margin-bottom: 25px;
+}
+
+.experience{
+    padding: 25px;
+}
+
+.jobReqs{
+    padding-left: 35px;
+}
+
+.rightContent{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 100%;
+    width: 30%;
+    border-left: 1px solid black;
+}
+
+.rightBox{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 35px;
+}
+
+.rightBox ul{
+    list-style-type: none;
+}
+
+.rightBox li{
+    margin: 10px 0 10px 10px;
+}
+
+.link{
+    display: flex;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.link a {
+    font-size: 16px;
+    margin-left: 5px;
+}
+
+.bottomBorder{
+    border-bottom: 1px solid black;
+    width: 95%;
+    margin: 0 auto;
+}
+
+.educ{
+    margin-top: 25px;
+    margin-left: 10px;
+}
+
+@media screen and (max-width: 1000px){
+    body{
+        margin: 0;
+    }
+
+    .everything{
+        width: 100%;
+    }
+
+    header h1{
+        text-align: center;
+    }
+
+    .content{
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .leftContent, .rightContent{
+        width: 100%;
+    }
+
+    .leftItem{
+        padding: 20px;
+        text-align: justify;
+    }
+
+    .experience{
+        padding: 0 0 25px 0;
+    }
+
+    .rightContent{
+        border-left: none;
+        border-top: 1px solid black;
+    }
+
+    .bottomBorder{
+        width: 100%;
+    }
+}

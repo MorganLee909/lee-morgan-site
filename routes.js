@@ -11,6 +11,10 @@ module.exports = function(app){
     app.get("/", visit, (req, res)=>{res.sendFile(`${views}/main/index.html`)});
     app.get("/style", (req, res)=>{res.sendFile(`${views}/main/index.css`)});
 
+    //RESUME
+    app.get("/resume", visit, (req, res)=>{res.sendFile(`${views}/resume/resume.html`)});
+    app.get("/resume/style", (req, res)=>{res.sendFile(`${views}/resume/resume.css`)});
+
     //BLOG
     app.get("/blog/style", (req, res)=>{res.sendFile(`${views}/blog/index.css`)});
     app.get("/blog/new", visit, (req, res)=>{res.sendFile(`${views}/blog/new.html`)});
