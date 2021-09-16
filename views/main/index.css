@@ -2,7 +2,7 @@
 
 body{
     height: 100vh;
-    width: 100vw;
+    width: 100%;
     display: flex;
 }
 
@@ -113,6 +113,7 @@ body{
 }
 
 #about{
+    display: flex;
     height: 100%;
 }
 
@@ -126,6 +127,7 @@ body{
         padding: 10px;
         border-right: 1px solid black;
         height: 100%;
+        box-sizing: border-box;
     }
 
     #ageDiv > p, #deathDiv > p{
