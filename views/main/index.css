@@ -144,6 +144,17 @@ body{
             font-size: 25px;
         }
 
+    .meLink{
+        display: flex;
+        align-items: center;
+        color: black;
+    }
+
+        .meLink img{
+            height: 24px;
+            width: 24px;s
+        }
+
     #ageDiv > p, #deathDiv > p{
         margin-top: 5px;
     }
