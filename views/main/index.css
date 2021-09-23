@@ -130,6 +130,20 @@ body{
         box-sizing: border-box;
     }
 
+    .aboutCenter{
+        width: 60%;
+        border-right: 1px solid black;
+    }
+
+        .aboutCenter h1{
+            text-align: center;
+        }
+
+        .aboutCenter p{
+            margin: 25px 35px;
+            font-size: 25px;
+        }
+
     #ageDiv > p, #deathDiv > p{
         margin-top: 5px;
     }
