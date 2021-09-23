@@ -33,6 +33,7 @@ module.exports = function(app){
     app.get("/images/html5", (req, res)=>{res.sendFile(`${views}/images/html5.png`)});
     app.get("/images/blacklist", (req, res)=>{res.sendFile(`${views}/images/blacklist.png`)});
     app.get("/images/bitchute", (req, res)=>{res.sendFile(`${views}/images/bitchute.png`)});
+    app.get("/images/rumble", (req, res)=>{res.sendFile(`${views}/images/rumble.png`)});
 
     //SUDOKU
     app.get("/sudoku", visit, (req, res)=>{res.sendFile(`${views}/sudoku/index.html`)});
