@@ -305,5 +305,37 @@ module.exports = {
                 console.error(err);
                 return res.json("ERROR: unable to save the question");
             });
+    },
+
+    /*
+    POST: creates a new answer to a question
+    req.body = {
+        lecture: String (Lecture id)
+        question: String (Question id)
+        name: String
+        content: String
+    }
+    */
+    createAnswer: function(req, res){
+        let answer = new Answer({
+            name: req.body.name,
+            content: req.body.content
+        });
+
+        Lecture.findOne({_id: req.body.lecture})
+            .then((lecture)=>{
+                let question = lecture.questions.id(req.body.question);
+
+                question.answers.push(answer);
+                
+                lecture.save();
+            })
+            .then((lecture)=>{
+                return res.json(answer);
+            })
+            .catch((err)=>{
+                console.error(err);
+                return res.json("ERROR: unable to create new question");
+            });
     }
 }
