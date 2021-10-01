@@ -3,6 +3,7 @@
 body{
     background: rgb(196, 198, 192);
     padding: 25px;
+    padding-top: 0;
 }
 
 h1{
@@ -90,3 +91,41 @@ h1{
     .liPad{
         margin: 10px;
     }
+
+    #questionForm{
+        flex-direction: column;
+        height: 100vh;
+        width: 100vw;
+        z-index: 2;
+        position: fixed;
+        background: rgb(196, 198, 192);
+        padding: 100px;
+        box-sizing: border-box;
+    }
+
+        #questionForm label{
+            display: flex;
+            flex-direction: column;
+            margin: 15px;
+        }
+
+        #questionForm input{
+            width: 50%;
+        }
+
+        #questionForm textarea{
+            height: 25vh;
+        }
+
+        #questionForm button{
+            height: 35px;
+            width: 175px;
+            border: 1px solid black;
+            background: white;
+            margin: 10px;
+            cursor: pointer;
+        }
+        
+        #questionForm button:hover{
+            background: rgb(196, 198, 192);
+        }

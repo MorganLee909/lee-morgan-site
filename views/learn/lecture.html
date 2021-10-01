@@ -24,6 +24,28 @@
             <h2 id="resourceTitle">Resources</h2>
             <div id="documents"></div>
         </div>
+
+        <button id="questionButton">Ask a question</button>
+
+        <form id="questionForm" style="display:none" method="post">
+            <h1 id="questionHeader"></h1>
+
+            <label>Your name
+                <input id="questionName" type="text">
+            </label>
+
+            <label>Title
+                <input id="questionTitle" type="text">
+            </label>
+
+            <label>Question
+                <textarea id="questionContent" minlength="15" required></textarea>
+            </label>
+
+            <button id="questionAsk" type="button">Ask</button>
+
+            <button id="questionCancel" type="button">Cancel</button>
+        </form>
             
         <script>
             let video = document.getElementById("video");
@@ -82,6 +104,47 @@
                     }
                 })
                 .catch((err)=>{});
+
+                //Questions
+                let form = document.getElementById("questionForm");
+                let formTitle = document.getElementById("questionHeader");
+                let lecture = window.location.href.split("/");
+                lecture = lecture[lecture.length-1];
+
+                document.getElementById("questionCancel").onclick = ()=>{form.style.display = "none"};
+
+                document.getElementById("questionButton").onclick = ()=>{
+                    form.style.display = "flex";
+                    form.route = "/learn/questions/create";
+                    formTitle.innerText = "Ask a Question";
+                };
+
+                document.getElementById("questionAsk").onclick = ()=>{
+                    event.preventDefault();
+                    form.style.display = "none";
+
+                    let data = {
+                        lecture: lecture,
+                        name: document.getElementById("questionName").value,
+                        title: document.getElementById("questionTitle").value,
+                        content: document.getElementById("questionContent").value
+                    };
+                    
+                    fetch(form.route, {
+                        method: "post",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(data)
+                    })
+                        .then(response => response.json())
+                        .then((response)=>{
+                            if(typeof(response) !== "string"){
+                                console.log(response);
+                            }
+                        })
+                        .catch((err)=>{});
+                }
         </script>
     </body>
 </html>

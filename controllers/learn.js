@@ -263,6 +263,7 @@ module.exports = {
     response: Question
     */
     createQuestion: function(req, res){
+        console.log(req.body);
         let question = new Question({
             name: req.body.name,
             title: req.body.title,
