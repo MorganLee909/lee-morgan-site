@@ -135,7 +135,6 @@
                 })
                 .catch((err)=>{});
 
-
                 //New Question
                 let form = document.getElementById("questionForm");
                 let formTitle = document.getElementById("questionHeader");
@@ -171,7 +170,17 @@
                         .then(response => response.json())
                         .then((response)=>{
                             if(typeof(response) !== "string"){
-                                console.log(response);
+                                let template = document.getElementById("question").content.children[0];
+                                let questionContainer = document.getElementById("questionContainer");
+                                let date = new Date(response.createdAt);
+                                date = date.toLocaleString("en-US");
+
+                                let question = template.cloneNode(true);
+                                question.querySelector(".questTitle").innerText = response.title;
+                                question.querySelector(".questName").innerText = response.name;
+                                question.querySelector(".questDate").innerText = date;
+                                question.querySelector(".questContent").innerText = response.content;
+                                questionContainer.insertBefore(question, questionContainer.firstChild);
                             }
                         })
                         .catch((err)=>{});
