@@ -1,7 +1,11 @@
 const Uploader = require("../models/uploader.js");
 const Course = require("../models/course.js");
-const Lecture = require("../models/lecture.js");
+const {Lecture, Question, Answer} = require("../models/lecture.js");
+
 const createId = require("./createId.js");
+
+const axios = require("axios");
+const queryString = require("querystring");
 
 module.exports = {
     /*
@@ -245,6 +249,61 @@ module.exports = {
             })
             .catch((err)=>{
                 return res.json("Could not retrieve lecture");
+            });
+    },
+
+    /*
+    POST: create a new question
+    req.body = {
+        lecture: String (Lecture id)
+        name: String
+        title: String
+        content: String
+    }
+    response: Question
+    */
+    createQuestion: function(req, res){
+        let question = new Question({
+            name: req.body.name,
+            title: req.body.title,
+            content: req.body.content,
+            answers: []
+        });
+
+        Lecture.findOne({_id: req.body.lecture})
+            .then((lecture)=>{
+                lecture.questions.push(question);
+
+                axios({
+                    method: "post",
+                    url: "https://api.mailgun.net/v3/mg.leemorgan.io/messages",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded"
+                    },
+                    auth: {
+                        username: "api",
+                        password: process.env.MG_PERSONAL_APIKEY
+                    },
+                    data: queryString.stringify({
+                        from: "Lee Morgan <learn@leemorgan.io>",
+                        to: "me@leemorgan.io",
+                        subject: question.title,
+                        text: question.content
+                    })
+                })
+                .catch((err)=>{
+                    console.error(err);
+                });
+
+                lecture.save();
+            })
+            .then((lecture)=>{
+
+                return res.json(question);
+            })
+            .catch((err)=>{
+                console.error(err);
+                return res.json("ERROR: unable to save the question");
             });
     }
 }

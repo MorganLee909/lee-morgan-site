@@ -69,4 +69,8 @@ const LectureSchema = new mongoose.Schema({
     questions: [QuestionSchema]
 });
 
-module.exports = mongoose.model("Lecture", LectureSchema);
+module.exports = {
+    Lecture: mongoose.model("Lecture", LectureSchema),
+    Question: mongoose.model("Question", QuestionSchema),
+    Answer: mongoose.model("Answer", AnswerSchema)
+};

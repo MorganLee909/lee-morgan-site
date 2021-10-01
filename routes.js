@@ -74,6 +74,8 @@ module.exports = function(app){
     app.get("/learn/lectures/:id", visit, (req, res)=>{res.sendFile(`${views}/learn/lecture.html`)});
     app.get("/learn/lectures/json/one/:id", learn.getLecture);
 
+    app.post("/learn/questions/create", learn.createQuestion);
+
     app.post("/htmltest", visit, (req, res)=>{res.send(`Hi ${req.body.name} from ${req.body.place}`)});
 
     //CONTENT
