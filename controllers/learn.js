@@ -310,11 +310,13 @@ module.exports = {
     /*
     POST: creates a new answer to a question
     req.body = {
+        uploader: String (Uploader id)
+        password: String
         lecture: String (Lecture id)
         question: String (Question id)
-        name: String
         content: String
     }
+    redirect: /learn/lecture/:id
     */
     createAnswer: function(req, res){
         let answer = new Answer({
@@ -322,8 +324,16 @@ module.exports = {
             content: req.body.content
         });
 
-        Lecture.findOne({_id: req.body.lecture})
-            .then((lecture)=>{
+        let uploader = Uploader.findOne({_id: req.body.uploader});
+        let lecture = Lecture.findOne({_id: req.body.lecture});
+
+        Promise.all([uploader, lecture])
+            .then((response)=>{
+                let lecture = response[1];
+                let uploader = response[0];
+
+                if(uploader === null || uploader.password !== req.body.password) throw "auth";
+
                 let question = lecture.questions.id(req.body.question);
 
                 question.answers.push(answer);
@@ -331,11 +341,15 @@ module.exports = {
                 lecture.save();
             })
             .then((lecture)=>{
-                return res.json(answer);
+                return res.redirect(`/learn/lectures/${req.body.lecture}`);
             })
             .catch((err)=>{
-                console.error(err);
-                return res.json("ERROR: unable to create new question");
+                switch(err){
+                    case "auth": return res.redirect(`/learn/lectures/${req.body.lecture}`);
+                    default:
+                        console.error(err);
+                        return res.json("ERROR: unable to create new question");
+                }
             });
     }
 }
