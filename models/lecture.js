@@ -1,5 +1,35 @@
 const mongoose = require("mongoose");
 
+const AnswerSchema = new mongoose.Schema({
+    name: String,
+    content: {
+        type: String,
+        required: true
+    },
+    createdAt: {
+        type: Date,
+        default: new Date()
+    }
+});
+
+const QuestionSchema = new mongoose.Schema({
+    name: String,
+    title: {
+        type: String,
+        required: true
+    },
+    content: {
+        type: String,
+        required: true,
+        minlength: 15
+    },
+    answers: [AnswerSchema],
+    createdAt: {
+        type: Date,
+        default: new Date()
+    }
+});
+
 const LectureSchema = new mongoose.Schema({
     course: {
         type: mongoose.Schema.Types.ObjectId,
@@ -35,7 +65,8 @@ const LectureSchema = new mongoose.Schema({
     updatedDate: {
         type: Date,
         required: false
-    }
+    },
+    questions: [QuestionSchema]
 });
 
 module.exports = mongoose.model("Lecture", LectureSchema);
