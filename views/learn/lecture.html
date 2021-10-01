@@ -25,7 +25,21 @@
             <div id="documents"></div>
         </div>
 
+        <h1>Q&A</h1>
         <button id="questionButton">Ask a question</button>
+        <div id="questionContainer">
+            <template id="question">
+                <div class="question">
+                    <h2 class="questTitle"></h2>
+                    <div class="questHead">
+                        <p class="questName"></p>
+                        <p>at</p>
+                        <p class="questDate"></p>
+                    </div>
+                    <p class="questContent"></p>
+                </div>
+            </template>
+        </div>
 
         <form id="questionForm" style="display:none" method="post">
             <h1 id="questionHeader"></h1>
@@ -102,10 +116,27 @@
                         a.innerText = response.furtherReading[i].text;
                         li.appendChild(a);
                     }
+
+                    //Populate questions
+                    let template = document.getElementById("question").content.children[0];
+                    let questionContainer = document.getElementById("questionContainer");
+                    response.questions.reverse();
+                    for(let i = 0; i < response.questions.length; i++){
+                        let date = new Date(response.questions[i].createdAt);
+                        date = date.toLocaleString("en-US");
+                        
+                        let question = template.cloneNode(true);
+                        question.querySelector(".questTitle").innerText = response.questions[i].title;
+                        question.querySelector(".questName").innerText = response.questions[i].name;
+                        question.querySelector(".questDate").innerText = date;
+                        question.querySelector(".questContent").innerText = response.questions[i].content;
+                        questionContainer.appendChild(question);
+                    }
                 })
                 .catch((err)=>{});
 
-                //Questions
+
+                //New Question
                 let form = document.getElementById("questionForm");
                 let formTitle = document.getElementById("questionHeader");
                 let lecture = window.location.href.split("/");
