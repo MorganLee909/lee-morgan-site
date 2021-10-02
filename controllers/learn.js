@@ -288,7 +288,7 @@ module.exports = {
                         from: "Lee Morgan <learn@leemorgan.io>",
                         to: "me@leemorgan.io",
                         subject: question.title,
-                        text: question.content
+                        text: `Lecture: ${lecture._id}\n${question.content}`
                     })
                 })
                 .catch((err)=>{
