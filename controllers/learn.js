@@ -314,6 +314,7 @@ module.exports = {
         password: String
         lecture: String (Lecture id)
         question: String (Question id)
+        name: String
         content: String
     }
     redirect: /learn/lecture/:id
