@@ -117,7 +117,7 @@
                     }
 
                     let readings = document.getElementById("readings");
-                    if(response.furtherReading.length === 0) document.getElementById("readingtitle").style.display = "none";
+                    if(response.furtherReading.length === 0) document.getElementById("readingTitle").style.display = "none";
                     for(let i = 0; i < response.furtherReading.length; i++){
                         let li = document.createElement("li");
                         li.classList.add("liPad");
