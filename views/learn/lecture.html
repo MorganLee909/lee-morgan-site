@@ -37,6 +37,18 @@
                         <p class="questDate"></p>
                     </div>
                     <p class="questContent"></p>
+                    <div class="answerContainer"></div>
+                </div>
+            </template>
+
+            <template id="answer">
+                <div class="answer">
+                    <div class="answerHeader">
+                        <p class="answerName"></p>
+                        <p>at</p>
+                        <p class="answerDate"></p>
+                    </div>
+                    <p class="answerContent"></p>
                 </div>
             </template>
         </div>
@@ -119,6 +131,7 @@
 
                     //Populate questions
                     let template = document.getElementById("question").content.children[0];
+                    let answerTemplate = document.getElementById("answer").content.children[0];
                     let questionContainer = document.getElementById("questionContainer");
                     response.questions.reverse();
                     for(let i = 0; i < response.questions.length; i++){
@@ -131,6 +144,20 @@
                         question.querySelector(".questDate").innerText = date;
                         question.querySelector(".questContent").innerText = response.questions[i].content;
                         questionContainer.appendChild(question);
+
+                        //Populate answers
+                        response.questions[i].answers.reverse();
+                        for(let j = 0; j < response.questions[i].answers.length; j++){
+                            let answer = response.questions[i].answers[j];
+                            let answerDate = new Date(answer.createdAt);
+                            answerDate = answerDate.toLocaleString("en-US");
+
+                            let elem = answerTemplate.cloneNode(true);
+                            elem.querySelector(".answerName").innerText = answer.name;
+                            elem.querySelector(".answerDate").innerText = answerDate;
+                            elem.querySelector(".answerContent").innerText = answer.content;
+                            question.querySelector(".answerContainer").appendChild(elem);
+                        }
                     }
                 })
                 .catch((err)=>{});
@@ -185,9 +212,6 @@
                         })
                         .catch((err)=>{});
                 }
-
-                //New Answer
-                
         </script>
     </body>
 </html>
