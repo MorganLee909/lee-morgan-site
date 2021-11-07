@@ -18,6 +18,15 @@ module.exports = {
             {$match: {
                 iso_code: req.body.isoCode,
                 date: {$gte: from, $lte: to},
+            }},
+            {$sort: {date: 1}},
+            {$project: {
+                location: 1,
+                date: 1,
+                total_cases: 1,
+                new_cases: 1,
+                total_deaths: 1,
+                new_deaths: 1
             }}
         ])
             .then((covids)=>{
@@ -26,5 +35,5 @@ module.exports = {
             .catch((err)=>{
                 console.error(err);
             });
-    }
+    },
 }

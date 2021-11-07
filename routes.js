@@ -83,6 +83,7 @@ module.exports = function(app){
 
     //COVID
     app.get("/covid", visit, (req, res)=>{res.sendFile(`${views}/covid/covid.html`)});
+    app.get("/covid/style", (req, res)=>{res.sendFile(`${views}/covid/covid.css`)});
     app.post("/covid", visit, covid.data);
 
     //CONTENT
