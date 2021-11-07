@@ -1,6 +1,7 @@
 const gallery = require("./controllers/gallery.js");
 const learn = require("./controllers/learn.js");
 const blog = require("./controllers/blog.js");
+const covid = require("./controllers/covid.js");
 
 const visit = require("./middleware.js").visit;
 
@@ -79,6 +80,10 @@ module.exports = function(app){
     app.post("/learn/answers/create", learn.createAnswer);
 
     app.post("/htmltest", visit, (req, res)=>{res.send(`Hi ${req.body.name} from ${req.body.place}`)});
+
+    //COVID
+    app.get("/covid", visit, (req, res)=>{res.sendFile(`${views}/covid/covid.html`)});
+    app.post("/covid", visit, covid.data);
 
     //CONTENT
     app.get("/thumbNails/*", (req, res)=>{res.sendFile(`${__dirname}${req.url}`)});
