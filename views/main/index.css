@@ -114,7 +114,8 @@ body{
 
 #about{
     display: flex;
-    height: 100%;
+    flex-direction: column-reverse;
+    align-items: center;
 }
 
     #about h2{
@@ -122,17 +123,8 @@ body{
         margin-bottom: 15px;
     }
 
-    .aboutLeft{
-        width: 25%;
-        padding: 10px;
-        border-right: 1px solid black;
-        height: 100%;
-        box-sizing: border-box;
-    }
-
     .aboutCenter{
-        width: 60%;
-        border-right: 1px solid black;
+        max-width: 700px;
     }
 
         .aboutCenter h1{
@@ -141,8 +133,13 @@ body{
 
         .aboutCenter p{
             margin: 25px 35px;
-            font-size: 25px;
+            font-size: 18px;
         }
+
+    .aboutRight{
+        display: flex;
+        margin-bottom: auto;
+    }
 
     .meLink{
         display: flex;
@@ -153,7 +150,7 @@ body{
 
         .meLink img{
             height: 24px;
-            width: 24px;s
+            width: 24px;
         }
 
     #ageDiv > p, #deathDiv > p{

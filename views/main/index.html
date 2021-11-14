@@ -69,52 +69,15 @@
 
         <div id="main">
             <div id="about">
-                <div class="aboutLeft">
-                    <h2 class="center">Critical Statistics</h2>
-
-                    <h3>Name: Lee Morgan</h3>
-
-                    <p>Gender: Male</p>
-
-                    <p>Born: March 9, 1990</p>
-
-                    <p>SSA Life Expectancy: 81.2 years</p>
-
-                    <p>Likely Death: May 1, 2071</p>
-
-                    <div class="borderLine"></div>
-
-                    <div id=ageDiv>
-                        <h3 class="center">Age</h3>
-                        <p id="age"></p>
-                        <p><span class="boldy">Years: </span><span id="ageYears"></span></p>
-                        <p><span class="boldy">Days: </span><span id="ageDays"></span></p>
-                        <p><span class="boldy">Hours: </span><span id="ageHours"></span></p>
-                        <p><span class="boldy">Minutes: </span><span id="ageMinutes"></span></p>
-                        <p><span class="boldy">Seconds: </span><span id="ageSeconds"></span></p>
-                    </div>
-
-                    <div class="borderLine"></div>
-
-                    <div id=deathDiv>
-                        <h3 class="center">Time to Likely Death</h3>
-                        <p id="death"></p>
-                        <p><span class="boldy">Years: </span><span id="deathYears"></span></p>
-                        <p><span class="boldy">Days: </span><span id="deathDays"></span></p>
-                        <p><span class="boldy">Hours: </span><span id="deathHours"></span></p>
-                        <p><span class="boldy">Minutes: </span><span id="deathMinutes"></span></p>
-                        <p><span class="boldy">Seconds: </span><span id="deathSeconds"></span></p>
-                    </div>
-                </div>
-
                 <div class="aboutCenter">
                     <h1>Who Am I?</h1>
-                    <p>Hey, my name is Lee Morgan. I am primarily a web developer, though I like to dabble in a lot of different things. I mostly do freelance work and work on my own projects whenever life presentst me the opportunity to do so. I also enjoy teaching English as a second language from time to time and a few other things.</p>
+                    <p>Hey, my name is Lee Morgan. I am primarily a web developer, though I like to dabble in a lot of different things. I mostly do freelance work and work on my own projects whenever life presents me the opportunity to do so. I also enjoy teaching English as a second language from time to time and a few other things.</p>
 
                     <p>You can find a lot of content from my hobbies here on my site. Occasionally I like to write about things that I feel strongly about. I also enjoy traveling a bit and doing smartphone photography of different places. My real passion though is programming. That is why I create video lectures to teach people program as well. Check out the menu on the left if you are interested in seeing the results of any of my hobbies.</p>
 
                     <p>Currently, I am an expat living in Nizhny Novgorod, Russia. I am enjoying traveling around Russia while attempting to learn Russian as well. However, I am originally from Maine, USA and have lived in several different places in the US in my life.</p>
                 </div>
+
                 <div class="aboutRight">
                     <a class="meLink" href="/resume">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -129,13 +92,6 @@
                             <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
                         </svg>
                         GitHub
-                    </a>
-
-                    <a class="meLink" href="https://www.facebook.com/lee.morgan.33/">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
-                        </svg>
-                        Facebook
                     </a>
 
                     <a class="meLink" href="https://www.linkedin.com/in/leemorganio">
@@ -341,71 +297,6 @@
 
                 return galleryList;
             }
-
-            //Age display
-            let ageYears = document.getElementById("ageYears");
-            let ageDays = document.getElementById("ageDays");
-            let ageHours = document.getElementById("ageHours");
-            let ageMinutes = document.getElementById("ageMinutes");
-            let ageSeconds = document.getElementById("ageSeconds");
-
-            let dYears = document.getElementById("deathYears");
-            let dDays = document.getElementById("deathDays");
-            let dHours = document.getElementById("deathHours");
-            let dMinutes = document.getElementById("deathMinutes");
-            let dSeconds = document.getElementById("deathSeconds");
-
-            let msYear = 1000 * 60 * 60 * 24 * 365;
-            let birth = new Date(Date.UTC(90, 2, 9, 10, 5));
-            let death = new Date(birth.getTime() + (msYear * 81.2));
-            
-            let displayAge = ()=>{
-                let now = new Date();
-                let msDiff = now - birth;
-                let deathDiff = death - now;
-                let msDay = 1000 * 60 * 60 * 24;
-                let msHour = 1000 * 60 * 60;
-                let msMinute = 1000 * 60;
-                let msSecond = 1000;
-
-                ageYears.innerText = msDiff / msYear;
-                ageDays.innerText = msDiff / msDay;
-                ageHours.innerText = msDiff / msHour;
-                ageMinutes.innerText = msDiff / msMinute;
-                ageSeconds.innerText = parseInt(msDiff / msSecond);
-
-                dYears.innerText = deathDiff / msYear;
-                dDays.innerText = deathDiff / msDay;
-                dHours.innerText = deathDiff / msHour;
-                dMinutes.innerText = deathDiff / msMinute;
-                dSeconds.innerText = parseInt(deathDiff / msSecond);
-
-                let years = Math.floor(msDiff / msYear);
-                msDiff -= msYear * years;
-                let days = Math.floor(msDiff / msDay);
-                msDiff -= msDay * days;
-                let hours = Math.floor(msDiff / msHour);
-                msDiff -= msHour * hours;
-                let minutes = Math.floor(msDiff / msMinute);
-                msDiff -= msMinute * minutes;
-                let seconds = Math.floor(msDiff / msSecond);
-
-                let deathYears = Math.floor(deathDiff / msYear);
-                deathDiff -= msYear * deathYears;
-                let deathDays = Math.floor(deathDiff / msDay);
-                deathDiff -= msDay * deathDays;
-                let deathHours = Math.floor(deathDiff / msHour);
-                deathDiff -= msHour * deathHours;
-                let deathMinutes = Math.floor(deathDiff / msMinute);
-                deathDiff -= msMinute * deathMinutes;
-                let deathSeconds = Math.floor(deathDiff / msSecond);
-
-                document.getElementById("age").innerText = `${years} years, ${days} days, ${hours} hours, ${minutes} minutes and ${seconds} seconds`;
-                document.getElementById("death").innerText = `${deathYears} years, ${deathDays} days, ${deathHours} hours, ${deathMinutes} minutes and ${deathSeconds} seconds`;
-            }
-
-            displayAge();
-            setInterval(displayAge, 1000);
 
             //Get blog content
             let populateBlogs = (blogs)=>{
