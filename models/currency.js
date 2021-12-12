@@ -5,7 +5,8 @@ const CurrencySchema = new mongoose.Schema({
     frontImage: String,
     backImage: String,
     type: String,
-    year: Number
+    year: Number,
+    comment: String
 });
 
 module.exports = mongoose.model("currency", CurrencySchema);

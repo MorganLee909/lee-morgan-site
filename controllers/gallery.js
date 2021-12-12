@@ -51,6 +51,7 @@ module.exports = {
                 return res.redirect(`/gallery/${gallery._id}`);
             })
             .catch((err)=>{
+                console.error(err);
                 if(err === "uploader") return res.json("You do not have permission to upload");
                 if(err === "pass") return res.json("Incorrect password");
                 return res.json("ERROR: something went wrong");

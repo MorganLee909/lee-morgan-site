@@ -90,8 +90,10 @@ module.exports = function(app){
 
     //CURRENCY
     app.get("/currency/style", (req, res)=>res.sendFile(`${views}/currency/currency.css`));
-    app.get("/currency", visit, currency.currency);
     app.get("/currency/new", (req, res)=>{res.sendFile(`${views}/currency/new.html`)});
+    
+    app.get("/currency", visit, currency.currency);
+    app.post("/currency", currency.create);
 
     //CONTENT
     app.get("/thumbNails/*", (req, res)=>{res.sendFile(`${__dirname}${req.url}`)});
