@@ -28,7 +28,7 @@ module.exports = {
 
                 let createImage = (image)=>{
                     console.log(image);
-                    let fileString = `/currency/${createId(25)}.jpg`;
+                    let fileString = `/currencyimages/${createId(25)}.jpg`;
                     image.mv(`${__dirname}/..${fileString}`);
                     return fileString;
                 }
@@ -55,17 +55,6 @@ module.exports = {
                         console.error(err);
                         return res.redirect("/");
                 }
-            });
-    },
-
-    currency: function(req, res){
-        Currency.find()
-            .then((currencies)=>{
-                return res.render("currency/display.html");
-            })
-            .catch((err)=>{
-                console.error(err);
-                return res.redirect("/");
             });
     }
 }

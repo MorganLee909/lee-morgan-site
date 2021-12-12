@@ -44,7 +44,7 @@ module.exports = function(app){
     app.get("/sudoku/code", (req, res)=>{res.sendFile(`${views}/sudoku/index.js`)});
 
     //BIRTHDAY PARADOX
-    app.get("/birthdayparadox", visit,(req, res)=>{res.sendFile(`${views}/birthdayParadox/index.html`)});
+    app.get("/birthdayparadox", visit,(req, res)=>{res.sendFile(`${views}/birthdayParadox/index.html`)}); 
     app.get("/birthdayparadox/style", (req, res)=>{res.sendFile(`${views}/birthdayParadox/index.css`)});
     app.get("/birthdayparadox/code", (req, res)=>{res.sendFile(`${views}/birthdayParadox/index.js`)});
 
@@ -91,12 +91,13 @@ module.exports = function(app){
     //CURRENCY
     app.get("/currency/style", (req, res)=>res.sendFile(`${views}/currency/currency.css`));
     app.get("/currency/new", (req, res)=>{res.sendFile(`${views}/currency/new.html`)});
+    app.get("/currency", visit, (req, res)=>res.sendFile(`${views}/currency/display.html`));
     
-    app.get("/currency", visit, currency.currency);
     app.post("/currency", currency.create);
 
     //CONTENT
     app.get("/thumbNails/*", (req, res)=>{res.sendFile(`${__dirname}${req.url}`)});
     app.get("/documents/*", (req, res)=>{res.download(`${__dirname}${req.url}`)});
     app.get("/galleryImages/*", (req, res)=>{res.sendFile(`${__dirname}${req.url}`)});
+    app.get("/currencyimages/*", (req, res)=>res.sendFile(`${__dirname}${req.url}`));
 }
