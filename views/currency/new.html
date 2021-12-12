@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Lee Morgan</title>
+        <style>
+            form{
+                display: flex;
+                flex-direction: column;
+            }
+        </style>
+    </head>
+    <body>
+        <form action="/currency" method="post" ecntype="multipart/form-data">
+            <label>Location
+                <input name="location" type="text" placeholder="Location" required>
+            </label>
+
+            <label>Paper
+                <input name="type" type="radio" value="paper">
+            </label>
+
+            <label>Coin
+                <input name="type" type="radio" value="coin">
+            </label>
+
+            <label>Year
+                <input name="year" type="number" required>
+            </label>
+
+            <label>Front Image
+                <input name="frontImage" type="file" required>
+            </label>
+
+            <label>Back Image
+                <input name="backImage" type="file" required>
+            </label>
+
+            <input type="submit" value="Submit">
+        </form>
+    </body>
+</html>

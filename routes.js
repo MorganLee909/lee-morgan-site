@@ -2,6 +2,7 @@ const gallery = require("./controllers/gallery.js");
 const learn = require("./controllers/learn.js");
 const blog = require("./controllers/blog.js");
 const covid = require("./controllers/covid.js");
+const currency = require("./controllers/currency.js");
 
 const visit = require("./middleware.js").visit;
 
@@ -86,6 +87,11 @@ module.exports = function(app){
     app.get("/covid", visit, (req, res)=>{res.sendFile(`${views}/covid/covid.html`)});
     app.get("/covid/style", (req, res)=>{res.sendFile(`${views}/covid/covid.css`)});
     app.post("/covid", visit, covid.data);
+
+    //CURRENCY
+    app.get("/currency/style", (req, res)=>res.sendFile(`${views}/currency/currency.css`));
+    app.get("/currency", visit, currency.currency);
+    app.get("/currency/new", (req, res)=>{res.sendFile(`${views}/currency/new.html`)});
 
     //CONTENT
     app.get("/thumbNails/*", (req, res)=>{res.sendFile(`${__dirname}${req.url}`)});
