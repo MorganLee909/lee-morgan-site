@@ -10,7 +10,7 @@
             <template id="currency">
                 <div class="currency">
                     <h1 class="location"></h1>
-                    <p class="year"></p>
+                    <p class="info"></p>
                     <img class="frontImage">
                     <img class="backImage">
                     <p class="comment"></p>
@@ -28,7 +28,7 @@
                     for(let i = 0; i < response.length; i++){
                         let currency = template.cloneNode(true);
                         currency.querySelector(".location").innerText = response[i].location.toUpperCase();
-                        currency.querySelector(".year").innerText = response[i].year;
+                        currency.querySelector(".info").innerText = `${response[i].value} ${response[i].name} (${response[i].year})`;
                         currency.querySelector(".frontImage").src = response[i].frontImage;
                         currency.querySelector(".backImage").src = response[i].backImage;
                         currency.querySelector(".comment").innerText = response[i].comment;

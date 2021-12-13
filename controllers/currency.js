@@ -13,6 +13,8 @@ module.exports = {
         type: String (paper/coin)
         year: Number
         comment: String
+        name: String
+        value: Number
     }
     req.files = {
         frontImage: Image
@@ -27,7 +29,6 @@ module.exports = {
                 if(req.body.password !== uploader.password) throw "pass";
 
                 let createImage = (image)=>{
-                    console.log(image);
                     let fileString = `/currencyimages/${createId(25)}.jpg`;
                     image.mv(`${__dirname}/..${fileString}`);
                     return fileString;
@@ -35,6 +36,8 @@ module.exports = {
 
                 let currency = new Currency({
                     location: req.body.location,
+                    name: req.body.name,
+                    value: req.body.value,
                     type: req.body.type,
                     year: req.body.year,
                     comment: req.body.comment,
