@@ -9,9 +9,9 @@
         <div id="container">
             <template id="currency">
                 <div class="currency">
-                    <p class="location"></p>
+                    <h1 class="location"></h1>
                     <p class="year"></p>
-                    <img class="fontImage">
+                    <img class="frontImage">
                     <img class="backImage">
                     <p class="comment"></p>
                 </div>
@@ -19,7 +19,23 @@
         </div>
 
         <script>
-            
+            fetch("/currency/data")
+                .then(r=>r.json())
+                .then((response)=>{
+                    let container = document.getElementById("container");
+                    let template = document.getElementById("currency").content.children[0];
+
+                    for(let i = 0; i < response.length; i++){
+                        let currency = template.cloneNode(true);
+                        currency.querySelector(".location").innerText = response[i].location.toUpperCase();
+                        currency.querySelector(".year").innerText = response[i].year;
+                        currency.querySelector(".frontImage").src = response[i].frontImage;
+                        currency.querySelector(".backImage").src = response[i].backImage;
+                        currency.querySelector(".comment").innerText = response[i].comment;
+                        container.appendChild(currency);
+                    }
+                })
+                .catch((err)=>{});
         </script>
     </body>
 </html>
