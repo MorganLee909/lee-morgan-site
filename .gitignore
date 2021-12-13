@@ -1,6 +1,4 @@
 /node_modules
-/content/*
-*.swp
 /thumbNails/*
 /documents/*
 /galleryImages/*

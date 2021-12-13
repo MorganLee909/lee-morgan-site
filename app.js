@@ -37,7 +37,6 @@ if(process.env.NODE_ENV === "production"){
 
 mongoose.connect("mongodb://127.0.0.1/leemorgan", mongooseOptions);
 
-app.use(express.static(__dirname + "/content"));
 app.use(compression());
 app.use(express.json());
 app.use(bodyParser.urlencoded({extended: false}))
