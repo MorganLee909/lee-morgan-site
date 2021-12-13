@@ -56,5 +56,15 @@ module.exports = {
                         return res.redirect("/");
                 }
             });
+    },
+
+    getData: function(req, res){
+        Currency.find()
+            .then((currencies)=>{
+                return res.json(currencies);
+            })
+            .catch((err)=>{
+                console.error(err);
+            });
     }
 }
