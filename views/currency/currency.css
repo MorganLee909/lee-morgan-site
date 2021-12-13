@@ -16,3 +16,20 @@ img{
 .comment{
     padding-left: 25px;
 }
+
+#locations{
+    display: flex;
+    margin: 15px;
+}
+
+.locationBtn{
+    margin: 10px;
+    padding: 5px;
+    background: none;
+    border: 1px solid black;
+    cursor: pointer;
+}
+
+.selected{
+    background: green;
+}

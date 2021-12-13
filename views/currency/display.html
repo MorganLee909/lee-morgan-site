@@ -6,24 +6,53 @@
         <title>Lee Morgan</title>
     </head>
     <body>
-        <div id="container">
-            <template id="currency">
-                <div class="currency">
-                    <h1 class="location"></h1>
-                    <p class="info"></p>
-                    <img class="frontImage">
-                    <img class="backImage">
-                    <p class="comment"></p>
-                </div>
-            </template>
+        <div id="locations">
+            <button id="allLocations" class="locationBtn selected">ALL</button>
         </div>
 
+        <div id="container"></div>
+
+        <template id="currency">
+            <div class="currency">
+                <h1 class="location"></h1>
+                <p class="info"></p>
+                <img class="frontImage">
+                <img class="backImage">
+                <p class="comment"></p>
+            </div>
+        </template>
+
         <script>
+            let filterLocations = (location, currencies)=>{
+                let container = document.getElementById("container");
+                let template = document.getElementById("currency").content.children[0];
+
+                while(container.children.length > 0){
+                    container.removeChild(container.firstChild);
+                }
+
+                for(let i = 0; i < currencies.length; i++){
+                    if(currencies[i].location.toLowerCase() === location || location === "all"){
+                        let currency = template.cloneNode(true);
+                        currency.querySelector(".location").innerText = currencies[i].location.toUpperCase();
+                        currency.querySelector(".info").innerText = `${currencies[i].value} ${currencies[i].name} (${currencies[i].year})`;
+                        currency.querySelector(".frontImage").src = currencies[i].frontImage;
+                        currency.querySelector(".backImage").src = currencies[i].backImage;
+                        currency.querySelector(".comment").innerText = currencies[i].comment;
+                        container.appendChild(currency);
+                    }
+                }
+            }
+
             fetch("/currency/data")
                 .then(r=>r.json())
                 .then((response)=>{
+                    document.getElementById("allLocations").onclick = ()=>{filterLocations("all", response)};
+
                     let container = document.getElementById("container");
+                    let locationsContainer = document.getElementById("locations");
                     let template = document.getElementById("currency").content.children[0];
+                    let locations = [];
 
                     for(let i = 0; i < response.length; i++){
                         let currency = template.cloneNode(true);
@@ -33,6 +62,24 @@
                         currency.querySelector(".backImage").src = response[i].backImage;
                         currency.querySelector(".comment").innerText = response[i].comment;
                         container.appendChild(currency);
+                        
+                        if(!locations.includes(response[i].location.toLowerCase())){
+                            locations.push(response[i].location.toLowerCase());
+
+                            let button = document.createElement("button");
+                            button.classList.add("locationBtn");
+                            button.innerText = response[i].location.toUpperCase();
+                            button.onclick = ()=>{
+                                let pLocations = document.querySelectorAll(".locationBtn");
+                                for(let j = 0; j < pLocations.length; j++){
+                                    pLocations[j].classList.remove("selected");
+                                }
+
+                                button.classList.add("selected");
+                                filterLocations(response[i].location.toLowerCase(), response);
+                            };
+                            locationsContainer.appendChild(button);
+                        }
                     }
                 })
                 .catch((err)=>{});
