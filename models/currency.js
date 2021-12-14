@@ -8,6 +8,7 @@ const CurrencySchema = new mongoose.Schema({
     year: Number,
     comment: String,
     name: String,
+    currencyCode: String,
     value: Number
 });
 

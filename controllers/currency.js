@@ -14,6 +14,7 @@ module.exports = {
         year: Number
         comment: String
         name: String
+        currencyCode: String
         value: Number
     }
     req.files = {
@@ -37,6 +38,7 @@ module.exports = {
                 let currency = new Currency({
                     location: req.body.location,
                     name: req.body.name,
+                    currencyCode: req.body.currencyCode,
                     value: req.body.value,
                     type: req.body.type,
                     year: req.body.year,

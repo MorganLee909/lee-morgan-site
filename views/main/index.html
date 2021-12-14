@@ -415,8 +415,8 @@
                 for(let i = 0; i < currencies.length; i++){
                     if(currencies[i].location.toLowerCase() === location){
                         let currency = template.cloneNode(true);
-                        currency.querySelector(".location").innerText = currencies[i].location.toUpperCase();
-                        currency.querySelector(".info").innerText = `${currencies[i].value} ${currencies[i].name} (${currencies[i].year})`;
+                        currency.querySelector(".location").innerText = `${currencies[i].location.toUpperCase()} (${currencies[i].name})`;
+                        currency.querySelector(".info").innerText = `${currencies[i].value} ${currencies[i].currencyCode}`;
                         currency.querySelector(".frontImage").src = currencies[i].frontImage;
                         currency.querySelector(".backImage").src = currencies[i].backImage;
                         currency.querySelector(".comment").innerText = currencies[i].comment;
