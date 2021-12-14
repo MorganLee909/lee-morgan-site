@@ -224,6 +224,8 @@ body{
 #currency{
     display: flex;
     flex-direction: column;
+    height: 100%;
+    overflow-y: auto;
 }
 
     #currencyContainer{
@@ -232,7 +234,7 @@ body{
     }
 
     #currency img{
-        max-height: 200px;
+        width: 500px;
     }
 
     .currency{
@@ -257,5 +259,6 @@ body{
     }
 
     .curSelected{
-        background: green;
+        background: #152730;
+        color: #5FECE0;
     }
