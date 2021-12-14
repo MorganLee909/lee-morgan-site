@@ -405,6 +405,17 @@
                 .catch((err)=>{});
 
             //Get currency data
+            let displayImage = (image)=>{
+                let div = document.createElement("div");
+                div.classList.add("fullImageBackground")
+                div.onclick = ()=>{document.body.removeChild(div)};
+                document.body.appendChild(div);
+
+                image.className = "";
+                image.classList.add("fullscreenCurrency");
+                div.appendChild(image);
+            }
+
             let filterLocations = (location, currencies)=>{
                 let container = document.getElementById("currencyContainer");
                 let template = document.getElementById("currencyTemplate").content.children[0];
@@ -416,10 +427,15 @@
                 for(let i = 0; i < currencies.length; i++){
                     if(currencies[i].location.toLowerCase() === location){
                         let currency = template.cloneNode(true);
+                        let frontImage = currency.querySelector(".frontImage");
+                        let backImage = currency.querySelector(".backImage");
+
                         currency.querySelector(".location").innerText = `${currencies[i].location.toUpperCase()} (${currencies[i].name})`;
                         currency.querySelector(".info").innerText = `${currencies[i].value} ${currencies[i].currencyCode}`;
-                        currency.querySelector(".frontImage").src = currencies[i].frontImage;
-                        currency.querySelector(".backImage").src = currencies[i].backImage;
+                        frontImage.src = currencies[i].frontImage;
+                        frontImage.onclick = ()=>{displayImage(frontImage.cloneNode(true))};
+                        backImage.src = currencies[i].backImage;
+                        backImage.onclick = ()=>{displayImage(backImage.cloneNode(true))};
                         currency.querySelector(".comment").innerText = currencies[i].comment;
                         container.appendChild(currency);
                     }
@@ -441,7 +457,7 @@
                             button.innerText = response[i].location.toUpperCase();
                             button.onclick = ()=>{
                                 let btnLocations = document.querySelectorAll(".locationBtn");
-                                for(let j = 0; j <btnLocations.length; j++){
+                                for(let j = 0; j < btnLocations.length; j++){
                                     btnLocations[j].classList.remove("curSelected");
                                 }
 
@@ -452,7 +468,9 @@
                         }
                     }
                 })
-                .catch((err)=>{});
+                .catch((err)=>{
+                    console.log(err);
+                });
         </script>
     </body>
 </html>
