@@ -48,7 +48,7 @@ module.exports = {
                 return currency.save();
             })
             .then((currency)=>{
-                return res.redirect("/currency");
+                return res.redirect("/");
             })
             .catch((err)=>{
                 switch(err){

@@ -37,16 +37,6 @@
                 <p>Blog</p>
             </button>
 
-            <button id="linksButton">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                    <line x1="3" y1="9" x2="21" y2="9"></line>
-                    <line x1="9" y1="21" x2="9" y2="9"></line>
-                </svg>
-
-                <p>Fun Links</p>
-            </button>
-
             <button id="galleryButton">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
@@ -64,6 +54,15 @@
                 </svg>
 
                 <p>Learn</p>
+            </button>
+
+            <button id="currencyButton">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="1" x2="12" y2="23"></line>
+                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                </svg>
+
+                <p>Currency</p>
             </button>
         </div>
 
@@ -194,58 +193,6 @@
                 </template>
             </div>
 
-            <div id="links" class="cardContainer" style="display:none;">
-                <a class="card" href="https://cs-online.club/en/servers">
-                    <h2>CS:GO in the browser</h2>
-                    <p>A website to play CS:GO in the browser with other people online.</p>
-                </a>
-
-                <a class="card" href="https://driveandlisten.herokuapp.com/">
-                    <h2>Drive and Listen</h2>
-                    <p>Pretend to be driving your car and listening to the radio. Watch cars driving down the road all over the world while listening to local radio stations.</p>
-                </a>
-
-                <a class="card" href="https://www.ekzhang.com/game-of-life">
-                    <h2>Conway's Game of Life</h2>
-                    <p>Play around and experiment with different situations in Conway's Game of Life</p>
-                </a>
-
-                <a class="card" href="https://librivox.org/">
-                    <h2>LibriVox</h2>
-                    <p>Free public domain audiobooks. Listen to books for free, or volunteer your time to read them for others to listen to</p>
-                </a>
-
-                <a class="card" href="https://rocketcrab.com/">
-                    <h2>rocketcrab.com</h2>
-                    <p>Party games right on your phone</p>
-                </a>
-
-                <a class="card" href="https://thetruesize.com/">
-                    <h2>The True Size of</h2>
-                    <p>The common Mercator projection map that we are used to distorts the real size of countries. This site will let you move and directly compare the real size of different countries to see how big they really are</p>
-                </a>
-
-                <a class="card" href="https://win95.ajf.me/">
-                    <h2>Windows 95</h2>
-                    <p>Use a virtual Windows 95 computer right in your browser</p>
-                </a>
-
-                <a class="card" href="https://pointerpointer.com/">
-                    <h2>Pointer Pointer</h2>
-                    <p>Point to your pointer</p>
-                </a>
-
-                <a class="card" href="https://pudding.cool/2020/12/judge-my-spotify">
-                    <h2>Judge My Spotify</h2>
-                    <p>Let an AI criticize your taste in music</p>
-                </a>
-
-                <a class="card" href="https://pessimistress.github.io/ascii/">
-                    <h2>ASCII video player</h2>
-                    <p>View video that is rendered using ASCII characters. Including from your own webcam!</p>
-                </a>
-            </div>
-
             <div id="gallery" style="display:none">
                 <div id="galleryTags" class="tagContainer"></div>
 
@@ -253,6 +200,22 @@
             </div>
 
             <div id="learn" class="cardContainer" style="display:none"></div>
+
+            <div id="currency" style="display:none">
+                <div id="locations"></div>
+        
+                <div id="currencyContainer"></div>
+        
+                <template id="currencyTemplate">
+                    <div class="currency">
+                        <h1 class="location"></h1>
+                        <p class="info"></p>
+                        <img class="frontImage">
+                        <img class="backImage">
+                        <p class="comment"></p>
+                    </div>
+                </template>
+            </div>
         </div>
 
         <script>
@@ -436,6 +399,56 @@
                         img.src = response[i].thumbNail;
                         img.alt = `${response[i].title} thumbnail`;
                         card.appendChild(img);
+                    }
+                })
+                .catch((err)=>{});
+
+            //Get currency data
+            let filterLocations = (location, currencies)=>{
+                let container = document.getElementById("currencyContainer");
+                let template = document.getElementById("currencyTemplate").content.children[0];
+
+                while(container.children.length > 0){
+                    container.removeChild(container.firstChild);
+                }
+
+                for(let i = 0; i < currencies.length; i++){
+                    if(currencies[i].location.toLowerCase() === location){
+                        let currency = template.cloneNode(true);
+                        currency.querySelector(".location").innerText = currencies[i].location.toUpperCase();
+                        currency.querySelector(".info").innerText = `${currencies[i].value} ${currencies[i].name} (${currencies[i].year})`;
+                        currency.querySelector(".frontImage").src = currencies[i].frontImage;
+                        currency.querySelector(".backImage").src = currencies[i].backImage;
+                        currency.querySelector(".comment").innerText = currencies[i].comment;
+                        container.appendChild(currency);
+                    }
+                }
+            }
+
+            fetch("/currency/data")
+                .then(r=>r.json())
+                .then((response)=>{
+                    let locationsContainer = document.getElementById("locations");
+                    let locations = [];
+
+                    for(let i = 0; i < response.length; i++){
+                        if(!locations.includes(response[i].location.toLowerCase())){
+                            locations.push(response[i].location.toLowerCase());
+
+                            let button = document.createElement("button");
+                            button.classList.add("locationBtn");
+                            button.innerText = response[i].location.toUpperCase();
+                            button.onclick = ()=>{
+                                let btnLocations = document.querySelectorAll(".locationBtn");
+                                for(let j = 0; j <btnLocations.length; j++){
+                                    btnLocations[j].classList.remove("curSelected");
+                                }
+
+                                button.classList.add("curSelected");
+                                filterLocations(response[i].location.toLowerCase(), response);
+                            }
+                            locationsContainer.appendChild(button);
+                        }
                     }
                 })
                 .catch((err)=>{});

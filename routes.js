@@ -90,9 +90,7 @@ module.exports = function(app){
     app.post("/covid", visit, covid.data);
 
     //CURRENCY
-    app.get("/currency/style", (req, res)=>res.sendFile(`${views}/currency/currency.css`));
     app.get("/currency/new", (req, res)=>{res.sendFile(`${views}/currency/new.html`)});
-    app.get("/currency", visit, (req, res)=>res.sendFile(`${views}/currency/display.html`));
     
     app.post("/currency", currency.create);
     app.get("/currency/data", currency.getData);

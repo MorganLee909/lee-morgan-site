@@ -220,3 +220,42 @@ body{
     margin-bottom: 25px;
     width: 80vw;
 }
+
+#currency{
+    display: flex;
+    flex-direction: column;
+}
+
+    #currencyContainer{
+        display: flex;
+        flex-direction: column;
+    }
+
+    #currency img{
+        max-height: 200px;
+    }
+
+    .currency{
+        margin: 25px 10px;
+    }
+
+    .curComment{
+        padding-left: 25px;
+    }
+
+    #locations{
+        display: flex;
+        margin: 15px;
+    }
+
+    .locationBtn{
+        margin: 10px;
+        padding: 5px;
+        background: none;
+        border: 1px solid black;
+        cursor: pointer;
+    }
+
+    .curSelected{
+        background: green;
+    }
