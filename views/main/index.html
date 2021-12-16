@@ -431,9 +431,10 @@
                         let currency = template.cloneNode(true);
                         let frontImage = currency.querySelector(".frontImage");
                         let backImage = currency.querySelector(".backImage");
+                        let code = currencies[i].currencyCode;
 
                         currency.querySelector(".location").innerText = `${currencies[i].location.toUpperCase()} (${currencies[i].name})`;
-                        currency.querySelector(".info").innerText = `${currencies[i].value} ${currencies[i].currencyCode}`;
+                        currency.querySelector(".info").innerText = `${currencies[i].value} ${code ? code : ""}`;
                         frontImage.src = currencies[i].frontImage;
                         frontImage.onload = ()=>{imageSize(frontImage)};
                         frontImage.onclick = ()=>{displayImage(frontImage.cloneNode(true))};
@@ -472,9 +473,7 @@
                         }
                     }
                 })
-                .catch((err)=>{
-                    console.log(err);
-                });
+                .catch((err)=>{});
         </script>
     </body>
 </html>
