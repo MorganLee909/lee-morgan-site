@@ -233,8 +233,15 @@ body{
         flex-direction: column;
     }
 
+    .currencyImages{
+        display: flex;
+    }
+
+    .frontImage{
+        margin-right: 35px;
+    }
+
     #currency img{
-        width: 500px;
         cursor: pointer;
     }
 

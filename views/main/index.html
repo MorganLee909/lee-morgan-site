@@ -205,8 +205,10 @@
                     <div class="currency">
                         <h1 class="location"></h1>
                         <p class="info"></p>
-                        <img class="frontImage">
-                        <img class="backImage">
+                        <div class="currencyImages">
+                            <img class="frontImage">
+                            <img class="backImage">
+                        </div>
                         <p class="comment"></p>
                     </div>
                 </template>
@@ -410,6 +412,12 @@
                 div.appendChild(image);
             }
 
+            let imageSize = (image)=>{
+                let width = `${image.clientWidth * 0.35}px`;
+                image.style.height = `${image.clientHeight * 0.35}px`;
+                image.style.width = width;
+            }
+
             let filterLocations = (location, currencies)=>{
                 let container = document.getElementById("currencyContainer");
                 let template = document.getElementById("currencyTemplate").content.children[0];
@@ -427,8 +435,10 @@
                         currency.querySelector(".location").innerText = `${currencies[i].location.toUpperCase()} (${currencies[i].name})`;
                         currency.querySelector(".info").innerText = `${currencies[i].value} ${currencies[i].currencyCode}`;
                         frontImage.src = currencies[i].frontImage;
+                        frontImage.onload = ()=>{imageSize(frontImage)};
                         frontImage.onclick = ()=>{displayImage(frontImage.cloneNode(true))};
                         backImage.src = currencies[i].backImage;
+                        backImage.onload = ()=>{imageSize(backImage)};
                         backImage.onclick = ()=>{displayImage(backImage.cloneNode(true))};
                         currency.querySelector(".comment").innerText = currencies[i].comment;
                         container.appendChild(currency);
