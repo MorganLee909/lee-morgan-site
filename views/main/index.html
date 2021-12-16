@@ -401,14 +401,21 @@
                 .catch((err)=>{});
 
             //Get currency data
-            let displayImage = (image)=>{
+            let displayImage = (image, cType)=>{
                 let div = document.createElement("div");
-                div.classList.add("fullImageBackground")
+                div.classList.add("fullImageBackground");
                 div.onclick = ()=>{document.body.removeChild(div)};
                 document.body.appendChild(div);
 
                 image.className = "";
-                image.classList.add("fullscreenCurrency");
+                image.style.margin = "auto";
+                if(cType === "paper"){
+                    image.style.height = "";
+                    image.style.width = "100%";
+                }else{
+                    image.style.width = "";
+                    image.style.height = "100%";
+                }
                 div.appendChild(image);
             }
 
@@ -437,10 +444,10 @@
                         currency.querySelector(".info").innerText = `${currencies[i].value} ${code ? code : ""}`;
                         frontImage.src = currencies[i].frontImage;
                         frontImage.onload = ()=>{imageSize(frontImage)};
-                        frontImage.onclick = ()=>{displayImage(frontImage.cloneNode(true))};
+                        frontImage.onclick = ()=>{displayImage(frontImage.cloneNode(true), currencies[i].type)};
                         backImage.src = currencies[i].backImage;
                         backImage.onload = ()=>{imageSize(backImage)};
-                        backImage.onclick = ()=>{displayImage(backImage.cloneNode(true))};
+                        backImage.onclick = ()=>{displayImage(backImage.cloneNode(true), currencies[i].type)};
                         currency.querySelector(".comment").innerText = currencies[i].comment;
                         container.appendChild(currency);
                     }
