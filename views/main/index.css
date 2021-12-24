@@ -256,6 +256,7 @@ body{
     #locations{
         display: flex;
         margin: 15px;
+        flex-wrap: wrap;
     }
 
     .locationBtn{
