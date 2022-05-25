@@ -96,6 +96,9 @@ module.exports = function(app){
     app.post("/currency", currency.create);
     app.get("/currency/data", currency.getData);
 
+    //UKRAINE
+    app.get("/ukraine", (req, res)=>res.sendFile(`${views}/ukraine/ukraine.html`));
+
     //CONTENT
     app.get("/thumbNails/*", (req, res)=>{res.sendFile(`${__dirname}${req.url}`)});
     app.get("/documents/*", (req, res)=>{res.download(`${__dirname}${req.url}`)});
