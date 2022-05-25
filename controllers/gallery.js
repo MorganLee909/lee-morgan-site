@@ -35,7 +35,7 @@ module.exports = {
                 });
 
                 let handleImage = (fileData)=>{
-                    let fileString = `/galleryImages/${createId(25)}.jpg`;
+                    let fileString = `/galleryImages/${createId(25)}.webp`;
                     fileData.mv(`${__dirname}/..${fileString}`);
                     gallery.images.push(fileString)
                 }
