@@ -1,5 +1,4 @@
 const gallery = require("./controllers/gallery.js");
-const learn = require("./controllers/learn.js");
 const blog = require("./controllers/blog.js");
 const currency = require("./controllers/currency.js");
 
@@ -58,30 +57,6 @@ module.exports = function(app){
     app.get("/gallery/json/:id", gallery.getGallery);
     app.get("/gallery/:id", (req, res)=>{res.sendFile(`${views}/gallery/index.html`)});
 
-    //LEARN
-    app.get("/learn/style", (req, res)=>{res.sendFile(`${views}/learn/index.css`)});
-    
-    app.get("/learn/courses/new", (req, res)=>{res.sendFile(`${views}/learn/newCourse.html`)});
-    app.post("/learn/courses/new", learn.createCourse);
-    app.get("/learn/courses/json", learn.getCourses);
-    app.get("/learn/courses/:id", (req, res)=>{res.sendFile(`${views}/learn/course.html`)});
-    app.get("/learn", (req, res)=>{res.sendFile(`${views}/learn/courses.html`)});
-    app.get("/learn/answers/new/", (req, res)=>{res.sendFile(`${views}/learn/newAnswer.html`)});
-
-    app.get("/learn/lectures/new", (req, res)=>{res.sendFile(`${views}/learn/newLecture.html`)});
-    app.post("/learn/lectures/new", learn.createLecture);
-    app.get("/learn/lectures/edit/:id", (req, res)=>{res.sendFile(`${views}/learn/editLecture.html`)});
-    app.post("/learn/lectures/edit/:id", learn.updateLecture);
-    app.delete("/learn/lectures/:id", learn.removeLecture);
-    app.get("/learn/lectures/json/:id", learn.getLectures);
-    app.get("/learn/lectures/:id", (req, res)=>{res.sendFile(`${views}/learn/lecture.html`)});
-    app.get("/learn/lectures/json/one/:id", learn.getLecture);
-
-    app.post("/learn/questions/create", learn.createQuestion);
-    app.post("/learn/answers/create", learn.createAnswer);
-
-    app.post("/htmltest", (req, res)=>{res.send(`Hi ${req.body.name} from ${req.body.place}`)});
-
     //CURRENCY
     app.get("/currency/new", (req, res)=>{res.sendFile(`${views}/currency/new.html`)});
     
@@ -90,7 +65,6 @@ module.exports = function(app){
 
     //CONTENT
     app.get("/thumbNails/*", (req, res)=>{res.sendFile(`${__dirname}${req.url}`)});
-    app.get("/documents/*", (req, res)=>{res.download(`${__dirname}${req.url}`)});
     app.get("/galleryImages/*", (req, res)=>{res.sendFile(`${__dirname}${req.url}`)});
     app.get("/currencyimages/*", (req, res)=>res.sendFile(`${__dirname}${req.url}`));
 }
