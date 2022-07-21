@@ -67,4 +67,7 @@ module.exports = function(app){
     app.get("/thumbNails/*", (req, res)=>{res.sendFile(`${__dirname}${req.url}`)});
     app.get("/galleryImages/*", (req, res)=>{res.sendFile(`${__dirname}${req.url}`)});
     app.get("/currencyimages/*", (req, res)=>res.sendFile(`${__dirname}${req.url}`));
+
+    //TRACKER
+    app.get("/tracker", (req, res)=>res.sendFile(`${views}/timeTracker/tracker.html`));
 }
