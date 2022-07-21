@@ -47,11 +47,35 @@
                         .then((response)=>{
                             if(typeof(response) === "string"){
                             }else{
-                                tracker = response;
                                 document.getElementById("startStop").innerText = "Stop";
                                 document.getElementById("pause").style.display = "block";
+                                tracker = response;
                             }
-                        }).catch((err)=>{});
+                        }).catch((err)=>{
+                            console.error(err);
+                        });
+                }else{
+                    let time = new Date();
+
+                    fetch("/tracker", {
+                        method: "put",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            id: tracker._id,
+                            end: time
+                        })
+                    })
+                        .then(r=>r.json())
+                        .then((response)=>{
+                            document.getElementById("startStop").innerText = "Start";
+                            document.getElementById("pause").style.display = "none";
+                            tracker = null;
+                        })
+                        .catch((err)=>{
+                            console.error(err);
+                        });
                 }
             }
         </script>

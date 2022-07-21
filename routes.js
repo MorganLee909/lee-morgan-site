@@ -72,4 +72,5 @@ module.exports = function(app){
     //TRACKER
     app.get("/tracker", (req, res)=>res.sendFile(`${views}/timeTracker/tracker.html`));
     app.post("/tracker", tracker.create);
+    app.put("/tracker", tracker.update);
 }
