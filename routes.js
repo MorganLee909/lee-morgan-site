@@ -1,6 +1,7 @@
 const gallery = require("./controllers/gallery.js");
 const blog = require("./controllers/blog.js");
 const currency = require("./controllers/currency.js");
+const tracker = require("./controllers/tracker.js");
 
 module.exports = function(app){
     let views = `${__dirname}/views`;
@@ -70,4 +71,5 @@ module.exports = function(app){
 
     //TRACKER
     app.get("/tracker", (req, res)=>res.sendFile(`${views}/timeTracker/tracker.html`));
+    app.post("/tracker", tracker.create);
 }

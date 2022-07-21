@@ -25,11 +25,33 @@
         <button id="pause" style="display:none">Pause</button>
 
         <script>
-            let running = false;
+            let tracker = null
 
             let startStop = ()=>{
-                if(running === false){
-                    
+                if(!tracker){
+                    let time = new Date();
+
+                    fetch("/tracker", {
+                        method: "post",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            name: document.getElementById("name").value,
+                            project: document.getElementById("project").value,
+                            description: document.getElementById("description").value,
+                            start: time
+                        })
+                    })
+                        .then(r=>r.json())
+                        .then((response)=>{
+                            if(typeof(response) === "string"){
+                            }else{
+                                tracker = response;
+                                document.getElementById("startStop").innerText = "Stop";
+                                document.getElementById("pause").style.display = "block";
+                            }
+                        }).catch((err)=>{});
                 }
             }
         </script>
