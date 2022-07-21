@@ -22,7 +22,7 @@
 
         <button id="startStop" onclick="startStop()">Start</button>
 
-        <button id="pause" style="display:none">Pause</button>
+        <button id="pause" style="display:none" onclick="pause()">Pause</button>
 
         <script>
             let tracker = null
@@ -46,6 +46,7 @@
                         .then(r=>r.json())
                         .then((response)=>{
                             if(typeof(response) === "string"){
+                                console.error(response);
                             }else{
                                 document.getElementById("startStop").innerText = "Stop";
                                 document.getElementById("pause").style.display = "block";
@@ -69,14 +70,62 @@
                     })
                         .then(r=>r.json())
                         .then((response)=>{
-                            document.getElementById("startStop").innerText = "Start";
-                            document.getElementById("pause").style.display = "none";
-                            tracker = null;
+                            if(typeof(response) === "string"){
+                                console.error(response);
+                            }else{
+                                document.getElementById("startStop").innerText = "Start";
+                                document.getElementById("pause").style.display = "none";
+                                tracker = null;
+                            }
                         })
                         .catch((err)=>{
                             console.error(err);
                         });
                 }
+            }
+
+            let pause = ()=>{
+                let pause = {
+                    start: new Date(),
+                    end: ""
+                };
+
+                tracker.pauses.push(pause);
+
+                let pauseButton = document.getElementById("pause");
+                document.getElementById("startStop").style.display = "none";
+                pauseButton.innerText = "Resume";
+                pauseButton.onclick = ()=>{resume(pause)};
+            }
+
+            let resume = (pause)=>{
+                pause.end = new Date();
+
+                fetch("/tracker", {
+                    method: "put",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        id: tracker._id,
+                        pause: pause
+                    })
+                })
+                    .then(r=>r.json())
+                    .then((response)=>{
+                        if(typeof(response) === "response"){
+                            console.error(response);
+                        }else{
+                            console.log(response);
+                            let pauseButton = document.getElementById("pause");
+                            document.getElementById("startStop").style.display = "block";
+                            pauseButton.innerText = "Pause";
+                            pauseButton.onclick = ()=>{pause()};
+                        }
+                    })
+                    .catch((err)=>{
+                        console.error(err);
+                    });
             }
         </script>
     </body>

@@ -37,6 +37,10 @@ module.exports = {
         project: String
         description: String
         end: Date
+        pause: {
+            start: Date
+            end: Date
+        }
     }
     */
     update: function(req, res){
@@ -48,6 +52,12 @@ module.exports = {
                 if(req.body.project) tracker.project = req.body.project;
                 if(req.body.description) tracker.description = req.body.description;
                 if(req.body.end) tracker.end = new Date(req.body.end);
+                if(req.body.pause){
+                    tracker.pauses.push({
+                        start: new Date(req.body.pause.start),
+                        end: new Date(req.body.pause.end)
+                    });
+                }
 
                 return tracker.save();
             })
