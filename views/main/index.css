@@ -75,6 +75,65 @@ body{
     font-weight: bold;
 }
 
+#mobileMenu{
+    display: none;
+    justify-content: space-between;
+    height: 75px;
+    background: #152730;
+    width: 100%;
+    color: white;
+}
+
+#mobileMenu svg{
+    height: 100%;
+    padding: 15px;
+    box-sizing: border-box;
+}
+
+#mobileMenuOptions{
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    padding: 75px 0 35px 0;
+    background: #152730;
+    height: 100vh;
+    width: 100vw;
+    box-sizing: border-box;
+    z-index: 100;
+}
+
+.mobileChoice{
+    display: flex;
+    align-items: center;
+    color: white;
+    text-decoration: none;
+    height: 55px;
+    width: 85%;
+    background: rgb(196, 198, 192);
+    border: none;
+    color: black;
+    border-radius: 10px;
+    font-size: 25px;
+}
+
+.mobileChoice:active{
+    background: rgb(118, 119, 115);
+}
+
+.mobileChoice svg{
+    margin: 0 35px 0 15px;
+}
+
+#closeMobileMenu{
+    position: absolute;
+    top: 0;
+    left: 15px;
+    height: 55px;
+    width: 55px;
+    height: 75px;
+}
+
 #menu{
     display: flex;
     flex-direction: column;
@@ -288,3 +347,41 @@ body{
     .coin{
         width: 100%;
     }
+
+@media screen and (max-width: 500px){
+    body{
+        flex-direction: column;
+        height: initial;
+    }
+
+    #main{
+        height: initial;
+    }
+
+    #menu{
+        display: none;
+    }
+
+    #mobileMenu{
+        display: flex;
+    }
+
+    .aboutRight{
+        display: none;
+    }
+
+    .aboutCenter{
+        padding-top: 35px;
+    }
+
+    .aboutCenter p{
+        text-align: justify;
+    }
+}
+
+@media screen and (max-width: 400px){
+    .aboutCenter p{
+        font-size: 16px;
+        margin: 25px 5px;
+    }
+}

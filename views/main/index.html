@@ -9,7 +9,7 @@
     </head>
     <body>
         <div id="menu">
-            <button id="aboutButton" class="active">
+            <button id="aboutButton" class="active" content="about">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                     <circle cx="12" cy="7" r="4"></circle>
@@ -18,7 +18,7 @@
                 <p>About Me</p>
             </button>
 
-            <button id="projectsButton">
+            <button id="projectsButton" content="projects">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <polyline points="16 18 22 12 16 6"></polyline>
                     <polyline points="8 6 2 12 8 18"></polyline>
@@ -27,7 +27,7 @@
                 <p>Projects</p>
             </button>
 
-            <button id="blogButton">
+            <button id="blogButton" content="blog">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M12 19l7-7 3 3-7 7-3-3z"></path>
                     <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path>
@@ -38,7 +38,7 @@
                 <p>Blog</p>
             </button>
 
-            <button id="galleryButton">
+            <button id="galleryButton" content="gallery">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
                     <circle cx="8.5" cy="8.5" r="1.5"></circle>
@@ -48,7 +48,92 @@
                 <p>Gallery</p>
             </button>
 
-            <button id="currencyButton">
+            <button id="currencyButton" content="currency">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="1" x2="12" y2="23"></line>
+                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                </svg>
+
+                <p>Currency</p>
+            </button>
+        </div>
+
+        <div id="mobileMenu">
+            <svg id="openMobileMenu" stroke-width="1.5" viewBox="0 0 24 24" fill="none" color="#000000">
+                <path d="M3 5h18M3 12h18M3 19h18" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+        </div>
+
+        <div id="mobileMenuOptions" style="display:none">
+            <svg id="closeMobileMenu" stroke-width="1.5" viewBox="0 0 24 24" fill="none" color="#000000">
+                <path d="M6.758 17.243L12.001 12m5.243-5.243L12 12m0 0L6.758 6.757M12.001 12l5.243 5.243" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+
+            <a class="mobileChoice" href="/resume">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
+                    <polyline points="13 2 13 9 20 9"></polyline>
+                </svg>
+
+                Resume
+            </a>
+
+            <a class="mobileChoice" href="https://github.com/MorganLee909">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                </svg>
+                GitHub
+            </a>
+
+            <a class="mobileChoice" href="https://www.linkedin.com/in/leemorganio">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                    <rect x="2" y="9" width="4" height="12"></rect>
+                    <circle cx="4" cy="4" r="2"></circle>
+                </svg>
+                LinkedIn
+            </a>
+
+            <button class="mobileChoice mobileMenuButton" content="about">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+
+                <p>About Me</p>
+            </button>
+
+            <button class="mobileChoice mobileMenuButton" content="projects">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="16 18 22 12 16 6"></polyline>
+                    <polyline points="8 6 2 12 8 18"></polyline>
+                </svg>
+
+                <p>Projects</p>
+            </button>
+
+            <button class="mobileChoice mobileMenuButton" content="blog">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 19l7-7 3 3-7 7-3-3z"></path>
+                    <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path>
+                    <path d="M2 2l7.586 7.586"></path>
+                    <circle cx="11" cy="11" r="2"></circle>
+                </svg>
+
+                <p>Blog</p>
+            </button>
+
+            <button class="mobileChoice mobileMenuButton" content="gallery">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                    <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                    <polyline points="21 15 16 10 5 21"></polyline>
+                </svg>
+                
+                <p>Gallery</p>
+            </button>
+
+            <button class="mobileChoice mobileMenuButton" content="currency">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <line x1="12" y1="1" x2="12" y2="23"></line>
                     <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
@@ -63,7 +148,7 @@
                 <div class="aboutCenter">
                     <h1>Who Am I?</h1>
 
-                    <p>I am web developer based in South Carolina. Although I am often traveling. My primary work is involved with creating and maintaining custom websites that require detailed solutions. I enjoy the process of creating custom solutions for websites, whether that be for clients that have a specific need for their websites or working on my own projects for fun.</p>
+                    <p>I am web developer based in South Carolina, though I am often traveling. My primary work is involved with creating and maintaining custom websites that require detailed solutions. I enjoy the process of creating custom solutions for websites, whether that be for clients that have a specific need for their websites or working on my own projects for fun.</p>
 
                     <p>I also enjoy traveling to different places in the world to experience new places and cultures. One of my favorite hobbies is walking around new cities and photographing all of the beautiful locations that I can find. I try to split my time between resting and enjoying my hometown and going overseas to experience new places.</p>
 
@@ -184,35 +269,54 @@
                 script.onload = resolve;
                 document.getElementById("gallery").appendChild(script);
             });
+
+            let mobileMenu = document.getElementById("mobileMenu");
+            let mobileMenuOptions = document.getElementById("mobileMenuOptions");
+            document.getElementById("openMobileMenu").onclick = ()=>{
+                mobileMenu.style.display = "none";
+                mobileMenuOptions.style.display = "flex";
+                document.getElementById("closeMobileMenu").onclick = ()=>{
+                    mobileMenu.style.display = "flex";
+                    mobileMenuOptions.style.display = "none";
+                }
+            }
             
             let buttons = document.getElementById("menu").children;
+            let mobileButtons = document.querySelectorAll(".mobileMenuButton");
             let content = document.getElementById("main").children;
 
-            for(let i = 0; i < buttons.length; i++){
-                buttons[i].onclick = ()=>{
-                    for(let j = 0; j < buttons.length; j++){
-                        buttons[j].classList.remove("active");
-                    }
-                    buttons[i].classList.add("active");
+            let navButtonFunctionality = (htmlCollection)=>{
+                for(let i = 0; i < htmlCollection.length; i++){
+                    htmlCollection[i].onclick = ()=>{
+                        for(let j = 0; j < htmlCollection.length; j++){
+                            htmlCollection[j].classList.remove("active");
+                        }
+                        htmlCollection[i].classList.add("active");
 
-                    for(let j = 0; j < content.length; j++){
-                        content[j].style.display = "none";
-                    }
+                        for(let j = 0; j < content.length; j++){
+                            content[j].style.display = "none";
+                        }
 
-                    if(buttons[i].id === "galleryButton" && mapped === false){
-                        Promise.all([
-                            mapPromise,
-                            fetch("/gallery/retrieve").then(response => response.json())
-                        ])
-                            .then(loadGallery)
-                            .catch((err)=>{});
-                        mapped = true;
-                    }
+                        if(htmlCollection[i].id === "galleryButton" && mapped === false){
+                            Promise.all([
+                                mapPromise,
+                                fetch("/gallery/retrieve").then(response => response.json())
+                            ])
+                                .then(loadGallery)
+                                .catch((err)=>{});
+                            mapped = true;
+                        }
 
-                    let string = buttons[i].id.replace("Button", "");
-                    document.getElementById(string).style.display = "flex";
-                };
+                        let string = htmlCollection[i].getAttribute("content");
+                        document.getElementById(string).style.display = "flex";
+                        document.getElementById("mobileMenuOptions").style.display = "none";
+                        document.getElementById("mobileMenu").style.display = "flex";
+                    };
+                }
             }
+
+            navButtonFunctionality(buttons);
+            navButtonFunctionality(mobileButtons);
 
             let searchTags = (content, tag)=>{
                 let galleryList = [];
