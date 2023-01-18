@@ -76,12 +76,15 @@ body{
 }
 
 #mobileMenu{
-    display: none;
     justify-content: space-between;
     height: 75px;
     background: #152730;
     width: 100%;
     color: white;
+}
+
+.displayMobileMenu{
+    display: none;
 }
 
 #mobileMenu svg{
@@ -95,7 +98,7 @@ body{
     justify-content: space-between;
     align-items: center;
     position: fixed;
-    padding: 75px 0 35px 0;
+    padding: 75px 0 75px 0;
     background: #152730;
     height: 100vh;
     width: 100vw;
@@ -362,8 +365,12 @@ body{
         display: none;
     }
 
-    #mobileMenu{
+    .displayMobileMenu{
         display: flex;
+    }
+
+    .hideMobileMenu{
+        display: none;
     }
 
     .aboutRight{

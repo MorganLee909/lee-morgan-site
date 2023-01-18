@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="utf-8">
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <title>Lee Morgan</title>
         <link rel="stylesheet" href="/style">
         <link rel="icon" type="img/ico" href="/images/favicon">
@@ -58,7 +59,7 @@
             </button>
         </div>
 
-        <div id="mobileMenu">
+        <div id="mobileMenu" class="displayMobileMenu">
             <svg id="openMobileMenu" stroke-width="1.5" viewBox="0 0 24 24" fill="none" color="#000000">
                 <path d="M3 5h18M3 12h18M3 19h18" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
             </svg>
@@ -273,10 +274,13 @@
             let mobileMenu = document.getElementById("mobileMenu");
             let mobileMenuOptions = document.getElementById("mobileMenuOptions");
             document.getElementById("openMobileMenu").onclick = ()=>{
-                mobileMenu.style.display = "none";
+                mobileMenu.classList.add("hideMobileMenu");
+                mobileMenu.classList.remove("displayMobileMenu");
                 mobileMenuOptions.style.display = "flex";
                 document.getElementById("closeMobileMenu").onclick = ()=>{
                     mobileMenu.style.display = "flex";
+                    mobileMenu.classList.add("displayMobileMenu");
+                    mobileMenu.classList.remove("hideMobileMenu");
                     mobileMenuOptions.style.display = "none";
                 }
             }
@@ -310,7 +314,8 @@
                         let string = htmlCollection[i].getAttribute("content");
                         document.getElementById(string).style.display = "flex";
                         document.getElementById("mobileMenuOptions").style.display = "none";
-                        document.getElementById("mobileMenu").style.display = "flex";
+                        mobileMenu.classList.add("displayMobileMenu");
+                        mobileMenu.classList.remove("hideMobileMenu");
                     };
                 }
             }
