@@ -10,7 +10,7 @@ body{
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
-    height: 100%;
+    max-height: 100%;
     width: 100%;
     box-sizing: border-box;
     padding: 25px;
@@ -390,6 +390,14 @@ body{
 
     .card{
         margin: 10px 0;
+    }
+
+    .card h1{
+        font-size: 25px;
+    }
+
+    #blogTags{
+        display: none;
     }
 }
 
