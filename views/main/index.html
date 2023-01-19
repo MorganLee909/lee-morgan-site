@@ -301,7 +301,7 @@
                             content[j].style.display = "none";
                         }
 
-                        if(htmlCollection[i].id === "galleryButton" && mapped === false){
+                        if(htmlCollection[i].getAttribute("content") === "gallery" && mapped === false){
                             Promise.all([
                                 mapPromise,
                                 fetch("/gallery/retrieve").then(response => response.json())
@@ -396,10 +396,11 @@
                     container: 'map',
                     style: 'mapbox://styles/mapbox/streets-v11',
                     center: [-6.2764, 48.3623],
-                    zoom: 3
+                    zoom: 2
                 });
 
                 let mapDiv = document.getElementById("map");
+                mapDiv.classList.add("mapSize");
                 mapDiv.style.height = "90%";
                 mapDiv.style.width = "90%";
                 map.resize();
@@ -444,30 +445,6 @@
                     }
                 }
             }
-
-            //Get "learn" content
-            fetch("/learn/courses/json")
-                .then(response => response.json())
-                .then((response)=>{
-                    let container = document.getElementById("learn");
-
-                    for(let i = 0; i < response.length; i++){
-                        let card = document.createElement("a");
-                        card.classList.add("card");
-                        card.href = `/learn/courses/${response[i]._id}`;
-                        container.appendChild(card);
-
-                        let h2 = document.createElement("h2");
-                        h2.innerText = response[i].title;
-                        card.appendChild(h2);
-
-                        let img = document.createElement("img");
-                        img.src = response[i].thumbNail;
-                        img.alt = `${response[i].title} thumbnail`;
-                        card.appendChild(img);
-                    }
-                })
-                .catch((err)=>{});
 
             //Get currency data
             let displayImage = (image, cType)=>{

@@ -240,10 +240,6 @@ body{
         justify-content: space-around;
     }
 
-    #map{
-        height: 50%;
-    }
-
     .galleryPopup{
         text-decoration: none;
         color: black;
@@ -396,8 +392,21 @@ body{
         font-size: 25px;
     }
 
-    #blogTags{
+    #blogTags, #galleryTags{
         display: none;
+    }
+
+    #gallery{
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        z-index: -1;
+    }
+
+    #map{
+        height: 100% !important;
+        width: 100% !important;
     }
 }
 
