@@ -466,8 +466,9 @@
             }
 
             let imageSize = (image)=>{
-                let width = `${image.clientWidth * 0.35}px`;
-                image.style.height = `${image.clientHeight * 0.35}px`;
+                let multiplier = screen.width > 1200 ? 0.35 : 0.15;
+                let width = `${image.clientWidth * multiplier}px`;
+                image.style.height = `${image.clientHeight * multiplier}px`;
                 image.style.width = width;
             }
 

@@ -354,6 +354,7 @@ body{
 
     #main{
         height: initial;
+        min-height: 100vh;
     }
 
     #menu{
