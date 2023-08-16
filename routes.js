@@ -76,5 +76,5 @@ module.exports = function(app){
     app.put("/tracker", tracker.update);
 
     //2u RUBRICS
-    
+    app.get("/2u/rubrics/:num", (req, res)=>res.sendFile(`${__dirname}/rubrics/mod${req.params.num}.html`));
 }
