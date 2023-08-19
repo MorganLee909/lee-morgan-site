@@ -1401,6 +1401,19 @@
 
                 return new App(Model, View, Controller);
             })(window);
+
+            window.onload = ()=>{
+        let wait = setInterval(()=>{
+          let shortSelects = document.querySelectorAll(".select-group");
+          if(shortSelects.length > 0){
+            clearInterval(wait);
+
+            for(let i = 0; i < shortSelects.length; i++){
+              shortSelects[i].children[1].removeAttribute("style");
+            }
+          }
+        }, 100);
+      }
     </script>
 </body>
 
