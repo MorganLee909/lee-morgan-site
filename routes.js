@@ -77,4 +77,5 @@ module.exports = function(app){
 
     //2u RUBRICS
     app.get("/2u/rubrics/:num", (req, res)=>res.sendFile(`${__dirname}/rubrics/mod${req.params.num}.html`));
+    app.get("/2u/style", (req, res)=>res.sendFile(`${__dirname}/rubrics/style.css`));
 }
