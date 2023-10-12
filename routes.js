@@ -36,7 +36,7 @@ module.exports = function(app){
     app.get("/images/covid", (req, res)=>{res.sendFile(`${views}/images/covid.jpeg`)});
     app.get("/images/currency", (req, res)=>res.sendFile(`${views}/images/currency.jpeg`));
     app.get("/images/favicon", (req, res)=>res.sendFile(`${views}/images/favicon.ico`));
-    app.get("/images/myvillage-market", (req, res)=>res.sendFile(`${views}/images/myvillage-market.webp`));
+    app.get("/images/plagiarism", (req, res)=>res.sendFile(`${views}/images/plagiarism.jpeg`));
 
     //SUDOKU
     app.get("/sudoku", (req, res)=>{res.sendFile(`${views}/sudoku/index.html`)});
