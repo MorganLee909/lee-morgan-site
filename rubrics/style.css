@@ -62,4 +62,8 @@
     #app .cat-score{
         margin-left: 0;
     }
+
+    .select-group .select-lg{
+        width: 100%;
+    }
 }
