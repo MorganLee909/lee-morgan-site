@@ -7,6 +7,7 @@
         <link rel="stylesheet" href="/style">
         <link rel="icon" type="img/ico" href="/images/favicon">
         <link href='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.css' rel='stylesheet'>
+        <link href='https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.css' rel='stylesheet'/>
     </head>
     <body>
         <div id="menu">
@@ -190,7 +191,7 @@
                     <p>A web application to assist restaurant owners in managing their inventories. Providing insights into usage, waste and other details through the use of data.</p>
                 </a>
 
-                <a class="card" href="https://budgeteer.money">
+                <a class="card" href="https://budgeteer.leemorgan.dev">
                     <h2>Budgeteer</h2>
                     <img src="/images/budgeteer" alt="Budgeteer">
                     <p>A simple web application to help people to budget their money in a simple and approachable manner.</p>
@@ -218,6 +219,12 @@
                     <h2>Black Plag</h2>
                     <img src="/images/plagiarism" alt="Person plagiarising on a laptop"/>
                     <p>Tool for searching for assignment plagiarism using TF-IDF</p>
+                </a>
+
+                <a class="card" href="https://ukrainianlessons.net">
+                    <h2>Ukrainian Lessons</h2>
+                    <img src="/images/uaflag" alt="Ukrainian flag"/>
+                    <p>Site for learning the Ukrainian language</p>
                 </a>
             </div>
 
@@ -266,7 +273,8 @@
             let mapped = false;
             let mapPromise = new Promise((resolve, reject)=>{
                 let script = document.createElement("script");
-                script.src = "https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.js";
+                script.src = "https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.js";
+                //script.src = "https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.js";
                 script.onload = resolve;
                 document.getElementById("gallery").appendChild(script);
             });
@@ -388,6 +396,7 @@
                 .catch((err)=>{});
 
             let loadGallery = (response)=>{
+                console.log(response);
                 let galleries = response[1].galleries;
 
                 //MAP
