@@ -38,6 +38,7 @@ module.exports = function(app){
     app.get("/images/favicon", (req, res)=>res.sendFile(`${views}/images/favicon.ico`));
     app.get("/images/plagiarism", (req, res)=>res.sendFile(`${views}/images/plagiarism.jpeg`));
     app.get("/images/uaflag", (req, res)=>res.sendFile(`${views}/images/uaFlag.webp`));
+    app.get("/images/cosphere", (req, res)=>res.sendFile(`${views}/images/logo.svg`));
 
     //SUDOKU
     app.get("/sudoku", (req, res)=>{res.sendFile(`${views}/sudoku/index.html`)});
