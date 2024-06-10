@@ -39,6 +39,7 @@ module.exports = function(app){
     app.get("/images/plagiarism", (req, res)=>res.sendFile(`${views}/images/plagiarism.jpeg`));
     app.get("/images/uaflag", (req, res)=>res.sendFile(`${views}/images/uaFlag.webp`));
     app.get("/images/cosphere", (req, res)=>res.sendFile(`${views}/images/logo.svg`));
+    app.get("/images/tetris", (req, res)=>res.sendFile(`${views}/images/tetris.webp`));
 
     //SUDOKU
     app.get("/sudoku", (req, res)=>{res.sendFile(`${views}/sudoku/index.html`)});
@@ -77,7 +78,6 @@ module.exports = function(app){
     app.post("/tracker", tracker.create);
     app.put("/tracker", tracker.update);
 
-    //2u RUBRICS
-    app.get("/2u/rubrics/:mod", (req, res)=>res.sendFile(`${__dirname}/rubrics/${req.params.mod}.html`));
-    app.get("/2u/style", (req, res)=>res.sendFile(`${__dirname}/rubrics/style.css`));
+    app.get("/tetris", (req, res)=>res.sendFile(`${views}/tetris/tetris-min.html`));
+    app.get("/tetris/music", (req, res)=>res.sendFile(`${views}/tetris/music.mp3`));
 }
