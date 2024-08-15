@@ -40,6 +40,7 @@ module.exports = function(app){
     app.get("/images/uaflag", (req, res)=>res.sendFile(`${views}/images/uaFlag.webp`));
     app.get("/images/cosphere", (req, res)=>res.sendFile(`${views}/images/logo.svg`));
     app.get("/images/tetris", (req, res)=>res.sendFile(`${views}/images/tetris.webp`));
+    app.get("/images/workbench", (req, res)=>res.sendFile(`${views}/images/workbench.webp`));
 
     //SUDOKU
     app.get("/sudoku", (req, res)=>{res.sendFile(`${views}/sudoku/index.html`)});
