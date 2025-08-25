@@ -8,7 +8,7 @@ const app = express();
 
 let mongoString = "mongodb://127.0.0.1/leemorgan";
 if(process.env.NODE_ENV === "production"){
-    mongoString = `mongodb://leemorgan:${process.env.MONGODB_PASS}@localhost:27017/leemorgan?authSource=admin`
+    mongoString = `mongodb://leemorgansite:${process.env.MONGODB_PASS}@localhost:27017/leemorgan?authSource=admin`
 }
 mongoose.connect(mongoString);
 
