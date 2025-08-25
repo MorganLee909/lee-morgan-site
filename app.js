@@ -6,20 +6,11 @@ const fileUpload = require("express-fileupload");
 
 const app = express();
 
-let mongooseOptions = {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useFindAndModify: false,
-    useCreateIndex: true
-};
-
+let mongoString = "mongodb://127.0.0.1/leemorgan";
 if(process.env.NODE_ENV === "production"){
-    mongooseOptions.auth = {authSource: "admin"};
-    mongooseOptions.user = "website";
-    mongooseOptions.pass = process.env.MONGODB_PASS;
+    mongoString = `mongodb://leemorgan:${process.env.MONGODB_PASS}@localhost:27017/leemorgan?authSource=admin`
 }
-
-mongoose.connect("mongodb://127.0.0.1/leemorgan", mongooseOptions);
+mongoose.connect(mongoString);
 
 app.use(compression());
 app.use(express.json());
