@@ -13,6 +13,7 @@ module.exports = function(app){
     //RESUME
     app.get("/resume", (req, res)=>{res.sendFile(`${views}/resume/resume.html`)});
     app.get("/resume/style", (req, res)=>{res.sendFile(`${views}/resume/resume.css`)});
+    app.get("/resume/pdf", (req, res)=>{res.sendFile(`${views}/resume/resume.pdf`)});
 
     //BLOG
     app.get("/blog/style", (req, res)=>{res.sendFile(`${views}/blog/index.css`)});
