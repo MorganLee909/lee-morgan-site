@@ -15,7 +15,6 @@ const GallerySchema = new mongoose.Schema({
     location: {
         type: {type: String},
         coordinates: [],
-        required: false
     }
 });
 GallerySchema.index({location: "2dsphere"});
